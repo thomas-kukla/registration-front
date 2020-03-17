@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h3 class="mt-3">{{registrationCount}} registrations on page</h3>
-    <input v-model="searching" placeholder="Subscriber msisdn" class="d-flex ml-2 w-25"/>
-    {{searching}}
+    <h3 class="mt-3">{{registrationCount}} Registrations on page</h3>
+    <!-- <input v-model="searching" placeholder="Subscriber msisdn" class="d-flex ml-2 w-25"/>
+    {{searching}} -->
     <div class="table-responsive mt-3">
      <table class="table users">
         <thead>
@@ -16,17 +16,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in search" :key="user.id">
-            <th scope="row">{{user.fileId}}</th>
-            <th scope="col">{{user.kycFields[0]["value"]}}</th>
-            <th scope="col">{{user.createdDate}}</th>
-            <th scope="col">{{user.state}}</th>
-            <th scope="col">{{user.operationType}}</th>
-            <th><router-link :to="{
+          <!-- <th scope="row">{{ JSON.parse(users)._embedded.registrationfile }}</th> -->
+          <tr v-for="users in JSON.parse(users)._embedded.registrationfile" :key="users.id">
+          <th scope="row">{{ users.id }}</th>
+          <th scope="row">{{ users.subscriberMsisdn }}</th>
+          <th scope="row">{{ users.createdDate }}</th>
+          <th scope="row">{{ users.state }}</th>
+          <th scope="row">{{ users.operationType }}</th>
+          <th><router-link :to="{
               name: 'userDetails',
-              params: {userId : user.id}
+              params: {userId : users.id}
               }" class="btn btn-primary">View</router-link>
-            <router-view :key="$route.path"/></th>
+          <router-view :key="$route.path"/></th>
           </tr>
         </tbody>
       </table>
@@ -38,27 +39,17 @@
 
 export default {
   props:['users', 'msisdn'],
-  data() {
-    return{
-      searching:""
-    }
-  },
-  computed: {
-    search() {
-      let user = [];
-      this.users.forEach(function(value){
-        user.push(value.kycFields[0]["value"])
-      })
-      //let newFilter = new RegExp(this.searching, 'i')
-      return this.users
-    },
-    registrationCount() {
-      return this.users.length;
-    }
-  }
+  //computed: {
+  //   search() {
+  //     let user = [];
+  //     this.users.forEach(function(value){
+  //       user.push(value.kycFields[0]["value"])
+  //     })
+  //     //let newFilter = new RegExp(this.searching, 'i')
+  //     return this.users
+     //},
+    // registrationCount() {
+    //   return this.users.length;
+    // }
 }
 </script>
-
-<style scoped>
-
-</style>

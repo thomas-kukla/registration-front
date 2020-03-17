@@ -35,12 +35,10 @@ export default new Vuex.Store({
   }
   },
   actions: {
-    getUsersFromBack({commit, state}, query){
-      console.log("getuserfrombackend", "query", query, "state", state)
-      return new Promise((resolve, reject) => {
-        console.log("getuserfrombackend", 'resolve', resolve, 'reject', reject)
+    getUsersFromBack({commit}){
+      return new Promise((resolve) => {
         axios
-        .get('http://127.0.0.1:8000/api/users')
+        .get('http://localhost:8000/users')
         .then(function (response) {
           commit('SET_USERS', response.data)
           resolve();
