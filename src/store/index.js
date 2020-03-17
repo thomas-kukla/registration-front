@@ -12,7 +12,7 @@ export default new Vuex.Store({
   },
   mutations: {
     "SET_USERS"(state, users) {
-      state.users = users
+      state.users = JSON.parse(users)._embedded.registrationfile
     },
     "SET_ONE_USER"(state, user) {
       console.log("state", state, "user", user)
@@ -28,10 +28,11 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getUsersFromBack({commit}){
-      return new Promise((resolve) => {
+    getUsers({commit, state}, query){
+      return new Promise((resolve, reject) => {
+        console.log(reject, state, query)
         axios
-        .get('http://localhost:8000/users')
+        .get('http://127.0.0.1:8000/registration')
         .then(function (response) {
           commit('SET_USERS', response.data)
           resolve();

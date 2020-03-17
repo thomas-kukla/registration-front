@@ -13,7 +13,8 @@ export default {
   },
   beforeMount: 
   function() {
-    this.$store.dispatch("getUsersFromBack")
+    this.$store
+    .dispatch("getUsers")
     .then(() => {
 
     })
