@@ -1,6 +1,6 @@
 <template>
   <div class="registration">
-    <registration-list :users="users" :msisdn="msisdn"/>
+    <registration-list :users="users"/>
   </div>
 </template>
 
@@ -20,18 +20,8 @@ export default {
     .catch(error => {
       this.errorMessage = error;
     })
-    this.$store.dispatch("getMsisdn")
-    .then(() => {
-
-    })
-    .catch(error => {
-      this.errorMessage = error;
-    })
   },
   computed: {
-    msisdn: function() {
-      return this.$store.getters.getMsisdn
-    },
     users: function() {
       return this.$store.getters.getUsers
     },

@@ -26,13 +26,6 @@ export default new Vuex.Store({
       return state.processes = process
 
     },
-    "SET_MSISDN"(state, users){
-    let msisdn =[]
-    users.forEach(function(value) {
-    msisdn.push(value.kycFields[0]["value"])
-    })
-    return state.msisdn = msisdn;
-  }
   },
   actions: {
     getUsersFromBack({commit}){
@@ -83,18 +76,6 @@ export default new Vuex.Store({
 
         })
       },
-      getMsisdn({commit, resolve}) {
-        console.log("getMsisdn","resolve",resolve)
-        return new Promise((resolve, reject) => {
-          console.log("getMsisdn","reject", reject)
-          axios
-          .get('http://127.0.0.1:8000/api/users')
-          .then(function(response){
-            commit("SET_MSISDN", response.data)
-            resolve
-          })
-        })
-      }
   },
   modules: {
   },
@@ -111,8 +92,5 @@ export default new Vuex.Store({
     getProcessById(state){
       return state.processes
     },
-    getMsisdn(state){
-      return state.msisdn
-    }
   }
 })
