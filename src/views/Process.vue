@@ -20,7 +20,7 @@ export default {
    beforeMount: 
   function() {
     this.$store
-    .dispatch("getProcessesFromBack")
+    .dispatch("getProcesses")
     .then(() => {
 
     })

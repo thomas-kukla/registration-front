@@ -16,7 +16,7 @@ export default {
     beforeMount: 
   function() {
     this.$store
-    .dispatch("getProcessById", this.processId)
+    .dispatch("getProcessById", this.$route.params.processId)
     .then(() => {
 
     })
