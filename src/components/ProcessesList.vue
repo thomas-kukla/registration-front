@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d'flex flex-row">
-        <h3 class="mt-3">{{ processesCount }} processes on page</h3>
+        <h3 class="mt-3">{{ search.length }} process(es) on page</h3>
         <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25"/>
       </div>
     <div class="table-responsive mt-3">
@@ -55,9 +55,6 @@ export default {
       }
       return processesSearching
     },
-    processesCount(){
-      return this.processes.length
-    }
   }
 }
 </script>

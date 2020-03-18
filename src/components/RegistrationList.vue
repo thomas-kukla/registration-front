@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d'flex flex-row">
-      <h3 class="mt-3">{{ registrationCount }} registrations on page</h3>
+      <h3 class="mt-3">{{ search.length }} registration(s) on page</h3>
       <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25"/>
     </div>
     <div class="table-responsive mt-3">
@@ -54,9 +54,6 @@ export default {
       }
       return searchingUser
      },
-     registrationCount(){
-       return this.users.length
-     }
   }
 }
 </script>
