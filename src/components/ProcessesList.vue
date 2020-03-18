@@ -1,8 +1,9 @@
 <template>
   <div>
-    <!-- <h3 class="mt-3">{{registrationCount}} Processes on page</h3> -->
-    <!-- <input v-model="searching" placeholder="Subscriber msisdn" class="d-flex ml-2 w-25"/> -->
-    <!-- {{searching}} -->
+    <div class="d'flex flex-row">
+        <h3 class="mt-3">{{ processesCount }} processes on page</h3>
+        <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25"/>
+      </div>
     <div class="table-responsive mt-3">
      <table class="table users">
         <thead>
@@ -41,11 +42,19 @@
 
 export default {
   props:['processes'],
-  // computed: {
-  //   processesCount() {
-  //     return this.processes.length;
-  //   }
-  // }
+  data() {
+    return{
+      searching:""
+    }
+  },
+  computed: {
+    // search(){
+
+    // },
+    processesCount(){
+      return this.processes.length
+    }
+  }
 }
 </script>
 
