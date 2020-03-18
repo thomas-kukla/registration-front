@@ -17,9 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="process in processes" :key="process.id">    
-            <!-- <tr v-for="context in process" :key="context.id"> -->
-              <!-- <th scope="row">{{context}}</th>     -->
+          <tr v-for="process in search" :key="process.id">    
               <th scope="row">{{process.context.SUBSCRIBER_MSISDN}}</th>
               <th scope="row">{{process.fileId}}</th>
               <th scope="row">{{process.id}}</th>
@@ -48,9 +46,15 @@ export default {
     }
   },
   computed: {
-    // search(){
-
-    // },
+    search(){
+      let newFilter = new RegExp(this.searching, 'i')
+      let processesSearching = ""
+      for(let process of this.processes) {
+        processesSearching = this.processes.filter(process => process.context.SUBSCRIBER_MSISDN.match(newFilter))
+        console.log("processesSearching", processesSearching, "process", process)
+      }
+      return processesSearching
+    },
     processesCount(){
       return this.processes.length
     }
