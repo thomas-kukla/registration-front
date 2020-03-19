@@ -47,18 +47,12 @@ export default {
   },
   computed: {
     search(){
-      let newFilter = new RegExp(this.searching, 'i')
-      let processesSearching = ""
-      for(let process of this.processes) {
-        processesSearching = this.processes.filter(process => process.context.SUBSCRIBER_MSISDN.match(newFilter))
-        console.log("processesSearching", processesSearching, "process", process)
-      }
-      return processesSearching
+      // create a new regex filter with the v-model "searching" to catch user's search
+      const newFilter = new RegExp(this.searching, 'i')
+      // filter all the processes and return processes matching regex filter
+      let subscriber = this.processes.filter(process => process.context.SUBSCRIBER_MSISDN.match(newFilter))
+      return subscriber
     },
   }
 }
 </script>
-
-<style scoped>
-
-</style>

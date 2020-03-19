@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/process',
     name: 'process',
-    component: () => import(/* webpackChunkName: "process" */ '../views/Process.vue')
+    component: () => import(/* webpackChunkName: "process" */ '../views/Process.vue'),
   },
   {
     path: '/userDetails/:userId',

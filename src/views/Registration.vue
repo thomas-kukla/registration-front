@@ -7,22 +7,19 @@
 <script>
 
 import RegistrationList from "@/components/RegistrationList"
+import store from "@/store/index.js"
+
 export default {
   components: {
     RegistrationList
   },
-  beforeMount: 
-  function() {
-    this.$store
+  beforeRouteEnter (to, from, next) {
+     store
     .dispatch("getUsers")
-    .then(() => {
-
-    })
-    .catch(error => {
-      this.errorMessage = error;
-    })
+    .then()
+    next()
   },
-  computed: {
+    computed: {
     users: function() {
       return this.$store.getters.getUsers
     },
