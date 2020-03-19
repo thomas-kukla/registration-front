@@ -1,37 +1,25 @@
 <template>
   <div class="registration">
-    <registration-list :users="users" :msisdn="msisdn"/>
+    <registration-list :users="users"/>
   </div>
 </template>
 
 <script>
 
 import RegistrationList from "@/components/RegistrationList"
+import store from "@/store/index.js"
+
 export default {
   components: {
     RegistrationList
   },
-  beforeMount: 
-  function() {
-    this.$store.dispatch("getUsersFromBack")
-    .then(() => {
-
-    })
-    .catch(error => {
-      this.errorMessage = error;
-    })
-    this.$store.dispatch("getMsisdn")
-    .then(() => {
-
-    })
-    .catch(error => {
-      this.errorMessage = error;
-    })
+  beforeRouteEnter (to, from, next) {
+     store
+    .dispatch("getUsers")
+    .then()
+    next()
   },
-  computed: {
-    msisdn: function() {
-      return this.$store.getters.getMsisdn
-    },
+    computed: {
     users: function() {
       return this.$store.getters.getUsers
     },

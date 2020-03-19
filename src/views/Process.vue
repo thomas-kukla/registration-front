@@ -7,6 +7,7 @@
 <script>
 
 import Process from "@/components/ProcessesList.vue"
+import store from "@/store/index.js"
 
 export default {
   data() {
@@ -17,16 +18,11 @@ export default {
   components: {
     Process
   },
-   beforeMount: 
-  function() {
-    this.$store
-    .dispatch("getProcessesFromBack")
-    .then(() => {
-
-    })
-    .catch(error => {
-      this.errorMessage = error;
-    })
+   beforeRouteEnter (to, from, next) {
+     store
+    .dispatch("getProcesses")
+    .then()
+    next()
   },
   computed: {
     processes: function() {

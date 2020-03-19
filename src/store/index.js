@@ -12,45 +12,33 @@ export default new Vuex.Store({
   },
   mutations: {
     "SET_USERS"(state, users) {
-      state.users = users
+      state.users = JSON.parse(users)._embedded.registrationfile
     },
     "SET_ONE_USER"(state, user) {
       console.log("state", state, "user", user)
       return state.users = user;
     },
     "SET_PROCESSES"(state, processes){
-      state.processes = processes
-      console.log("processes", processes)
+      state.processes = JSON.parse(processes)._embedded.process
     },
     "SET_USER_BY_ID"(state, process){
       return state.processes = process
 
     },
-    "SET_MSISDN"(state, users){
-    let msisdn =[]
-    users.forEach(function(value) {
-    msisdn.push(value.kycFields[0]["value"])
-    })
-    return state.msisdn = msisdn;
-  }
   },
   actions: {
-    getUsersFromBack({commit, state}, query){
-      console.log("getuserfrombackend", "query", query, "state", state)
-      return new Promise((resolve, reject) => {
-        console.log("getuserfrombackend", 'resolve', resolve, 'reject', reject)
+    getUsers({commit}){
+      return new Promise((resolve) => {
         axios
-        .get('http://127.0.0.1:8000/api/users')
+        .get('http://127.0.0.1:8000/registration')
         .then(function (response) {
           commit('SET_USERS', response.data)
           resolve();
         })
       })
     },
-    getUserById({commit, state}, userId){
-      console.log("getuserbyid","state", state) 
-      return new Promise ((resolve, reject) => {
-        console.log("getuserbyid",'resolve', resolve, 'reject', reject, 'userId', userId)
+    getUserById({commit}, userId){
+      return new Promise ((resolve) => {
         axios
         .get('http://127.0.0.1:8000/api/users/' + userId)
         .then(function(response) {
@@ -59,12 +47,10 @@ export default new Vuex.Store({
         })
       })
     },
-    getProcessesFromBack({commit, resolve}, query) {
-      console.log("getProcessesFromBackend","resolve", resolve, "commit", commit, "query", query)
-      return new Promise((resolve, reject) => {
-        console.log("getProcessesFromBackend","resolve", resolve, "reject", reject)
+    getProcesses({commit}) {
+      return new Promise((resolve) => {
         axios
-        .get('http://127.0.0.1:8000/api/processes')
+        .get('http://127.0.0.1:8000/process')
         .then(function(response) {
           commit('SET_PROCESSES', response.data)
           resolve()
@@ -72,12 +58,10 @@ export default new Vuex.Store({
       }
 
       )},
-      getProcessById({commit, resolve}, processId){
-        console.log("getProcessById","commit", commit, "resolve", resolve, "processid", processId)
-        new Promise((resolve, reject) => {
-          console.log("resolve", resolve, "reject", reject)
+      getProcessById({commit}, processId){
+        new Promise((resolve) => {
           axios
-          .get('http://127.0.0.1:8000/api/processes/' + processId)
+          .get('http://localhost:8000/api/processes/' + processId)
           .then(function(response){
             commit("SET_USER_BY_ID", response.data)
             resolve()
@@ -85,18 +69,6 @@ export default new Vuex.Store({
 
         })
       },
-      getMsisdn({commit, resolve}) {
-        console.log("getMsisdn","resolve",resolve)
-        return new Promise((resolve, reject) => {
-          console.log("getMsisdn","reject", reject)
-          axios
-          .get('http://127.0.0.1:8000/api/users')
-          .then(function(response){
-            commit("SET_MSISDN", response.data)
-            resolve
-          })
-        })
-      }
   },
   modules: {
   },
@@ -113,8 +85,5 @@ export default new Vuex.Store({
     getProcessById(state){
       return state.processes
     },
-    getMsisdn(state){
-      return state.msisdn
-    }
   }
 })
