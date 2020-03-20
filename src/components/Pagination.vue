@@ -1,8 +1,8 @@
 <template>
     <ul class="d-flex flex-row justify-content-center mt-5">
-      <span @click="updateP(currentPage - 1)" class="page-item"><a class="page-link"></a></span>
+      <span v-if="showPreviousLink()" @click="updateP(currentPage - 1)" class="page-item"><a class="page-link"></a></span>
       <span class="page-link ml-3 mr-3">{{ currentPage + 1 }} of {{ totalPages() }}</span>
-      <span @click="updateP(currentPage + 1)" class="page-item"><a class="page-link"></a></span>
+      <span v-if="showNextLink()" @click="updateP(currentPage + 1)" class="page-item"><a class="page-link"></a></span>
     </ul>
 </template>
 
@@ -17,12 +17,12 @@ export default {
     totalPages(){
       return Math.ceil(this.processes.length / this.pageSize)
     },
-    // showPreviousLink(){
-    //   return this.currentPage == 0 ? false : true;
-    // },
-    // showNextLink(){
-    //   return this.currentPage == (this.totalPages() - 1) ? false : true;
-    // }
+    showPreviousLink(){
+      return this.currentPage == 0 ? false : true;
+    },
+    showNextLink(){
+      return this.currentPage == (this.totalPages() - 1) ? false : true;
+    }
   }
 }
 </script>
