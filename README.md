@@ -1,4 +1,4 @@
-# registration-front
+# Registration-front
 
 ## Project setup
 ```
