@@ -3,6 +3,12 @@
     <div class="d'flex flex-row">
         <h3 class="mt-3">{{ search.length }} process(es) on page</h3>
         <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25"/>
+        <Pagination 
+        :processes="processes" 
+        :currentPage="currentPage" 
+        :pageSize="pageSize"
+        @newPages="updatePage"
+        />
       </div>
     <div class="table-responsive mt-3">
      <table class="table users">
@@ -17,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="process in search" :key="process.id">    
+          <tr v-for="process in visibleProcesses" :key="process.id">    
               <th scope="row">{{process.context.SUBSCRIBER_MSISDN}}</th>
               <th scope="row">{{process.fileId}}</th>
               <th scope="row">{{process.id}}</th>
@@ -38,12 +44,21 @@
 
 <script>
 
+import Pagination from "@/components/Pagination.vue"
+
 export default {
-  props:['processes'],
+  components: {
+    Pagination
+  },
+  props:['processes', 'currentPage', 'pageSize'],
   data() {
     return{
-      searching:""
+      searching:"",
+      visibleProcesses : [],
     }
+  },
+  created () {
+    return this.search()
   },
   computed: {
     search(){
@@ -53,6 +68,24 @@ export default {
       let subscriber = this.processes.filter(process => process.context.SUBSCRIBER_MSISDN.match(newFilter))
       return subscriber
     },
+  },
+  beforeMount(){
+    this.updateVisibleProcesses()
+  },
+  methods: {
+    updatePage(pageNumber){
+      console.log("yoyo update page, on se met à jour ou bien ?",pageNumber)
+      this.updateVisibleProcesses();
+      return this.currentPage = pageNumber;
+    },
+    updateVisibleProcesses(){
+      this.visibleProcesses =  this.processes.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
+      console.log("visibleProcesses",this.visibleProcesses)
+      // if 0 visible processes go back a page 
+      if(this.visibleProcesses.length == 0 && this.currentPage > 0) {
+        this.updatePage(this.currentPage - 1)
+      }
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="registration">
-    <process :processes="processes" />
+    <process :processes="processes" :currentPage="currentPage" :pageSize="pageSize"/>
   </div>
 </template>
 
@@ -12,11 +12,13 @@ import store from "@/store/index.js"
 export default {
   data() {
     return {
-      errorMessage:""
+      errorMessage:"",
+      currentPage: 0,
+      pageSize: 5,
     }
   },
   components: {
-    Process
+    Process,
   },
    beforeRouteEnter (to, from, next) {
      store
