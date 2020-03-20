@@ -1,8 +1,8 @@
 <template>
-    <ul class="d-flex flex-row justify-content-center mt-5">
-      <span v-if="showPreviousLink()" @click="updateP(currentPage - 1)" class="page-item"><a class="page-link"></a></span>
+    <ul class="d-flex flex-row justify-content-center mt-3">
+      <span v-if="showPreviousLink()" @click="updatePages(currentPage - 1)" class="page-item"><a class="page-link"></a></span>
       <span class="page-link ml-3 mr-3">{{ currentPage + 1 }} of {{ totalPages() }}</span>
-      <span v-if="showNextLink()" @click="updateP(currentPage + 1)" class="page-item"><a class="page-link"></a></span>
+      <span v-if="showNextLink()" @click="updatePages(currentPage + 1)" class="page-item"><a class="page-link"></a></span>
     </ul>
 </template>
 
@@ -10,9 +10,8 @@
 export default {
   props: ['processes', 'currentPage', 'pageSize'],
   methods: {
-    updateP(pageNumber) {
-      console.log("processes", this.processes, "pageNumber", pageNumber, "currentPage", this.currentPage, "size page", this.pageSize)
-      this.$emit('newPages', pageNumber);
+    updatePages(pageNumber) {
+      this.$emit('update', pageNumber);
     },
     totalPages(){
       return Math.ceil(this.processes.length / this.pageSize)

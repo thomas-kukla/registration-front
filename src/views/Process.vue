@@ -1,6 +1,9 @@
 <template>
   <div class="registration">
-    <process :processes="processes" :currentPage="currentPage" :pageSize="pageSize"/>
+    <process 
+    :processes="processes" 
+    :currentPage="currentPage" 
+    :pageSize="pageSize"/>
   </div>
 </template>
 
@@ -14,7 +17,7 @@ export default {
     return {
       errorMessage:"",
       currentPage: 0,
-      pageSize: 5,
+      pageSize: 10,
     }
   },
   components: {

@@ -7,7 +7,7 @@
         :processes="processes" 
         :currentPage="currentPage" 
         :pageSize="pageSize"
-        @newPages="updatePage"
+        @update="updatePage"
         />
       </div>
     <div class="table-responsive mt-3">
@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="process in visibleProcesses" :key="process.id">    
+          <tr v-for="process in search" :key="process.id">    
               <th scope="row">{{process.context.SUBSCRIBER_MSISDN}}</th>
               <th scope="row">{{process.fileId}}</th>
               <th scope="row">{{process.id}}</th>
@@ -39,6 +39,12 @@
         </tbody>
       </table>
     </div>
+        <Pagination 
+        :processes="processes" 
+        :currentPage="currentPage" 
+        :pageSize="pageSize"
+        @update="updatePage"
+        />
   </div>
 </template>
 
@@ -50,11 +56,10 @@ export default {
   components: {
     Pagination
   },
-  props:['processes', 'currentPage', 'pageSize'],
+  props:['processes', 'currentPage', 'pageSize', 'visibleProcesses'],
   data() {
     return{
       searching:"",
-      visibleProcesses : [],
     }
   },
   created () {
@@ -65,7 +70,7 @@ export default {
       // create a new regex filter with the v-model "searching" to catch user's search
       const newFilter = new RegExp(this.searching, 'i')
       // filter all the processes and return processes matching regex filter
-      let subscriber = this.processes.filter(process => process.context.SUBSCRIBER_MSISDN.match(newFilter))
+      let subscriber = this.visibleProcesses.filter(process => process.context.SUBSCRIBER_MSISDN.match(newFilter))
       return subscriber
     },
   },
@@ -74,13 +79,12 @@ export default {
   },
   methods: {
     updatePage(pageNumber){
-      console.log("yoyo update page, on se met à jour ou bien ?",pageNumber)
+      this.currentPage = pageNumber;
       this.updateVisibleProcesses();
-      return this.currentPage = pageNumber;
     },
     updateVisibleProcesses(){
       this.visibleProcesses =  this.processes.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
-      console.log("visibleProcesses",this.visibleProcesses)
+
       // if 0 visible processes go back a page 
       if(this.visibleProcesses.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1)
