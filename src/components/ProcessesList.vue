@@ -56,7 +56,7 @@ export default {
   components: {
     Pagination
   },
-  props:['processes', 'currentPage', 'pageSize', 'visibleProcesses'],
+  props:['processes', 'currentPage', 'pageSize','visibleProcesses'],
   data() {
     return{
       searching:"",
