@@ -8,13 +8,13 @@
 
 <script>
 export default {
-  props: ['processes', 'currentPage', 'pageSize'],
+  props: ['pagesToDisplay', 'currentPage', 'pageSize'],
   methods: {
     updatePages(pageNumber) {
       this.$emit('update', pageNumber);
     },
     totalPages(){
-      return Math.ceil(this.processes.length / this.pageSize)
+      return Math.ceil(this.pagesToDisplay.length / this.pageSize)
     },
     showPreviousLink(){
       return this.currentPage == 0 ? false : true;

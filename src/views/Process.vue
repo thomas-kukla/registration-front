@@ -13,15 +13,15 @@ import Process from "@/components/ProcessesList.vue"
 import store from "@/store/index.js"
 
 export default {
-  data() {
+  components: {
+    Process,
+  },
+    data() {
     return {
       errorMessage:"",
       currentPage: 0,
       pageSize: 10,
     }
-  },
-  components: {
-    Process,
   },
    beforeRouteEnter (to, from, next) {
      store
