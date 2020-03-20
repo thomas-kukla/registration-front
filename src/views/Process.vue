@@ -1,6 +1,9 @@
 <template>
   <div class="registration">
-    <process :processes="processes" />
+    <process 
+    :processes="processes" 
+    :currentPage="currentPage" 
+    :pageSize="pageSize"/>
   </div>
 </template>
 
@@ -10,13 +13,15 @@ import Process from "@/components/ProcessesList.vue"
 import store from "@/store/index.js"
 
 export default {
-  data() {
-    return {
-      errorMessage:""
-    }
-  },
   components: {
-    Process
+    Process,
+  },
+    data() {
+    return {
+      errorMessage:"",
+      currentPage: 0,
+      pageSize: 10,
+    }
   },
    beforeRouteEnter (to, from, next) {
      store
