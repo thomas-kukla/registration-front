@@ -4,7 +4,7 @@
         <h3 class="mt-3">{{ search.length }} process(es) on page</h3>
         <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25"/>
         <Pagination 
-        :processes="processes" 
+        :pagesToDisplay="processes" 
         :currentPage="currentPage" 
         :pageSize="pageSize"
         @update="updatePage"
@@ -40,7 +40,7 @@
       </table>
     </div>
         <Pagination 
-        :processes="processes" 
+        :pagesToDisplay="processes" 
         :currentPage="currentPage" 
         :pageSize="pageSize"
         @update="updatePage"
@@ -56,14 +56,12 @@ export default {
   components: {
     Pagination
   },
-  props:['processes', 'currentPage', 'pageSize','visibleProcesses'],
+  props:['processes', 'currentPage', 'pageSize'],
   data() {
     return{
       searching:"",
+      visibleProcesses: []
     }
-  },
-  created () {
-    return this.search()
   },
   computed: {
     search(){

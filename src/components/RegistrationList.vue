@@ -3,6 +3,12 @@
     <div class="d'flex flex-row">
       <h3 class="mt-3">{{ search.length }} registration(s) on page</h3>
       <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25"/>
+        <Pagination 
+        :pagesToDisplay="users" 
+        :currentPage="currentPage" 
+        :pageSize="pageSize"
+        @update="updatePage"
+        />
     </div>
     <div class="table-responsive mt-3">
      <table class="table users">
@@ -32,28 +38,52 @@
         </tbody>
       </table>
     </div>
+        <Pagination 
+        :pagesToDisplay="users" 
+        :currentPage="currentPage" 
+        :pageSize="pageSize"
+        @update="updatePage"
+        />
   </div>
 </template>
 
 <script>
 
+import Pagination from "@/components/Pagination.vue"
+
 export default {
-  props:['users'],
+  components: {
+    Pagination
+  },
+  props:['users', 'currentPage', 'pageSize',],
   data(){
     return {
       searching:"",
+      visibleUsers: []
     }
+  },
+    beforeMount(){
+    this.updateVisibleUsers()
   },
   computed: {
     search() {
-      let newFilter = new RegExp(this.searching, 'i')
-      let searchingUser = "";
-      for(let user of this.users){
-        searchingUser = this.users.filter(user => user.subscriberMsisdn.match(newFilter))
-        console.log("user", user)
-      }
-      return searchingUser
+      const newFilter = new RegExp(this.searching, 'i');
+      let searchingUser = this.visibleUsers.filter(user => user.subscriberMsisdn.match(newFilter));
+      return searchingUser;
      },
+  },
+  methods: {
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+      this.updateVisibleUsers();
+    },
+    updateVisibleUsers() {
+      this.visibleUsers = this.users.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
+
+      if(this.visibleUsers == 0 && this.currentPage > 0){
+        this.updatePage(this.currentPage - 1);
+      }
+    }
   }
 }
 </script>
