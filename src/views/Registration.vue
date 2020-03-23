@@ -26,8 +26,15 @@ export default {
     .then()
     next()
   },
+  beforeMount() {
+    store
+    .dispatch("getUsers")
+    .then()
+
+    return this.users
+  },
   computed: {
-    users: function() {
+    users() {
       return this.$store.getters.getUsers
     },
   },
