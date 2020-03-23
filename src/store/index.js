@@ -15,7 +15,6 @@ export default new Vuex.Store({
       state.users = JSON.parse(users)._embedded.registrationfile
     },
     "SET_ONE_USER"(state, user) {
-      console.log("state", state, "user", user)
       return state.users = user;
     },
     "SET_PROCESSES"(state, processes){

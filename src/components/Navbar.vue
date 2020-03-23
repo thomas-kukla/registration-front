@@ -2,7 +2,7 @@
   <div>
     <nav role="navigation" class="navbar navbar-expand-lg navbar-dark">
       <router-link class="navbar-brand" to="/">
-          <img src="@/assets/Orange-emblem.jpg" alt="Back to homepage" title="Back to homepage" width="auto" height="50">
+          <img class="ml-2" src="@/assets/Orange_logo.svg.png" alt="Back to homepage" title="Back to homepage" width="100%" height="auto">
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
