@@ -2,7 +2,7 @@
   <div>
     <div class="d'flex flex-row">
         <h3 class="mt-3">{{ search.length }} process(es) on page</h3>
-        <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25"/>
+        <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25 form-control"/>
         <Pagination 
         :pagesToDisplay="processes" 
         :currentPage="currentPage" 
