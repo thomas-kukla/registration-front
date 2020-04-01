@@ -14,9 +14,11 @@ export default {
       this.$emit('update', pageNumber);
     },
     totalPages(){
+      console.log("total pages", Math.ceil(this.pagesToDisplay.length / this.pageSize) )
       return Math.ceil(this.pagesToDisplay.length / this.pageSize)
     },
     showPreviousLink(){
+      console.log('coucou previous link', this.currentPage)
       return this.currentPage == 0 ? false : true;
     },
     showNextLink(){
