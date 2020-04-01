@@ -11,39 +11,27 @@
        </thead>
         <tbody class="d-flex flex-column w-100">
           <tr class="w-100 d-flex justify-content-start">
-            <th class="w-100 d-flex">
-              <td class="w-25 d-flex" scope="col">Id :</td>
+              <th class="w-25 d-flex" scope="col">Id :</th>
               <td class="w-100 d-flex" scope="col">{{ process.id }}</td>
-            </th>
           </tr>
           <tr class="w-100 d-flex justify-content-start">
-            <th class="w-100 d-flex">
-              <td class="w-25 d-flex" scope="col">Created Date :</td>
+              <th class="w-25 d-flex" scope="col">Created Date :</th>
               <td class="w-100 d-flex" scope="col">{{ process.createdDate.id }}</td>
-            </th>
           </tr>
           <tr class="w-100 d-flex justify-content-start">
-            <th class="w-100 d-flex">
-              <td class="w-25 d-flex" scope="col">Last Modified Date :</td>
+              <th class="w-25 d-flex" scope="col">Last Modified Date :</th>
               <td class="w-100 d-flex" scope="col">{{ process.lastModifiedDate }}</td>
-            </th>
           </tr><tr class="w-100 d-flex justify-content-start">
-            <th class="w-100 d-flex">
-              <td class="w-25 d-flex" scope="col">Subscriber Msisdn:</td>
+              <th class="w-25 d-flex" scope="col">Subscriber Msisdn:</th>
               <td class="w-100 d-flex" scope="col">{{ process.subscriberMsisdn }}</td>
-            </th>
           </tr>
           <tr class="w-100 d-flex justify-content-start">
-            <th class="w-100 d-flex">
-              <td class="w-25 d-flex" scope="col">Context :</td>
+              <th class="w-25 d-flex" scope="col">Context :</th>
               <td class="w-100 d-flex" scope="col">{{ process.context }}</td>
-            </th>
           </tr>
           <tr class="w-100 d-flex justify-content-start">
-            <th class="w-100 d-flex">
-              <td class="w-25 d-flex" scope="col">Tasks :</td>
+              <th class="w-25 d-flex" scope="col">Tasks :</th>
               <td class="w-100 d-flex" scope="col">{{ process.tasks }}</td>
-            </th>
           </tr>
         </tbody>
         </table>
