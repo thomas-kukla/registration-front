@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d'flex flex-row">
-        <h3 v-if="processes.length > 0" class="mt-3">{{ processes.length }} processes on page</h3>
+        <h3 v-if="processes.length > 1" class="mt-3">{{ processes.length }} processes on page</h3>
         <h3 v-else class="mt-3">{{ processes.length }} process on page</h3>
     </div>
     <div class="table-responsive mt-3">

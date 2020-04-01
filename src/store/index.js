@@ -22,8 +22,10 @@ export default new Vuex.Store({
     },
     "SET_USER_BY_ID"(state, process){
       return state.processes = process
-
     },
+    "SET_MSISDN"(state, msisdnId){
+      return state.msisdn = msisdnId
+    }
   },
   actions: {
     getUsers({commit}){
@@ -55,20 +57,28 @@ export default new Vuex.Store({
           resolve()
         })
       }
-
       )},
       getProcessById({commit}, processId){
-        new Promise((resolve) => {
+        return new Promise((resolve) => {
           axios
           .get('http://localhost:8000/api/processes/' + processId)
           .then(function(response){
             commit("SET_USER_BY_ID", response.data)
             resolve()
           }) 
-
         })
       },
-  },
+      getMsisdn({commit}, msisdnId){
+        return new Promise((resolve) => {
+          axios
+          .get('http://localhost:8000/api/processes?subscriberMsisdn=' + msisdnId)
+          .then((response) => {
+            commit("SET_MSISDN", response.data)
+            resolve()
+          })
+        })
+      }
+    },
   modules: {
   },
   getters: {
@@ -84,5 +94,9 @@ export default new Vuex.Store({
     getProcessById(state){
       return state.processes
     },
+    getMsisdn(state){
+      console.log("getter msisdn", state.msisdn)
+      return state.msisdn
+    }
   }
 })
