@@ -19,7 +19,7 @@ export default {
     },
     totalPages(){
       return Math.ceil(this.pagesToDisplay.length / this.pageSize)
-    },
+      },
     showPreviousLink(){
       return this.currentPage == 0 ? false : true;
     },
