@@ -1,9 +1,13 @@
 <template>
-    <ul class="d-flex flex-row justify-content-center mt-3">
-      <span v-if="showPreviousLink()" @click="updatePages(currentPage - 1)" class="page-item"><a class="page-link"></a></span>
-      <span class="page-link ml-3 mr-3">{{ currentPage + 1 }} of {{ totalPages() }}</span>
-      <span v-if="showNextLink()" @click="updatePages(currentPage + 1)" class="page-item"><a class="page-link"></a></span>
-    </ul>
+  <div>
+    <div>
+      <ul class="d-flex flex-row justify-content-center">
+        <span v-if="showPreviousLink()" @click="updatePages(currentPage - 1)" class="page-item"><a class="page-link"></a></span>
+        <span class="page-link ml-3 mr-3">{{ currentPage + 1 }} of {{ totalPages() }}</span>
+        <span v-if="showNextLink()" @click="updatePages(currentPage + 1)" class="page-item"><a class="page-link"></a></span>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>

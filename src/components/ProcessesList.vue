@@ -1,15 +1,9 @@
 <template>
   <div>
     <div class="d'flex flex-row">
-        <h3 class="mt-3">{{ search.length }} process(es) on page</h3>
-        <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25 form-control"/>
-        <Pagination 
-        :pagesToDisplay="processes" 
-        :currentPage="currentPage" 
-        :pageSize="pageSize"
-        @update="updatePage"
-        />
-      </div>
+        <h3 v-if="processes.length > 1" class="mt-3">{{ processes.length }} processes on page</h3>
+        <h3 v-else class="mt-3">{{ processes.length }} process on page</h3>
+    </div>
     <div class="table-responsive mt-3">
      <table class="table users">
         <thead>
@@ -23,8 +17,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="process in search" :key="process.id">    
-              <th scope="row">{{process.context.SUBSCRIBER_MSISDN}}</th>
+          <tr v-for="process in processes" :key="process.id">    
+              <th scope="row">{{process.subscriberMsisdn}}</th>
               <th scope="row">{{process.fileId}}</th>
               <th scope="row">{{process.id}}</th>
               <th scope="row">{{process.createdDate}}</th>
@@ -39,55 +33,12 @@
         </tbody>
       </table>
     </div>
-        <Pagination 
-        :pagesToDisplay="processes" 
-        :currentPage="currentPage" 
-        :pageSize="pageSize"
-        @update="updatePage"
-        />
   </div>
 </template>
 
 <script>
 
-import Pagination from "@/components/Pagination.vue"
-
 export default {
-  components: {
-    Pagination
-  },
-  props:['processes', 'currentPage', 'pageSize'],
-  data() {
-    return{
-      searching:"",
-      visibleProcesses: []
-    }
-  },
-  computed: {
-    search(){
-      // create a new regex filter with the v-model "searching" to catch user's search
-      const newFilter = new RegExp(this.searching, 'i')
-      // filter all the processes and return processes matching regex filter
-      let subscriber = this.visibleProcesses.filter(process => process.context.SUBSCRIBER_MSISDN.match(newFilter))
-      return subscriber
-    },
-  },
-  beforeMount(){
-    this.updateVisibleProcesses()
-  },
-  methods: {
-    updatePage(pageNumber){
-      this.currentPage = pageNumber;
-      this.updateVisibleProcesses();
-    },
-    updateVisibleProcesses(){
-      this.visibleProcesses =  this.processes.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
-
-      // if 0 visible processes go back a page 
-      if(this.visibleProcesses.length == 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1)
-      }
-    }
-  }
+  props:['processes'],
 }
 </script>
