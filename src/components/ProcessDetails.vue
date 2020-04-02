@@ -16,7 +16,7 @@
           </tr>
           <tr class="w-100 d-flex justify-content-start">
               <th class="w-25 d-flex" scope="col">Created Date :</th>
-              <td class="w-100 d-flex" scope="col">{{ process.createdDate.id }}</td>
+              <td class="w-100 d-flex" scope="col">{{ process.createdDate}}</td>
           </tr>
           <tr class="w-100 d-flex justify-content-start">
               <th class="w-25 d-flex" scope="col">Last Modified Date :</th>
@@ -46,7 +46,7 @@ import GoBack from "@/components/GoBack.vue"
 export default {
   props: ['process'],
   components: {
-    GoBack
+    GoBack,
   },
 }
 

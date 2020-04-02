@@ -24,7 +24,7 @@
             <th scope="row">{{ user.state }}</th>
             <th scope="row">{{ user.operationType }}</th>
             <th><router-link :to="{
-                name: 'userDetails',
+                name: 'user',
                 params: {userId : user.id}
                 }" class="btn btn-primary">View</router-link>
             <router-view :key="$route.path"/></th>

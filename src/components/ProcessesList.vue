@@ -24,7 +24,7 @@
               <th scope="row">{{process.createdDate}}</th>
               <th scope="row">{{process.lastModifiedDate}}</th>
               <th><router-link :to="{
-                name:'processDetails',
+                name:'process',
                 params: {processId : process.id }
                 }"
               class="btn btn-primary">View</router-link>

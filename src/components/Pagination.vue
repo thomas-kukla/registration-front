@@ -18,8 +18,8 @@ export default {
       this.$emit('update', pageNumber);
     },
     totalPages(){
-      return Math.ceil(this.pagesToDisplay.length / this.pageSize)
-    },
+      return Math.ceil(this.pagesToDisplay.length / this.pageSize);
+      },
     showPreviousLink(){
       return this.currentPage == 0 ? false : true;
     },
