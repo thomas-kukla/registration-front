@@ -91,7 +91,7 @@ import GoBack from "@/components/GoBack.vue"
 
 export default {
   components: {
-    GoBack
+    GoBack,
   },
   props:['userDetails'],
 }

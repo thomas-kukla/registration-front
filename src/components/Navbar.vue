@@ -16,9 +16,9 @@
           </li>
           <li class="nav-item">
             <router-link :to="{
-              name: 'process'
+              name: 'processes'
               }" 
-              class="nav-link">Process</router-link>
+              class="nav-link">Processes</router-link>
           </li>
         </ul>
       </div>
@@ -31,8 +31,3 @@ export default {
   name: 'Navbar',
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-
-</style>

@@ -1,17 +1,21 @@
 <template>
   <div class="registration">
-    <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25 form-control"/>
+    <input v-model="searching" placeholder="Subscriber msisdn" class="mt-4 ml-2 w-25 form-control"/>
     <Pagination 
-      v-if="totalUsers.length > 0"
-      :pagesToDisplay="totalUsers" 
+      v-if="totalProcesses.length > 0"
+      :pagesToDisplay="totalProcesses" 
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
     />
-    <registration-list :users="usersMsisdn"/>
+    <process 
+    :processes="processesMsisdn" 
+    :currentPage="currentPage" 
+    :pageSize="pageSize"
+    />
     <Pagination
-      v-if="totalUsers.length > 0"
-      :pagesToDisplay="totalUsers" 
+      v-if="totalProcesses.length > 0"
+      :pagesToDisplay="totalProcesses" 
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
@@ -21,46 +25,46 @@
 
 <script>
 
-import RegistrationList from "@/components/RegistrationList"
+import Process from "@/components/ProcessesList.vue"
 import Pagination from "@/components/Pagination.vue"
 import store from "@/store/index.js"
 
 export default {
   components: {
-    RegistrationList,
-    Pagination
+    Process,
+    Pagination,
   },
-  data(){
+  data() {
     return {
-    errorMessage:"",
-    currentPage: 0,
-    pageSize: 10,
-    searching:"",
+      errorMessage:"",
+      currentPage: 0,
+      pageSize: 10,
+      searching:"",
     }
   },
   beforeRouteEnter (to, from, next) {
     // enable to fetch processes before render th page
      store
-    .dispatch("getUsersByMsisdn","")
+    .dispatch('getProcessesByMsisdn',"")
     .then()
     next()
   },
-  // enable to fetch processes in live with the input
   updated(){
+    // enable to fetch processes in live with the input
     store
-    .dispatch("getUsersByMsisdn",this.searching)
+    .dispatch('getProcessesByMsisdn', this.searching)
     .then()
   },
   methods: {
     // catch the event emit by the click on the navigations arrows and change currentPage
     // in computed, it enables to display the next processes
     updatePage(pageNumber){
-      return this.currentPage = pageNumber;
-    }
+      this.currentPage = pageNumber;
+    },
   },
   computed: {
-    usersMsisdn(){
-      let msisdn = this.$store.getters.getUsersByMsisdn;
+    processesMsisdn(){
+      let msisdn = store.getters.getProcessesByMsisdn;
       if(msisdn.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1);
       }
@@ -68,9 +72,9 @@ export default {
       // updatePage's method enables to display each slices by changing the currentPage
       return msisdn.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
     },
-    totalUsers() {
-      return this.$store.getters.getUsersByMsisdn;
-    },
+    totalProcesses(){
+      return store.getters.getProcessesByMsisdn;
+    }
   },
 }
 </script>
