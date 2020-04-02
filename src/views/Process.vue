@@ -42,13 +42,13 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
      store
-    .dispatch('getMsisdn',"")
+    .dispatch('getProcessesByMsisdn',"")
     .then()
     next()
   },
   updated(){
     store
-    .dispatch('getMsisdn', this.searching)
+    .dispatch('getProcessesByMsisdn', this.searching)
     .then()
   },
   methods: {
@@ -59,14 +59,14 @@ export default {
   },
   computed: {
     visibleMsisdn(){
-      let msisdn = store.getters.getMsisdn;
+      let msisdn = store.getters.getProcessesByMsisdn;
       if(msisdn.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1)
       }
       return msisdn.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
     },
     allMsisdn(){
-      return store.getters.getMsisdn;
+      return store.getters.getProcessesByMsisdn;
     }
   },
 }

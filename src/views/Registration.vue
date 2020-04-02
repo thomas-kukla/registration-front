@@ -1,42 +1,64 @@
 <template>
   <div class="registration">
-    <registration-list :users="users"/>
-    <!-- <Pagination 
-      :pagesToDisplay="users" 
+    <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25 form-control"/>
+        <Pagination 
+      :pagesToDisplay="totalUsers" 
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
-    /> -->
+    />
+    <registration-list :users="usersMsisdn"/>
+    <Pagination 
+      :pagesToDisplay="totalUsers" 
+      :currentPage="currentPage" 
+      :pageSize="pageSize"
+      @update="updatePage"
+    />
   </div>
 </template>
 
 <script>
 
 import RegistrationList from "@/components/RegistrationList"
-//import Pagination from "@/components/Pagination.vue"
+import Pagination from "@/components/Pagination.vue"
 import store from "@/store/index.js"
 
 export default {
   components: {
     RegistrationList,
-    //Pagination
+    Pagination
   },
   data(){
     return {
     errorMessage:"",
     currentPage: 0,
     pageSize: 10,
+    searching:"",
     }
   },
   beforeRouteEnter (to, from, next) {
      store
-    .dispatch("getUsers")
+    .dispatch("getUsersByMsisdn","")
     .then()
     next()
   },
+  updated(){
+    store
+    .dispatch("getUsersByMsisdn",this.searching)
+    .then()
+  },
+  methods: {
+    updatePage(pageNumber){
+      return this.currentPage = pageNumber;
+    }
+  },
   computed: {
-    users() {
-      return this.$store.getters.getUsers
+    usersMsisdn(){
+      let msisdn = this.$store.getters.getUsersByMsisdn
+      return msisdn.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize)
+    },
+    totalUsers() {
+      return this.$store.getters.getUsersByMsisdn
     },
   },
 }
