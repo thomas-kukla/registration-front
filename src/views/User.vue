@@ -1,5 +1,6 @@
 <template>
 <div>
+    <p v-if="errorMessage">Message d'erreur : {{errorMessage}}</p>
     <user-details :userDetails="userFromBackend"/>
 </div>
 </template>
@@ -7,6 +8,7 @@
 <script>
 
 import UserDetails from "@/components/UserDetails.vue"
+import store from "@/store/index.js"
 
 export default {
     components: {
@@ -14,22 +16,22 @@ export default {
     },
     data(){
         return {
-            errormessage:"",
+            errorMessage:"",
         }
     },
     props: ['userId'],
-    beforeMount:
-        function() {
-            this.$store.dispatch("getUserById", this.$route.params.userId)
+    beforeMount() {
+            store
+            .dispatch("getUserById", this.$route.params.userId)
             .then(() => {
             })
             .catch(error => {
-                this.errormessage = error
+                this.errorMessage = error;
             })
         },
     computed: {
-        userFromBackend: function() {
-      return this.$store.getters.getUser
+        userFromBackend() {
+            return store.getters.getUser
     }
   },
 }

@@ -15,21 +15,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "registration" */ '../views/Registration.vue')
   },
   {
-    path: '/process',
+    path: '/processes',
+    name: 'processes',
+    component: () => import(/* webpackChunkName: "process" */ '../views/Processes.vue'),
+  },
+  {
+    path: '/user/:userId',
+    name: 'user',
+    props: true,
+    component: () => import(/* webpackChunkName: "details" */ '../views/User.vue')
+  },
+  {
+    path: '/process/:processId',
     name: 'process',
-    component: () => import(/* webpackChunkName: "process" */ '../views/Process.vue'),
-  },
-  {
-    path: '/userDetails/:userId',
-    name: 'userDetails',
     props: true,
-    component: () => import(/* webpackChunkName: "details" */ '../views/UserDetails.vue')
-  },
-  {
-    path: '/processDetails/:processId',
-    name: 'processDetails',
-    props: true,
-    component: () => import(/* webpackChunkName: "processDetails" */ '../views/ProcessDetails.vue')
+    component: () => import(/* webpackChunkName: "processDetails" */ '../views/Process.vue')
   },
 ]
 
@@ -37,9 +37,9 @@ const router = new VueRouter({
   mode:"history",
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
   },
   routes
