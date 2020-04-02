@@ -18,7 +18,7 @@
         </thead>
         <tbody>
           <tr v-for="process in processes" :key="process.id">    
-              <th scope="row">{{process.context.SUBSCRIBER_MSISDN}}</th>
+              <th scope="row">{{process.subscriberMsisdn}}</th>
               <th scope="row">{{process.fileId}}</th>
               <th scope="row">{{process.id}}</th>
               <th scope="row">{{process.createdDate}}</th>
