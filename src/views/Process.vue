@@ -60,9 +60,9 @@ export default {
   computed: {
     visibleMsisdn(){
       let msisdn = store.getters.getMsisdn;
-      // if(msisdn.length == 0 && this.currentPage > 0) {
-      //   this.updatePage(this.currentPage - 1)
-      // }
+      if(msisdn.length == 0 && this.currentPage > 0) {
+        this.updatePage(this.currentPage - 1)
+      }
       return msisdn.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
     },
     allMsisdn(){

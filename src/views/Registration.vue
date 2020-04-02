@@ -1,17 +1,25 @@
 <template>
   <div class="registration">
-    <registration-list :users="users" :currentPage="currentPage" :pageSize="pageSize"/>
+    <registration-list :users="users"/>
+    <!-- <Pagination 
+      :pagesToDisplay="users" 
+      :currentPage="currentPage" 
+      :pageSize="pageSize"
+      @update="updatePage"
+    /> -->
   </div>
 </template>
 
 <script>
 
 import RegistrationList from "@/components/RegistrationList"
+//import Pagination from "@/components/Pagination.vue"
 import store from "@/store/index.js"
 
 export default {
   components: {
-    RegistrationList
+    RegistrationList,
+    //Pagination
   },
   data(){
     return {
@@ -25,13 +33,6 @@ export default {
     .dispatch("getUsers")
     .then()
     next()
-  },
-  beforeMount() {
-    store
-    .dispatch("getUsers")
-    .then()
-
-    return this.users
   },
   computed: {
     users() {
