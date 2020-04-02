@@ -2,7 +2,8 @@
   <div class="registration">
     <input v-model="searching" placeholder="Subscriber msisdn" class="mt-4 ml-2 w-25 form-control"/>
     <Pagination 
-      :pagesToDisplay="allMsisdn" 
+      v-if="totalProcesses.length > 0"
+      :pagesToDisplay="totalProcesses" 
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
@@ -12,8 +13,9 @@
     :currentPage="currentPage" 
     :pageSize="pageSize"
     />
-    <Pagination 
-      :pagesToDisplay="allMsisdn" 
+    <Pagination
+      v-if="totalProcesses.length > 0"
+      :pagesToDisplay="totalProcesses" 
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
@@ -65,7 +67,7 @@ export default {
       }
       return msisdn.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
     },
-    allMsisdn(){
+    totalProcesses(){
       return store.getters.getProcessesByMsisdn;
     }
   },
