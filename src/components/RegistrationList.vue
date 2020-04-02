@@ -18,16 +18,16 @@
         </thead>
         <tbody>
           <tr v-for="user in users" :key="user.id">
-            <th scope="row">{{ user.id }}</th>
-            <th scope="row">{{ user.subscriberMsisdn }}</th>
-            <th scope="row">{{ user.createdDate }}</th>
-            <th scope="row">{{ user.state }}</th>
-            <th scope="row">{{ user.operationType }}</th>
-            <th><router-link :to="{
+            <td scope="row">{{ user.id }}</td>
+            <td scope="row">{{ user.subscriberMsisdn }}</td>
+            <td scope="row">{{ user.createdDate }}</td>
+            <td scope="row">{{ user.state }}</td>
+            <td scope="row">{{ user.operationType }}</td>
+            <td><router-link :to="{
                 name: 'user',
                 params: {userId : user.id}
                 }" class="btn btn-primary">View</router-link>
-            <router-view :key="$route.path"/></th>
+            <router-view :key="$route.path"/></td>
           </tr>
         </tbody>
       </table>

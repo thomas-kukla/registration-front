@@ -18,17 +18,17 @@
         </thead>
         <tbody>
           <tr v-for="process in processes" :key="process.id">    
-              <th scope="row">{{process.subscriberMsisdn}}</th>
-              <th scope="row">{{process.fileId}}</th>
-              <th scope="row">{{process.id}}</th>
-              <th scope="row">{{process.createdDate}}</th>
-              <th scope="row">{{process.lastModifiedDate}}</th>
-              <th><router-link :to="{
+              <td scope="row">{{process.subscriberMsisdn}}</td>
+              <td scope="row">{{process.fileId}}</td>
+              <td scope="row">{{process.id}}</td>
+              <td scope="row">{{process.createdDate}}</td>
+              <td scope="row">{{process.lastModifiedDate}}</td>
+              <td><router-link :to="{
                 name:'process',
                 params: {processId : process.id }
                 }"
               class="btn btn-primary">View</router-link>
-              <router-view :key="$route.path"/></th>
+              <router-view :key="$route.path"/></td>
         </tr>
         </tbody>
       </table>
