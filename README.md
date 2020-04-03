@@ -1,5 +1,11 @@
 # Registration-front
 
+Pour info
+la branche searchCriterias contient deux features qui ne sont pas sur Master et dev :
+Pour les process :
+- une recherche par critères
+- le choix du nombre de résultats à afficher par page
+
 ## Project setup
 ```
 npm install
