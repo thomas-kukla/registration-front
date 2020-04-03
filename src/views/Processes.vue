@@ -1,6 +1,7 @@
 <template>
   <div class="registration">
     <input v-model="searching" placeholder="Subscriber msisdn" class="mt-4 ml-2 w-25 form-control"/>
+    <Results @resultsToDisplay="updatePageSize"/>
     <Pagination 
       v-if="totalProcesses.length > 0"
       :pagesToDisplay="totalProcesses" 
@@ -25,14 +26,16 @@
 
 <script>
 
-import Process from "@/components/ProcessesList.vue"
 import Pagination from "@/components/Pagination.vue"
+import Process from "@/components/ProcessesList.vue"
+import Results from "@/components/Results.vue"
 import store from "@/store/index.js"
 
 export default {
   components: {
     Process,
     Pagination,
+    Results,
   },
   data() {
     return {
@@ -61,16 +64,25 @@ export default {
     updatePage(pageNumber){
       this.currentPage = pageNumber;
     },
+    updatePageSize(newPageSize){
+      this.currentPage = 0;
+      this.pageSize = newPageSize;
+      this.processesMsisdn;
+    }
   },
   computed: {
     processesMsisdn(){
-      let msisdn = store.getters.getProcessesByMsisdn;
-      if(msisdn.length == 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1);
-      }
-      // stock processes in slices
-      // updatePage's method enables to display each slices by changing the currentPage
-      return msisdn.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize);
+      //fetch all processes
+      let msisdnToDisplay = store.getters.getProcessesByMsisdn;
+
+      // Define two variables to slice processes
+      // with the updatePage's method, it enables to display each slice by changing the currentPage
+      let a = this.currentPage * this.pageSize;
+
+      //using parseInt to avoid concatenation instead of addition
+      let b = a + parseInt(this.pageSize);
+
+      return msisdnToDisplay.slice(a, b);
     },
     totalProcesses(){
       return store.getters.getProcessesByMsisdn;
