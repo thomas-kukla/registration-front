@@ -1,7 +1,10 @@
 <template>
   <div class="registration">
-    <input v-model="searching" placeholder="Subscriber msisdn" class="mt-4 ml-2 w-25 form-control"/>
-    <Results @resultsToDisplay="updatePageSize"/>
+    <div class="d-flex">
+      <Dispatch @methods="updateMethod"/>
+      <input v-model="searching" placeholder="Filter" class="mt-3 ml-2 w-25 form-control"/>
+      <Results @resultsToDisplay="updatePageSize"/>
+    </div>
     <Pagination 
       v-if="totalProcesses.length > 0"
       :pagesToDisplay="totalProcesses" 
@@ -26,6 +29,7 @@
 
 <script>
 
+import Dispatch from "@/components/Dispatch.vue"
 import Pagination from "@/components/Pagination.vue"
 import Process from "@/components/ProcessesList.vue"
 import Results from "@/components/Results.vue"
@@ -33,8 +37,9 @@ import store from "@/store/index.js"
 
 export default {
   components: {
-    Process,
+    Dispatch,
     Pagination,
+    Process,
     Results,
   },
   data() {
@@ -53,9 +58,9 @@ export default {
     next()
   },
   updated(){
-    // enable to fetch processes in live with the input
+    // enable to fetch processes in live with the filter
     store
-    .dispatch('getProcessesByMsisdn', this.searching)
+    .dispatch(this.method, this.searching)
     .then()
   },
   methods: {
@@ -68,7 +73,11 @@ export default {
       this.currentPage = 0;
       this.pageSize = newPageSize;
       this.processesMsisdn;
-    }
+    },
+    updateMethod(newMethod){
+      console.log("new Method", newMethod)
+      this.method = newMethod;
+    },
   },
   computed: {
     processesMsisdn(){

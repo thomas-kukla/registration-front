@@ -76,7 +76,59 @@ export default new Vuex.Store({
             console.log("getProcessesByMsisdn :",error);
           })
         })
-      }
+      },
+      getProcessesByFileId({commit}, msisdnId){
+        return new Promise((resolve) => {
+          axios
+          .get('http://localhost:8000/api/processes?fileId=' + msisdnId)
+          .then((response) => {
+            commit("SET_PROCESSES_BY_MSISDN", response.data)
+            resolve()
+          })
+          .catch((error) => {
+            console.log("getProcessesByMsisdn :",error);
+          })
+        })
+      },
+      getProcessesByCreatedDate({commit}, msisdnId){
+        return new Promise((resolve) => {
+          axios
+          .get('http://localhost:8000/api/processes?createdDate=' + msisdnId)
+          .then((response) => {
+            commit("SET_PROCESSES_BY_MSISDN", response.data)
+            resolve()
+          })
+          .catch((error) => {
+            console.log("getProcessesByMsisdn :",error);
+          })
+        })
+      },
+      getProcessesByLastModifieDate({commit}, msisdnId){
+        return new Promise((resolve) => {
+          axios
+          .get('http://localhost:8000/api/processes?lastModifiedDate=' + msisdnId)
+          .then((response) => {
+            commit("SET_PROCESSES_BY_MSISDN", response.data)
+            resolve()
+          })
+          .catch((error) => {
+            console.log("getProcessesByMsisdn :",error);
+          })
+        })
+      },
+      getProcessesById({commit}, msisdnId){
+        return new Promise((resolve) => {
+          axios
+          .get('http://localhost:8000/api/processes?id=' + msisdnId)
+          .then((response) => {
+            commit("SET_PROCESSES_BY_MSISDN", response.data)
+            resolve()
+          })
+          .catch((error) => {
+            console.log("getProcessesByMsisdn :",error);
+          })
+        })
+      },
     },
   modules: {
   },
