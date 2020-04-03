@@ -1,7 +1,7 @@
 # Registration-front
 
 Pour info,
-la branche searchCriterias contient deux features qui ne sont pas sur Master et dev :
+la branche searchCriterias contient deux features "test" qui ne sont pas sur Master et dev :
 - une recherche par critères pour la page Process
 - le choix du nombre de résultats à afficher par page, pour la page Process
 
