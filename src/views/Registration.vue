@@ -1,6 +1,6 @@
 <template>
   <div class="registration">
-    <input v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25 form-control"/>
+    <input @keyup="search()" v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25 form-control"/>
     <results @resultsToDisplay="updatePageSize"/>
     <Pagination 
       v-if="totalUsers.length > 0"
@@ -39,6 +39,7 @@ export default {
     currentPage: 0,
     pageSize: 10,
     searching:"",
+    keyPress:false,
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -50,9 +51,12 @@ export default {
   },
   // enable to fetch processes in live with the input
   updated(){
+    if (this.keyPress){
     store
     .dispatch("getUsersByMsisdn",this.searching)
-    .then()
+    .then();
+    this.keyPress = false;
+    }
   },
   methods: {
     // catch the event emit by the click on the navigations arrows and change currentPage
@@ -63,7 +67,13 @@ export default {
     updatePageSize(newPageSize){
       this.currentPage = 0;
       this.pageSize = newPageSize;
-    }
+      this.searching = "";
+      this.usersMsisdn;
+    },
+    //
+    search(){
+    this.keyPress = true;
+    },
   },
   computed: {
     usersMsisdn(){

@@ -2,7 +2,7 @@
   <div class="registration">
     <div class="d-flex">
       <Dispatch @methods="updateMethod"/>
-      <input v-model="searching" placeholder="Filter" class="mt-3 ml-2 w-25 form-control"/>
+      <input @keyup="search()" v-model="searching" placeholder="Filter" class="mt-3 ml-2 w-25 form-control"/>
       <Results @resultsToDisplay="updatePageSize"/>
     </div>
     <Pagination 
@@ -48,6 +48,7 @@ export default {
       currentPage: 0,
       pageSize: 10,
       searching:"",
+      keyPress:false,
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -58,10 +59,13 @@ export default {
     next()
   },
   updated(){
-    // enable to fetch processes in live with the filter
+    //enable to fetch processes in live with the input
+    if (this.keyPress){
     store
-    .dispatch(this.method, this.searching)
-    .then()
+    .dispatch('getProcessesByMsisdn', this.searching)
+    .then();
+    this.keyPress = false;
+    }
   },
   methods: {
     // catch the event emit by the click on the navigations arrows and change currentPage
@@ -72,12 +76,16 @@ export default {
     updatePageSize(newPageSize){
       this.currentPage = 0;
       this.pageSize = newPageSize;
+      this.searching = "";
       this.processesMsisdn;
     },
     updateMethod(newMethod){
       console.log("new Method", newMethod)
       this.method = newMethod;
     },
+    search(){
+    this.keyPress = true;
+  }
   },
   computed: {
     processesMsisdn(){
