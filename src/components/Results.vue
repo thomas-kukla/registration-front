@@ -1,6 +1,7 @@
 <template>
   <div>
     <input class="form-control mt-3 ml-2 w-25" v-model="results" @keypress.enter="display()" placeholder="Results"/>
+    <h6 v-if="errorMessage">{{errorMessage}}</h6>
   </div>
 </template>
 
@@ -9,11 +10,18 @@ export default {
   data(){
     return {
       results:10,
+      errorMessage:"",
     }
   },
   methods: {
     display() {
-      this.$emit('resultsToDisplay', this.results)
+      if (this.results <= 0) {
+        this.results = 10;
+        this.errorMessage = "Please enter a number > 0"
+      } else {
+        this.errorMessage = "";
+        this.$emit('resultsToDisplay', this.results)
+      }
     }
   },
 }
