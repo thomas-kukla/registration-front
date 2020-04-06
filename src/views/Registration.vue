@@ -47,9 +47,11 @@ export default {
   },
   // enable to fetch processes in live with the input
   updated(){
+    if (this.searching){
     store
     .dispatch("getUsersByMsisdn",this.searching)
     .then()
+    }
   },
   methods: {
     // catch the event emit by the click on the navigations arrows and change currentPage

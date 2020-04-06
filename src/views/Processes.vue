@@ -50,10 +50,12 @@ export default {
     next()
   },
   updated(){
-    // enable to fetch processes in live with the input
+    //enable to fetch processes in live with the input
+    if (this.searching){
     store
     .dispatch('getProcessesByMsisdn', this.searching)
     .then()
+    }
   },
   methods: {
     // catch the event emit by the click on the navigations arrows and change currentPage
