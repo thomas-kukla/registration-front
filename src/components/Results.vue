@@ -7,11 +7,15 @@
 
 <script>
 export default {
+  props:['pageSize'],
   data(){
     return {
-      results:10,
+      results:"",
       errorMessage:"",
     }
+  },
+  beforeMount(){
+    this.results = this.pageSize;
   },
   methods: {
     display() {

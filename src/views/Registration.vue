@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <input @keyup="search()" v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25 form-control"/>
-    <results @resultsToDisplay="updatePageSize"/>
+    <results @resultsToDisplay="updatePageSize" :pageSize="pageSize"/>
     <Pagination 
       v-if="totalUsers.length > 0"
       :pagesToDisplay="totalUsers" 
