@@ -71,6 +71,7 @@ export default {
     updatePageSize(newPageSize){
       this.currentPage = 0;
       this.pageSize = newPageSize;
+      this.searching = "";
       this.processesMsisdn;
     },
     search(){
