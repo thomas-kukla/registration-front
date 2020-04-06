@@ -1,6 +1,6 @@
 <template>
   <div class="registration">
-    <input v-model="searching" placeholder="Subscriber msisdn" class="mt-4 ml-2 w-25 form-control"/>
+    <input @keyup="search()" v-model="searching" placeholder="Subscriber msisdn" class="mt-4 ml-2 w-25 form-control"/>
     <Results @resultsToDisplay="updatePageSize"/>
     <Pagination 
       v-if="totalProcesses.length > 0"
@@ -43,6 +43,7 @@ export default {
       currentPage: 0,
       pageSize: 10,
       searching:"",
+      keyPress:false,
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -54,10 +55,11 @@ export default {
   },
   updated(){
     //enable to fetch processes in live with the input
-    if (this.searching){
+    if (this.keyPress){
     store
     .dispatch('getProcessesByMsisdn', this.searching)
-    .then()
+    .then();
+    this.keyPress = false;
     }
   },
   methods: {
@@ -70,7 +72,10 @@ export default {
       this.currentPage = 0;
       this.pageSize = newPageSize;
       this.processesMsisdn;
-    }
+    },
+    search(){
+    this.keyPress = true;
+  }
   },
   computed: {
     processesMsisdn(){

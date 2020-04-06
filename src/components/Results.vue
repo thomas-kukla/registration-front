@@ -15,7 +15,7 @@ export default {
     display() {
       this.$emit('resultsToDisplay', this.results)
     }
-  }
+  },
 }
 </script>
 
