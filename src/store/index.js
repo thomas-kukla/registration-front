@@ -34,7 +34,7 @@ export default new Vuex.Store({
           resolve();
         })
         .catch((error) => {
-          console.log(error);
+          console.log("getUsersByMsisdnerror", error);
         })
       })
     },
@@ -47,7 +47,7 @@ export default new Vuex.Store({
           resolve();
         })
         .catch((error) => {
-          console.log(error);
+          console.log("getUserByIderror", error);
         })
       })
     },
@@ -60,7 +60,7 @@ export default new Vuex.Store({
             resolve()
           })
           .catch((error) => {
-            console.log(error);
+            console.log("getProcessByIderror :", error);
           })
         })
       },
@@ -73,7 +73,7 @@ export default new Vuex.Store({
             resolve()
           })
           .catch((error) => {
-            console.log(error);
+            console.log("getProcessesByMsisdn :",error);
           })
         })
       }
