@@ -6,16 +6,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    users:[],
+    registrations:[],
     processes:[],
     filter:[],
   },
   mutations: {
-    "SET_USERS_BY_FILTER"(state, filter){
-      return state.filter = filter;
+    "SET_REGISTRATIONS"(state, registrations){
+      return state.registrations = registrations;
     },
-    "SET_ONE_USER_BY_ID"(state, user) {
-      return state.users = user;
+    "SET_REGISTRATION_BY_ID"(state, registration) {
+      return state.registrations = registration;
+    },
+    "SET_REGISTRATIONS_BY_FILTER"(state, filter){
+      return state.filter = filter;
     },
     "SET_PROCESSES"(state, processes){
       return state.processes = processes;
@@ -28,85 +31,98 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getUserById({commit}, userId){
+    getRegistrations({commit}){
       return new Promise ((resolve) => {
         axios
-        .get('http://127.0.0.1:8000/api/users/' + userId)
+        .get('http://localhost:8000/api/registrations')
         .then((response) => {
-          commit('SET_ONE_USER_BY_ID', response.data)
+          commit('SET_REGISTRATIONS', response.data)
           resolve();
         })
         .catch((error) => {
-          console.log("getUserByIderror", error);
+          console.log("getregistrationByIderror", error);
         })
       })
     },
-    getUsersByMsisdn({commit}, filter){
+    getRegistrationById({commit}, registrationId){
+      return new Promise ((resolve) => {
+        axios
+        .get('http://localhost:8000/api/registrations/' + registrationId)
+        .then((response) => {
+          commit('SET_ONE_REGISTRATION_BY_ID', response.data)
+          resolve();
+        })
+        .catch((error) => {
+          console.log("getregistrationByIderror", error);
+        })
+      })
+    },
+    getRegistrationsByMsisdn({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get('http://localhost:8000/api/users?subscriberMsisdn=' + filter)
+        .get('http://localhost:8000/api/registrations?subscriberMsisdn=' + filter)
         .then((response) => {
-          commit('SET_USERS_BY_FILTER', response.data)
+          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
           resolve();
         })
         .catch((error) => {
-          console.log("getUsersByMsisdnerror", error);
+          console.log("getregistrationsByMsisdnerror", error);
         })
       })
     },
-    getUsersByFileId({commit}, filter){
+    getRegistrationsByFileId({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get('http://localhost:8000/api/users?fileId=' + filter)
+        .get('http://localhost:8000/api/registrations?fileId=' + filter)
         .then((response) => {
-          commit('SET_USERS_BY_FILTER', response.data)
+          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
           resolve();
         })
         .catch((error) => {
-          console.log("getUsersByMsisdnerror", error);
+          console.log("getregistrationsByMsisdnerror", error);
         })
       })
     },
-    getUsersByCreatedDate({commit}, filter){
+    getRegistrationsByCreatedDate({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get('http://localhost:8000/api/users?createdDate=' + filter)
+        .get('http://localhost:8000/api/registrations?createdDate=' + filter)
         .then((response) => {
-          commit('SET_USERS_BY_FILTER', response.data)
+          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
           resolve();
         })
         .catch((error) => {
-          console.log("getUsersByMsisdnerror", error);
+          console.log("getregistrationsByMsisdnerror", error);
         })
       })
     },
-    getUsersByState({commit}, filter){
+    getRegistrationsByState({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get('http://localhost:8000/api/users?state=' + filter)
+        .get('http://localhost:8000/api/registrations?state=' + filter)
         .then((response) => {
-          commit('SET_USERS_BY_FILTER', response.data)
+          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
           resolve();
         })
         .catch((error) => {
-          console.log("getUsersByMsisdnerror", error);
+          console.log("getregistrationsByMsisdnerror", error);
         })
       })
     },
-    getUsersByOperationType({commit}, filter){
+    getRegistrationsByOperationType({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get('http://localhost:8000/api/users?operationType=' + filter)
+        .get('http://localhost:8000/api/registrations?operationType=' + filter)
         .then((response) => {
-          commit('SET_USERS_BY_FILTER', response.data)
+          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
           resolve();
         })
         .catch((error) => {
-          console.log("getUsersByMsisdnerror", error);
+          console.log("getregistrationsByMsisdnerror", error);
         })
       })
     },
-    getAllProcesses({commit}){
+    getProcesses({commit}){
       return new Promise((resolve) => {
         axios
         .get('http://localhost:8000/api/processes')
@@ -201,10 +217,13 @@ export default new Vuex.Store({
   modules: {
   },
   getters: {
-    getUser(state) {
-      return state.users;
+    getRegistrations(state) {
+      return state.registrations;
     },
-    getUsersByFilter(state){
+    getRegistrationById(state) {
+      return state.registrations;
+    },
+    getRegistrationsByFilter(state){
       return state.filter;
     },
     getProcesses(state){
