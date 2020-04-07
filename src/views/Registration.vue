@@ -1,6 +1,9 @@
 <template>
   <div class="registration">
-    <input @keyup="search()" v-model="searching" placeholder="Subscriber msisdn" class="mt-2 ml-2 w-25 form-control"/>
+    <div>
+      <Dispatch @methods="updateMethod"/>
+      <input @keyup="search()" v-model="searching" placeholder="Filter" class="mt-2 ml-2 w-25 form-control"/>
+    </div>
     <results @resultsToDisplay="updatePageSize"/>
     <Pagination 
       v-if="totalUsers.length > 0"
@@ -22,6 +25,7 @@
 
 <script>
 
+import Dispatch from "@/components/Dispatch.vue"
 import RegistrationList from "@/components/RegistrationList"
 import Pagination from "@/components/Pagination.vue"
 import Results from "@/components/Results.vue"
@@ -29,6 +33,7 @@ import store from "@/store/index.js"
 
 export default {
   components: {
+    Dispatch,
     RegistrationList,
     Pagination,
     Results,
@@ -39,6 +44,7 @@ export default {
     currentPage: 0,
     pageSize: 10,
     searching:"",
+    method:"",
     keyPress:false,
     }
   },
@@ -53,7 +59,7 @@ export default {
   updated(){
     if (this.keyPress){
     store
-    .dispatch("getUsersByMsisdn",this.searching)
+    .dispatch(this.method,this.searching)
     .then();
     this.keyPress = false;
     }
@@ -70,7 +76,12 @@ export default {
       this.searching = "";
       this.usersMsisdn;
     },
-    //
+    updateMethod(newMethod){
+      this.method = newMethod;
+      this.searching ="";
+      this.usersMsisdn;
+      console.log("users update method", this.method)
+    },
     search(){
     this.keyPress = true;
     },
@@ -78,7 +89,7 @@ export default {
   computed: {
     usersMsisdn(){
       //fetch all users
-      let msisdnToDisplay = this.$store.getters.getUsersByMsisdn;
+      let msisdnToDisplay = this.$store.getters.getUsersByFilter;
 
       // Define two variables to slice processes
       // with the updatePage's method, it enables to display each slice by changing the currentPage
@@ -89,7 +100,7 @@ export default {
       return msisdnToDisplay.slice(a, b);
     },
     totalUsers() {
-      return this.$store.getters.getUsersByMsisdn;
+      return this.$store.getters.getUsersByFilter;
     },
   },
 }

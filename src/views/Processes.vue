@@ -3,8 +3,8 @@
     <div class="d-flex">
       <Dispatch @methods="updateMethod"/>
       <input @keyup="search()" v-model="searching" placeholder="Filter" class="mt-3 ml-2 w-25 form-control"/>
-      <Results @resultsToDisplay="updatePageSize"/>
     </div>
+    <Results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>
     <Pagination 
       v-if="totalProcesses.length > 0"
       :pagesToDisplay="totalProcesses" 
@@ -51,9 +51,14 @@ export default {
       keyPress:false,
     }
   },
+  beforeMount(){
+    store
+    .dispatch('getAllProcesses')
+    .then()
+  },
   beforeRouteEnter (to, from, next) {
     // enable to fetch processes before render th page
-     store
+    store
     .dispatch('getProcessesByMsisdn',"")
     .then()
     next()
@@ -62,7 +67,7 @@ export default {
     //enable to fetch processes in live with the input
     if (this.keyPress){
     store
-    .dispatch('getProcessesByMsisdn', this.searching)
+    .dispatch(this.method, this.searching)
     .then();
     this.keyPress = false;
     }
@@ -80,17 +85,19 @@ export default {
       this.processesMsisdn;
     },
     updateMethod(newMethod){
-      console.log("new Method", newMethod)
       this.method = newMethod;
+      this.searching ="";
+      this.processesMsisdn;
     },
     search(){
     this.keyPress = true;
-  }
+    this.processesMsisdn;
+    },
   },
   computed: {
     processesMsisdn(){
       //fetch all processes
-      let msisdnToDisplay = store.getters.getProcessesByMsisdn;
+      let msisdnToDisplay = store.getters.getProcessesByFilter;
 
       // Define two variables to slice processes
       // with the updatePage's method, it enables to display each slice by changing the currentPage
@@ -102,7 +109,7 @@ export default {
       return msisdnToDisplay.slice(a, b);
     },
     totalProcesses(){
-      return store.getters.getProcessesByMsisdn;
+      return store.getters.getProcesses;
     }
   },
 }

@@ -7,6 +7,8 @@
         <option value="getProcessesById">Id</option>
         <option value="getProcessesByCreatedDate">Process Created Date</option>
         <option value="getProcessesByLastModifieDate">Process Last modified date</option>
+        <option value="getUsersByState">State</option>
+        <option value="getUsersByOperationType">Operation Type</option>
       </select>
   </div>
 </template>

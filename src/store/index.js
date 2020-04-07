@@ -8,36 +8,26 @@ export default new Vuex.Store({
   state: {
     users:[],
     processes:[],
-    msisdn:[],
+    filter:[],
   },
   mutations: {
-    "SET_USERS_BY_MSISDN"(state, msisdnId){
-      return state.msisdn = msisdnId;
+    "SET_USERS_BY_FILTER"(state, filter){
+      return state.filter = filter;
     },
     "SET_ONE_USER_BY_ID"(state, user) {
       return state.users = user;
     },
+    "SET_PROCESSES"(state, processes){
+      return state.processes = processes;
+    },
     "SET_PROCESS_BY_ID"(state, process){
       return state.processes = process;
     },
-    "SET_PROCESSES_BY_MSISDN"(state, msisdnId){
-      return state.msisdn = msisdnId;
+    "SET_PROCESSES_BY_FILTER"(state, filter){
+      return state.filter = filter;
     }
   },
   actions: {
-    getUsersByMsisdn({commit}, msisdnId){
-      return new Promise((resolve) => {
-        axios
-        .get('http://localhost:8000/api/users?subscriberMsisdn=' + msisdnId)
-        .then(function(response){
-          commit('SET_USERS_BY_MSISDN', response.data)
-          resolve();
-        })
-        .catch((error) => {
-          console.log("getUsersByMsisdnerror", error);
-        })
-      })
-    },
     getUserById({commit}, userId){
       return new Promise ((resolve) => {
         axios
@@ -51,99 +41,180 @@ export default new Vuex.Store({
         })
       })
     },
-      getProcessById({commit}, processId){
-        return new Promise((resolve) => {
-          axios
-          .get('http://localhost:8000/api/processes/' + processId)
-          .then(function(response){
-            commit("SET_PROCESS_BY_ID", response.data)
-            resolve()
-          })
-          .catch((error) => {
-            console.log("getProcessByIderror :", error);
-          })
+    getUsersByMsisdn({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/users?subscriberMsisdn=' + filter)
+        .then((response) => {
+          commit('SET_USERS_BY_FILTER', response.data)
+          resolve();
         })
-      },
-      getProcessesByMsisdn({commit}, msisdnId){
-        return new Promise((resolve) => {
-          axios
-          .get('http://localhost:8000/api/processes?subscriberMsisdn=' + msisdnId)
-          .then((response) => {
-            commit("SET_PROCESSES_BY_MSISDN", response.data)
-            resolve()
-          })
-          .catch((error) => {
-            console.log("getProcessesByMsisdn :",error);
-          })
+        .catch((error) => {
+          console.log("getUsersByMsisdnerror", error);
         })
-      },
-      getProcessesByFileId({commit}, msisdnId){
-        return new Promise((resolve) => {
-          axios
-          .get('http://localhost:8000/api/processes?fileId=' + msisdnId)
-          .then((response) => {
-            commit("SET_PROCESSES_BY_MSISDN", response.data)
-            resolve()
-          })
-          .catch((error) => {
-            console.log("getProcessesByMsisdn :",error);
-          })
-        })
-      },
-      getProcessesByCreatedDate({commit}, msisdnId){
-        return new Promise((resolve) => {
-          axios
-          .get('http://localhost:8000/api/processes?createdDate=' + msisdnId)
-          .then((response) => {
-            commit("SET_PROCESSES_BY_MSISDN", response.data)
-            resolve()
-          })
-          .catch((error) => {
-            console.log("getProcessesByMsisdn :",error);
-          })
-        })
-      },
-      getProcessesByLastModifieDate({commit}, msisdnId){
-        return new Promise((resolve) => {
-          axios
-          .get('http://localhost:8000/api/processes?lastModifiedDate=' + msisdnId)
-          .then((response) => {
-            commit("SET_PROCESSES_BY_MSISDN", response.data)
-            resolve()
-          })
-          .catch((error) => {
-            console.log("getProcessesByMsisdn :",error);
-          })
-        })
-      },
-      getProcessesById({commit}, msisdnId){
-        return new Promise((resolve) => {
-          axios
-          .get('http://localhost:8000/api/processes?id=' + msisdnId)
-          .then((response) => {
-            commit("SET_PROCESSES_BY_MSISDN", response.data)
-            resolve()
-          })
-          .catch((error) => {
-            console.log("getProcessesByMsisdn :",error);
-          })
-        })
-      },
+      })
     },
+    getUsersByFileId({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/users?fileId=' + filter)
+        .then((response) => {
+          commit('SET_USERS_BY_FILTER', response.data)
+          resolve();
+        })
+        .catch((error) => {
+          console.log("getUsersByMsisdnerror", error);
+        })
+      })
+    },
+    getUsersByCreatedDate({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/users?createdDate=' + filter)
+        .then((response) => {
+          commit('SET_USERS_BY_FILTER', response.data)
+          resolve();
+        })
+        .catch((error) => {
+          console.log("getUsersByMsisdnerror", error);
+        })
+      })
+    },
+    getUsersByState({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/users?state=' + filter)
+        .then((response) => {
+          commit('SET_USERS_BY_FILTER', response.data)
+          resolve();
+        })
+        .catch((error) => {
+          console.log("getUsersByMsisdnerror", error);
+        })
+      })
+    },
+    getUsersByOperationType({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/users?operationType=' + filter)
+        .then((response) => {
+          commit('SET_USERS_BY_FILTER', response.data)
+          resolve();
+        })
+        .catch((error) => {
+          console.log("getUsersByMsisdnerror", error);
+        })
+      })
+    },
+    getAllProcesses({commit}){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/processes')
+        .then((response) => {
+          commit("SET_PROCESSES", response.data)
+          resolve()
+        })
+        .catch((error) => {
+          console.log("get all processes", error)
+        })
+      })
+    },
+    getProcessById({commit}, processId){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/processes/' + processId)
+        .then((response) => {
+          commit("SET_PROCESS_BY_ID", response.data)
+          resolve()
+        })
+        .catch((error) => {
+          console.log("getProcessByIderror :", error);
+        })
+      })
+      },
+    getProcessesByMsisdn({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/processes?subscriberMsisdn=' + filter)
+        .then((response) => {
+          commit("SET_PROCESSES_BY_FILTER", response.data)
+          resolve()
+        })
+        .catch((error) => {
+          console.log("getProcessesByMsisdn :",error);
+        })
+      })
+    },
+    getProcessesByFileId({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/processes?fileId=' + filter)
+        .then((response) => {
+          commit("SET_PROCESSES_BY_FILTER", response.data)
+          resolve()
+        })
+        .catch((error) => {
+          console.log("getProcessesByMsisdn :",error);
+        })
+      })
+    },
+    getProcessesByCreatedDate({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/processes?createdDate=' + filter)
+        .then((response) => {
+          commit("SET_PROCESSES_BY_FILTER", response.data)
+          resolve()
+        })
+        .catch((error) => {
+          console.log("getProcessesByMsisdn :",error);
+        })
+      })
+    },
+    getProcessesByLastModifieDate({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/processes?lastModifiedDate=' + filter)
+        .then((response) => {
+          commit("SET_PROCESSES_BY_FILTER", response.data)
+          resolve()
+        })
+        .catch((error) => {
+          console.log("getProcessesByMsisdn :",error);
+        })
+      })
+    },
+    getProcessesById({commit}, filter){
+      return new Promise((resolve) => {
+        axios
+        .get('http://localhost:8000/api/processes?id=' + filter)
+        .then((response) => {
+          commit("SET_PROCESSES_BY_FILTER", response.data)
+          resolve()
+        })
+        .catch((error) => {
+          console.log("getProcessesByMsisdn :",error);
+        })
+      })
+    },
+  },
   modules: {
   },
   getters: {
     getUser(state) {
       return state.users;
     },
+    getUsersByFilter(state){
+      return state.filter;
+    },
+    getProcesses(state){
+      return state.processes;
+    },
     getProcessById(state){
       return state.processes;
     },
-    getProcessesByMsisdn(state){
-      return state.msisdn;
-    },
-    getUsersByMsisdn(state){
-      return state.msisdn;
+    getProcessesByFilter(state){
+      return state.filter;
     }
   }
 })
