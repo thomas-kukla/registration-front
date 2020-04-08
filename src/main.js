@@ -7,8 +7,6 @@ import 'boosted'
 
 Vue.config.productionTip = false
 
-window.bus = new Vue()
-
 new Vue({
   router,
   store,

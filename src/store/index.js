@@ -49,7 +49,7 @@ export default new Vuex.Store({
         axios
         .get('http://localhost:8000/api/registrations/' + registrationId)
         .then((response) => {
-          commit('SET_ONE_REGISTRATION_BY_ID', response.data)
+          commit('SET_REGISTRATION_BY_ID', response.data)
           resolve();
         })
         .catch((error) => {

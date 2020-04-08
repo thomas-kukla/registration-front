@@ -31,7 +31,8 @@ export default {
         },
     computed: {
         registrationFromBackend() {
-            return store.getters.getRegistration
+            console.log(store.getters.getRegistrations)
+            return store.getters.getRegistrations;
     }
   },
 }
