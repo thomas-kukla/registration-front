@@ -94,9 +94,6 @@ export default {
     GoBack,
   },
   props:['registrationDetails'],
-  beforeMount(){
-      //console.log(this.registrationDetails)
-  }
 }
 
 </script>

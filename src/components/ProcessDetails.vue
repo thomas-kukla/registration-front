@@ -48,6 +48,9 @@ export default {
   components: {
     GoBack,
   },
+  beforeMount(){
+    console.log(this.process)
+  }
 }
 
 </script>

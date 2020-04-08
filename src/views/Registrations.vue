@@ -54,7 +54,7 @@ export default {
   },
     beforeMount(){
     store
-    .dispatch('getRegistrationsBy')
+    .dispatch('getRegistrationsBy',"")
     .then()
   },
   beforeRouteEnter (to, from, next) {

@@ -1,7 +1,7 @@
 <template>
   <div>
       <p v-if="errorMessage">Message d'erreur : {{errorMessage}}</p>
-      <registration-details :registrationDetails="registrationFromBackend"/>
+      <registration-details :registrationDetails="registration"/>
   </div>
 </template>
 
@@ -30,9 +30,8 @@ export default {
             })
         },
     computed: {
-        registrationFromBackend() {
-            console.log(store.getters.getRegistrations)
-            return store.getters.getRegistrations;
+        registration() {
+            return store.getters.getRegistrationById;
     }
   },
 }

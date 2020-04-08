@@ -17,21 +17,19 @@ export default new Vuex.Store({
     "SET_REGISTRATION_BY_ID"(state, registration) {
       return state.registrations = registration;
     },
-    "SET_PROCESSES"(state, processes){
-      return state.processes = processes;
-    },
-    "SET_PROCESS_BY_ID"(state, process){
-      return state.processes = process;
-    },
     "SET_PROCESSES_BY_FILTER"(state, filter){
       return state.filter = filter;
-    }
+    },
+    "SET_PROCESS_BY_ID"(state, process){
+      console.log("processe dans le store",process)
+      return state.processes = process;
+    },
   },
   actions: {
     getRegistrationsBy({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_REGISTRATIONS + filter.criteria + filter.search)
+        .get(process.env.VUE_APP_API_REGISTRATIONS + "?" + filter.criteria + filter.search)
         .then((response) => {
           commit('SET_REGISTRATIONS_BY_FILTER', response.data)
           resolve();
@@ -54,12 +52,12 @@ export default new Vuex.Store({
         })
       })
     },
-    getProcesses({commit}){
+    getProcessesBy({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PROCESSES)
+        .get(process.env.VUE_APP_API_PROCESSES + "?" + filter.criteria + filter.search)
         .then((response) => {
-          commit("SET_PROCESSES", response.data)
+          commit("SET_PROCESSES_BY_FILTER", response.data)
           resolve()
         })
         .catch((error) => {
@@ -68,6 +66,7 @@ export default new Vuex.Store({
       })
     },
     getProcessById({commit}, processId){
+      console.log("processeId", processId)
       return new Promise((resolve) => {
         axios
         .get(process.env.VUE_APP_API_PROCESSES + processId)
@@ -79,93 +78,22 @@ export default new Vuex.Store({
           console.log("getProcessByIderror :", error);
         })
       })
-      },
-    getProcessesByMsisdn({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PROCESSES + 'subscriberMsisdn=' + filter)
-        .then((response) => {
-          commit("SET_PROCESSES_BY_FILTER", response.data)
-          resolve()
-        })
-        .catch((error) => {
-          console.log("getProcessesByMsisdn :",error);
-        })
-      })
-    },
-    getProcessesByFileId({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PROCESSES + 'fileId=' + filter)
-        .then((response) => {
-          commit("SET_PROCESSES_BY_FILTER", response.data)
-          resolve()
-        })
-        .catch((error) => {
-          console.log("getProcessesByMsisdn :",error);
-        })
-      })
-    },
-    getProcessesByCreatedDate({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PROCESSES + 'createdDate=' + filter)
-        .then((response) => {
-          commit("SET_PROCESSES_BY_FILTER", response.data)
-          resolve()
-        })
-        .catch((error) => {
-          console.log("getProcessesByMsisdn :",error);
-        })
-      })
-    },
-    getProcessesByLastModifieDate({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PROCESSES + 'lastModifiedDate=' + filter)
-        .then((response) => {
-          commit("SET_PROCESSES_BY_FILTER", response.data)
-          resolve()
-        })
-        .catch((error) => {
-          console.log("getProcessesByMsisdn :",error);
-        })
-      })
-    },
-    getProcessesById({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PROCESSES + 'id=' + filter)
-        .then((response) => {
-          commit("SET_PROCESSES_BY_FILTER", response.data)
-          resolve()
-        })
-        .catch((error) => {
-          console.log("getProcessesByMsisdn :",error);
-        })
-      })
     },
   },
   modules: {
   },
   getters: {
-    getRegistrations(state) {
-      return state.registrations;
+    getRegistrationsBy(state){
+      return state.filter;
     },
     getRegistrationById(state) {
       return state.registrations;
     },
-    getRegistrationsBy(state){
+    getProcessesBy(state){
       return state.filter;
-    },
-    getProcesses(state){
-      return state.processes;
     },
     getProcessById(state){
       return state.processes;
     },
-    getProcessesByFilter(state){
-      return state.filter;
-    }
   }
 })

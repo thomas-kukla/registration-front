@@ -30,6 +30,7 @@ export default {
   },
     computed: {
     process(){
+      console.log(store.getters.getProcessById)
         return store.getters.getProcessById
         }
     }
