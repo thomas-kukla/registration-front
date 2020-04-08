@@ -2,22 +2,20 @@
   <div class="form-group w-25 mt-3 ml-2">
       <select v-model="methodChoosen" @change="chooseMethods()" class="custom-select">
         <option value="">Criterias</option>
-        <option v-if="processesView" value="getProcessesByMsisdn">Process Subscriber Msisdn</option>
-        <option v-if="processesView" value="getProcessesByFileId">Process File Id</option>
-        <option v-if="processesView" value="getProcessesById">Process Id</option>
-        <option v-if="processesView" value="getProcessesByCreatedDate">Process Created Date</option>
-        <option v-if="processesView" value="getProcessesByLastModifieDate">Process Last modified date</option>
-        <option v-if="registrationsView" value="getRegistrationsByFileId">Registration File Id</option>
-        <option v-if="registrationsView" value="getRegistrationsByMsisdn">Registration Subscriber Msisdn</option>
-        <option v-if="registrationsView" value="getRegistrationsByState">State</option>
-        <option v-if="registrationsView" value="getRegistrationsByOperationType">Operation Type</option>
-        <option v-if="registrationsView" value="getRegistrationsByCreatedDate">Created Date</option>
+        <option value="subscriberMsisdn">Process Subscriber Msisdn</option>
+        <option value="fileId">Process File Id</option>
+        <option v-if="processesView" value="id">Process Id</option>
+        <option value="createdDate">Process Created Date</option>
+        <option value="lastModifieDate">Process Last modified date</option>
+        <option value="state">State</option>
+        <option value="operationType">Operation Type</option>
       </select>
   </div>
 </template>
 
 <script>
 export default {
+  //props:['registrations', 'processes'],
   data() {
     return {
       methodChoosen:"",

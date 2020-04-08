@@ -11,14 +11,11 @@ export default new Vuex.Store({
     filter:[],
   },
   mutations: {
-    "SET_REGISTRATIONS"(state, registrations){
-      return state.registrations = registrations;
+    "SET_REGISTRATIONS_BY_FILTER"(state, filter){
+      return state.filter = filter;
     },
     "SET_REGISTRATION_BY_ID"(state, registration) {
       return state.registrations = registration;
-    },
-    "SET_REGISTRATIONS_BY_FILTER"(state, filter){
-      return state.filter = filter;
     },
     "SET_PROCESSES"(state, processes){
       return state.processes = processes;
@@ -31,23 +28,23 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getRegistrations({commit}){
-      return new Promise ((resolve) => {
+    getRegistrationsBy({commit}, filter){
+      return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'registrations')
+        .get(process.env.VUE_APP_API_REGISTRATIONS + filter.criteria + filter.search)
         .then((response) => {
-          commit('SET_REGISTRATIONS', response.data)
+          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
           resolve();
         })
         .catch((error) => {
-          console.log("getregistrationByIderror", error);
+          console.log("getregistrationsBy", error);
         })
       })
     },
     getRegistrationById({commit}, registrationId){
       return new Promise ((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'registrations/' + registrationId)
+        .get(process.env.VUE_APP_API_REGISTRATIONS + registrationId)
         .then((response) => {
           commit('SET_REGISTRATION_BY_ID', response.data)
           resolve();
@@ -57,75 +54,10 @@ export default new Vuex.Store({
         })
       })
     },
-    getRegistrationsByMsisdn({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PATH + 'registrations?subscriberMsisdn=' + filter)
-        .then((response) => {
-          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
-          resolve();
-        })
-        .catch((error) => {
-          console.log("getregistrationsByMsisdnerror", error);
-        })
-      })
-    },
-    getRegistrationsByFileId({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PATH + 'registrations?fileId=' + filter)
-        .then((response) => {
-          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
-          resolve();
-        })
-        .catch((error) => {
-          console.log("getregistrationsByMsisdnerror", error);
-        })
-      })
-    },
-    getRegistrationsByCreatedDate({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PATH + 'registrations?createdDate=' + filter)
-        .then((response) => {
-          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
-          resolve();
-        })
-        .catch((error) => {
-          console.log("getregistrationsByMsisdnerror", error);
-        })
-      })
-    },
-    getRegistrationsByState({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PATH + 'registrations?state=' + filter)
-        .then((response) => {
-          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
-          resolve();
-        })
-        .catch((error) => {
-          console.log("getregistrationsByMsisdnerror", error);
-        })
-      })
-    },
-    getRegistrationsByOperationType({commit}, filter){
-      return new Promise((resolve) => {
-        axios
-        .get(process.env.VUE_APP_API_PATH + 'registrations?operationType=' + filter)
-        .then((response) => {
-          commit('SET_REGISTRATIONS_BY_FILTER', response.data)
-          resolve();
-        })
-        .catch((error) => {
-          console.log("getregistrationsByMsisdnerror", error);
-        })
-      })
-    },
     getProcesses({commit}){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'processes')
+        .get(process.env.VUE_APP_API_PROCESSES)
         .then((response) => {
           commit("SET_PROCESSES", response.data)
           resolve()
@@ -138,7 +70,7 @@ export default new Vuex.Store({
     getProcessById({commit}, processId){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'processes/' + processId)
+        .get(process.env.VUE_APP_API_PROCESSES + processId)
         .then((response) => {
           commit("SET_PROCESS_BY_ID", response.data)
           resolve()
@@ -151,7 +83,7 @@ export default new Vuex.Store({
     getProcessesByMsisdn({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'processes?subscriberMsisdn=' + filter)
+        .get(process.env.VUE_APP_API_PROCESSES + 'subscriberMsisdn=' + filter)
         .then((response) => {
           commit("SET_PROCESSES_BY_FILTER", response.data)
           resolve()
@@ -164,7 +96,7 @@ export default new Vuex.Store({
     getProcessesByFileId({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'processes?fileId=' + filter)
+        .get(process.env.VUE_APP_API_PROCESSES + 'fileId=' + filter)
         .then((response) => {
           commit("SET_PROCESSES_BY_FILTER", response.data)
           resolve()
@@ -177,7 +109,7 @@ export default new Vuex.Store({
     getProcessesByCreatedDate({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'processes?createdDate=' + filter)
+        .get(process.env.VUE_APP_API_PROCESSES + 'createdDate=' + filter)
         .then((response) => {
           commit("SET_PROCESSES_BY_FILTER", response.data)
           resolve()
@@ -190,7 +122,7 @@ export default new Vuex.Store({
     getProcessesByLastModifieDate({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'processes?lastModifiedDate=' + filter)
+        .get(process.env.VUE_APP_API_PROCESSES + 'lastModifiedDate=' + filter)
         .then((response) => {
           commit("SET_PROCESSES_BY_FILTER", response.data)
           resolve()
@@ -203,7 +135,7 @@ export default new Vuex.Store({
     getProcessesById({commit}, filter){
       return new Promise((resolve) => {
         axios
-        .get(process.env.VUE_APP_API_PATH + 'processes?id=' + filter)
+        .get(process.env.VUE_APP_API_PROCESSES + 'id=' + filter)
         .then((response) => {
           commit("SET_PROCESSES_BY_FILTER", response.data)
           resolve()
@@ -223,7 +155,7 @@ export default new Vuex.Store({
     getRegistrationById(state) {
       return state.registrations;
     },
-    getRegistrationsByFilter(state){
+    getRegistrationsBy(state){
       return state.filter;
     },
     getProcesses(state){
