@@ -5,7 +5,7 @@
         <h3 v-else class="mt-3">{{ processes.length }} process on page</h3>
     </div>
     <div class="table-responsive mt-3">
-     <table class="table users">
+     <table class="table">
         <thead>
           <tr>
             <th scope="col">Subscriber msisdn</th>
