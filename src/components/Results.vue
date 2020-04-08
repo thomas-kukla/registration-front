@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input class="form-control mt-3 ml-2 w-25" v-model="results" @keypress.enter="display()" placeholder="Results"/>
+    <input class="form-control mt-1 ml-2 w-25" v-model="results" @keypress.enter="display()" placeholder="Results"/>
     <h6 v-if="errorMessage">{{errorMessage}}</h6>
   </div>
 </template>
@@ -10,8 +10,8 @@ export default {
   props:['pageSize'],
   data(){
     return {
-      results:"",
       errorMessage:"",
+      results:"",
     }
   },
   beforeMount(){
