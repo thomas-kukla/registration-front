@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ['pagesToDisplay', 'currentPage', 'pageSize'],
+  props: ['pagesToDisplay', 'currentPage', 'pageSize', 'registrations'],
   methods: {
     updatePages(pageNumber) {
       this.$emit('update', pageNumber);

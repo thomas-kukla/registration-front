@@ -1,11 +1,11 @@
 <template>
   <div class="registration">
-    <div class="d-flex">
-      <Dispatch @methods="updateMethod"/>
+    <div>
+      <dispatch @methods="updateMethod"/>
       <input @keydown="search()" v-model="searching" placeholder="Filter" class="mt-3 ml-2 w-25 form-control"/>
     </div>
-    <Results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>
-    <Pagination 
+    <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>
+    <pagination 
       v-if="totalProcesses.length > 0"
       :pagesToDisplay="totalProcesses" 
       :currentPage="currentPage" 
@@ -17,7 +17,7 @@
     :currentPage="currentPage" 
     :pageSize="pageSize"
     />
-    <Pagination
+    <pagination
       v-if="totalProcesses.length > 0"
       :pagesToDisplay="totalProcesses" 
       :currentPage="currentPage" 

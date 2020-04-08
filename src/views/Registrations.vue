@@ -1,21 +1,22 @@
 <template>
   <div class="registration">
     <div>
-      <Dispatch @methods="updateMethod"/>
+      <dispatch @methods="updateMethod"/>
       <input @keydown="search()" v-model="searching" placeholder="Filter" class="mt-2 ml-2 w-25 form-control"/>
     </div>
-    <results @resultsToDisplay="updatePageSize"/>
-    <Pagination 
+    <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>
+    <pagination 
       v-if="totalRegistrations.length > 0"
       :pagesToDisplay="totalRegistrations" 
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
     />
-    <registration-list :registrations="registrationsMsisdn"/>
-    <Pagination
+    <registration-list :registrations="registrationsFilter"/>
+    <pagination
       v-if="totalRegistrations.length > 0"
-      :pagesToDisplay="totalRegistrations" 
+      :pagesToDisplay="totalRegistrations"
+      :registrations="registrationsFilter"
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
@@ -79,19 +80,19 @@ export default {
       this.currentPage = 0;
       this.pageSize = newPageSize;
       this.searching = "";
-      this.RegistrationsMsisdn;
+      this.registrationsFilter;
     },
     updateMethod(newMethod){
       this.method = newMethod;
       this.searching ="";
-      this.RegistrationsMsisdn;
+      this.registrationsFilter;
     },
     search(){
     this.keyPress = true;
     },
   },
   computed: {
-    registrationsMsisdn(){
+    registrationsFilter(){
       //fetch all Registrations
       let msisdnToDisplay = this.$store.getters.getRegistrationsByFilter;
 
