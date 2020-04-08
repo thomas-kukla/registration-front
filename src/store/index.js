@@ -26,7 +26,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getRegistrationsBy({commit}, filter){
+    getRegistrationsByFilter({commit}, filter){
       return new Promise((resolve) => {
         axios
         .get(process.env.VUE_APP_API_REGISTRATIONS + "?" + filter.criteria + filter.search)
@@ -52,7 +52,7 @@ export default new Vuex.Store({
         })
       })
     },
-    getProcessesBy({commit}, filter){
+    getProcessesByFilter({commit}, filter){
       return new Promise((resolve) => {
         axios
         .get(process.env.VUE_APP_API_PROCESSES + "?" + filter.criteria + filter.search)
@@ -83,13 +83,13 @@ export default new Vuex.Store({
   modules: {
   },
   getters: {
-    getRegistrationsBy(state){
+    getRegistrationsByFilter(state){
       return state.filter;
     },
     getRegistrationById(state) {
       return state.registrations;
     },
-    getProcessesBy(state){
+    getProcessesByFilter(state){
       return state.filter;
     },
     getProcessById(state){

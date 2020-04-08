@@ -54,13 +54,13 @@ export default {
   },
     beforeMount(){
     store
-    .dispatch('getRegistrationsBy',"")
+    .dispatch('getRegistrationsByFilter',"")
     .then()
   },
   beforeRouteEnter (to, from, next) {
     // enable to fetch processes before render th page
      store
-    .dispatch("getRegistrationsBy","")
+    .dispatch("getRegistrationsByFilter","")
     .then()
     next()
   },
@@ -69,7 +69,7 @@ export default {
     if (this.keyPress){
       this.method.search = this.searching;
       store
-      .dispatch("getRegistrationsBy",this.method)
+      .dispatch("getRegistrationsByFilter",this.method)
       .then();
       this.keyPress = false;
     }
@@ -98,7 +98,7 @@ export default {
   computed: {
     registrationsFilter(){
       //fetch all Registrations
-      let msisdnToDisplay = store.getters.getRegistrationsBy;
+      let msisdnToDisplay = store.getters.getRegistrationsByFilter;
 
       // Define two variables to slice processes
       // with the updatePage's method, it enables to display each slice by changing the currentPage
@@ -109,7 +109,7 @@ export default {
       return msisdnToDisplay.slice(a, b);
     },
     totalRegistrations() {
-      return store.getters.getRegistrationsBy;
+      return store.getters.getRegistrationsByFilter;
     },
   },
 }

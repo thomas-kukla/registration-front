@@ -57,13 +57,13 @@ export default {
   },
   beforeMount(){
     store
-    .dispatch('getProcessesBy',"")
+    .dispatch('getProcessesByFilter',"")
     .then()
   },
   beforeRouteEnter (to, from, next) {
     // enable to fetch processes before render th page
     store
-    .dispatch('getProcessesBy',"")
+    .dispatch('getProcessesByFilter',"")
     .then()
     next()
   },
@@ -72,7 +72,7 @@ export default {
     if (this.keyPress){
       this.method.search = this.searching;
       store
-      .dispatch('getProcessesBy', this.method)
+      .dispatch('getProcessesByFilter', this.method)
       .then();
       this.keyPress = false;
     }
@@ -102,7 +102,7 @@ export default {
   computed: {
     processesMsisdn(){
       //fetch all processes
-      let msisdnToDisplay = store.getters.getProcessesBy;
+      let msisdnToDisplay = store.getters.getProcessesByFilter;
 
       // Define two variables to slice processes
       // with the updatePage's method, it enables to display each slice by changing the currentPage
@@ -114,7 +114,7 @@ export default {
       return msisdnToDisplay.slice(a, b);
     },
     totalProcesses(){
-      return store.getters.getProcessesBy;
+      return store.getters.getProcessesByFilter;
     }
   },
 }
