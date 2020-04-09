@@ -8,7 +8,6 @@
 <script>
 
 import RegistrationDetails from "@/components/RegistrationDetails.vue"
-import store from "@/store/index.js"
 
 export default {
     components: {
@@ -21,7 +20,7 @@ export default {
     },
     props: ['registrationId'],
     beforeMount() {
-            store
+            this.$store
             .dispatch("getRegistrationById", this.$route.params.registrationId)
             .then(() => {
             })
@@ -31,7 +30,7 @@ export default {
         },
     computed: {
         registration() {
-            return store.getters.getRegistrationById;
+            return this.$store.getters.getRegistrationById;
     }
   },
 }
