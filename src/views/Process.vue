@@ -8,7 +8,6 @@
 <script>
 
 import ProcessDetails from "@/components/ProcessDetails"
-import store from "@/store/index.js"
 
 export default {
     props:['processId'],
@@ -21,7 +20,7 @@ export default {
       }
     },
     beforeMount() {
-    store
+    this.$store
     .dispatch("getProcessById", this.$route.params.processId)
     .then()
     .catch(error => {
@@ -30,7 +29,7 @@ export default {
   },
     computed: {
     process(){
-        return store.getters.getProcessById
+        return this.$store.getters.getProcessById
         }
     }
 }

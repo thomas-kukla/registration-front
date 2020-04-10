@@ -11,8 +11,8 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <router-link :to="{
-              name: 'registration'
-              }" class="nav-link">Registration</router-link>
+              name: 'registrations'
+              }" class="nav-link">Registrations</router-link>
           </li>
           <li class="nav-item">
             <router-link :to="{

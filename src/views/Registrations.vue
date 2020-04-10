@@ -1,25 +1,22 @@
 <template>
   <div class="registration">
     <div>
-      <dispatch @methods="updateMethod"/>
-      <input @keydown="search()" v-model="searching" placeholder="Filter" class="mt-3 ml-2 w-25 form-control"/>
+      <dispatch @methods="updateMethod" :registrations="totalRegistrations"/>
+      <input @keydown="search()" v-model="searching" placeholder="Filter" class="mt-2 ml-2 w-25 form-control"/>
     </div>
     <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>
     <pagination 
-      v-if="totalProcesses.length > 0"
-      :pagesToDisplay="totalProcesses" 
+      v-if="totalRegistrations.length > 0"
+      :pagesToDisplay="totalRegistrations" 
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
     />
-    <process
-    :processes="processesMsisdn" 
-    :currentPage="currentPage" 
-    :pageSize="pageSize"
-    />
+    <registration-list :registrations="registrationsFilter"/>
     <pagination
-      v-if="totalProcesses.length > 0"
-      :pagesToDisplay="totalProcesses" 
+      v-if="totalRegistrations.length > 0"
+      :pagesToDisplay="totalRegistrations"
+      :registrations="registrationsFilter"
       :currentPage="currentPage" 
       :pageSize="pageSize"
       @update="updatePage"
@@ -30,49 +27,49 @@
 <script>
 
 import Dispatch from "@/components/Dispatch.vue"
+import RegistrationList from "@/components/RegistrationList"
 import Pagination from "@/components/Pagination.vue"
-import Process from "@/components/ProcessesList.vue"
 import Results from "@/components/Results.vue"
 import store from "@/store/index.js"
 
 export default {
   components: {
     Dispatch,
+    RegistrationList,
     Pagination,
-    Process,
     Results,
   },
-  data() {
+  data(){
     return {
-      errorMessage:"",
-      currentPage: 0,
-      pageSize: 10,
-      searching:"",
-      keyPress:false,
-      method: {
-        criteria: "",
-        search: ""
-      },
+    errorMessage:"",
+    currentPage: 0,
+    pageSize: 10,
+    searching:"",
+    method:{
+      criteria:"",
+      search:""
+    },
+    keyPress:false,
     }
   },
-  beforeMount(){
+    beforeMount(){
     store
-    .dispatch('getProcessesByFilter',"")
+    .dispatch('getRegistrationsByFilter',"")
     .then()
   },
   beforeRouteEnter (to, from, next) {
     // enable to fetch processes before render th page
-    store
-    .dispatch('getProcessesByFilter',"")
+     store
+    .dispatch("getRegistrationsByFilter","")
     .then()
     next()
   },
+  // enable to fetch processes in live with the input
   updated(){
-    //fetch processes in live with the input
     if (this.keyPress){
       this.method.search = this.searching;
       store
-      .dispatch('getProcessesByFilter', this.method)
+      .dispatch("getRegistrationsByFilter",this.method)
       .then();
       this.keyPress = false;
     }
@@ -81,28 +78,27 @@ export default {
     // catch the event emit by the click on the navigations arrows and change currentPage
     // in computed, it enables to display the next processes
     updatePage(pageNumber){
-      this.currentPage = pageNumber;
+      return this.currentPage = pageNumber;
     },
     updatePageSize(newPageSize){
       this.currentPage = 0;
       this.pageSize = newPageSize;
       this.searching = "";
-      this.processesMsisdn;
+      this.registrationsFilter;
     },
     updateMethod(newMethod){
       this.method.criteria = newMethod + "=";
-      this.searching = "";
-      this.processesMsisdn;
+      this.searching ="";
+      this.registrationsFilter;
     },
     search(){
     this.keyPress = true;
-    this.processesMsisdn;
     },
   },
   computed: {
-    processesMsisdn(){
-      //fetch all processes
-      let msisdnToDisplay = store.getters.getProcessesByFilter;
+    registrationsFilter(){
+      //fetch all Registrations
+      let msisdnToDisplay = store.getters.getRegistrationsByFilter;
 
       // Define two variables to slice processes
       // with the updatePage's method, it enables to display each slice by changing the currentPage
@@ -110,12 +106,11 @@ export default {
 
       //using parseInt to avoid concatenation instead of addition
       let b = a + parseInt(this.pageSize);
-
       return msisdnToDisplay.slice(a, b);
     },
-    totalProcesses(){
-      return store.getters.getProcessesByFilter;
-    }
+    totalRegistrations() {
+      return store.getters.getRegistrationsByFilter;
+    },
   },
 }
 </script>

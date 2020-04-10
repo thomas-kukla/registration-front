@@ -10,23 +10,23 @@ const routes = [
     component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
   },
   {
-    path: '/registration',
-    name: 'registration',
-    component: () => import(/* webpackChunkName: "registration" */ '../views/Registration.vue')
+    path: '/registrations',
+    name: 'registrations',
+    component: () => import(/* webpackChunkName: "registrations" */ '../views/Registrations.vue')
   },
   {
     path: '/processes',
     name: 'processes',
-    component: () => import(/* webpackChunkName: "process" */ '../views/Processes.vue'),
+    component: () => import(/* webpackChunkName: "processes" */ '../views/Processes.vue'),
   },
   {
-    path: '/user/:userId',
-    name: 'user',
+    path: '/registrations/:registrationId',
+    name: 'registration',
     props: true,
-    component: () => import(/* webpackChunkName: "details" */ '../views/User.vue')
+    component: () => import(/* webpackChunkName: "registrationDetails" */ '../views/Registration.vue')
   },
   {
-    path: '/process/:processId',
+    path: '/processes/:processId',
     name: 'process',
     props: true,
     component: () => import(/* webpackChunkName: "processDetails" */ '../views/Process.vue')
