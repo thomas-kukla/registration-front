@@ -26,11 +26,9 @@ export default {
   beforeMount(){
     if(this.$router.history.current.name == "registrations"){
       this.registrationsView = true;
-      console.log("processesView", this.processesView, "registrationsView", this.registrationsView)
     }
     if(this.$router.history.current.name == "processes"){
       this.processesView = true;
-      console.log("processesView", this.processesView, "registrationsView", this.registrationsView)
     }
   },
   methods: {

@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <div>
-      <dispatch @methods="updateMethod"/>
+      <dispatch @methods="updateMethod" :registrations="totalRegistrations"/>
       <input @keydown="search()" v-model="searching" placeholder="Filter" class="mt-2 ml-2 w-25 form-control"/>
     </div>
     <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>

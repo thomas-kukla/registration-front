@@ -2,7 +2,7 @@
   <div class="mt-3">
       <ul class="d-flex flex-row justify-content-center">
         <span v-if="showPreviousLink()" @click="updatePages(currentPage - 1)" class="page-item"><a class="page-link"></a></span>
-        <span class="page-link ml-3 mr-3">{{ currentPage + 1 }} of {{ totalPages() }}</span>
+        <span v-if="totalPages()" class="page-link ml-3 mr-3">{{ currentPage + 1 }} of {{ totalPages() }}</span>
         <span v-if="showNextLink()" @click="updatePages(currentPage + 1)" class="page-item"><a class="page-link"></a></span>
       </ul>
   </div>
@@ -16,8 +16,15 @@ export default {
       this.$emit('update', pageNumber);
     },
     totalPages(){
-      return Math.ceil(this.pagesToDisplay.length / this.pageSize);
-      },
+      let total = Math.ceil(this.pagesToDisplay.length / this.pageSize)
+      if(total == 0){
+      this.showPreviousLink = 0;
+      this.showNextLink = 0;
+      return false;
+      } else {
+        return total;
+      }
+    },
     showPreviousLink(){
       return this.currentPage == 0 ? false : true;
     },
