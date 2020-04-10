@@ -38,7 +38,7 @@
                     <p class="row">Start Date: {{ value.startDate }}</p>
                     <p class="row">End Date: {{ value.endDate }}</p>
                     <p class="row">Retry Policy : {{  value.retryPolicy }}</p>
-                    <p class="row" :class="{'.bg-success': isActive, '.bg-warning' : error, other :'.bg-light'}">Attempt : {{  value.attempts[0].attemptResult }}</p>
+                    <p class="row" :class="{'bg-success': isActive, 'bg-warning': error, 'bg-light': other}">Attempt : {{  value.attempts[0].attemptResult }}</p>
                     <ul>
                       <td class="d-flex row justify-content-start">
                         <li>
@@ -68,12 +68,16 @@ export default {
   components: {
     GoBack,
   },
-  data(){
-    return {
-      isActive:"",
-      error:"",
-      other:"",
-    }
-  },
+  // data(){
+  //   return {
+  //     isActive: false,
+  //     error: false,
+  //     other:true,
+  //   }
+  // },
+  beforeMount(){
+    console.log(Object.values(this.process))
+  }
+
 }
 </script>
