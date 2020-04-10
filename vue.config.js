@@ -5,6 +5,6 @@ module.exports = {
             poll: 1000,
             ignored: ['node_modules'],
         },
-        host : 'localhost'
+        host : 'localhost',
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <div>
-      <dispatch @methods="updateMethod"/>
+      <dispatch @methods="updateMethod" :registrations="totalRegistrations"/>
       <input @keydown="search()" v-model="searching" placeholder="Filter" class="mt-2 ml-2 w-25 form-control"/>
     </div>
     <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>
@@ -45,29 +45,33 @@ export default {
     currentPage: 0,
     pageSize: 10,
     searching:"",
-    method:"",
+    method:{
+      criteria:"",
+      search:""
+    },
     keyPress:false,
     }
   },
     beforeMount(){
     store
-    .dispatch('getRegistrations')
+    .dispatch('getRegistrationsByFilter',"")
     .then()
   },
   beforeRouteEnter (to, from, next) {
     // enable to fetch processes before render th page
      store
-    .dispatch("getRegistrationsByMsisdn","")
+    .dispatch("getRegistrationsByFilter","")
     .then()
     next()
   },
   // enable to fetch processes in live with the input
   updated(){
     if (this.keyPress){
-    store
-    .dispatch(this.method,this.searching)
-    .then();
-    this.keyPress = false;
+      this.method.search = this.searching;
+      store
+      .dispatch("getRegistrationsByFilter",this.method)
+      .then();
+      this.keyPress = false;
     }
   },
   methods: {
@@ -83,7 +87,7 @@ export default {
       this.registrationsFilter;
     },
     updateMethod(newMethod){
-      this.method = newMethod;
+      this.method.criteria = newMethod + "=";
       this.searching ="";
       this.registrationsFilter;
     },
@@ -94,7 +98,7 @@ export default {
   computed: {
     registrationsFilter(){
       //fetch all Registrations
-      let msisdnToDisplay = this.$store.getters.getRegistrationsByFilter;
+      let msisdnToDisplay = store.getters.getRegistrationsByFilter;
 
       // Define two variables to slice processes
       // with the updatePage's method, it enables to display each slice by changing the currentPage
@@ -105,7 +109,7 @@ export default {
       return msisdnToDisplay.slice(a, b);
     },
     totalRegistrations() {
-      return this.$store.getters.getRegistrations;
+      return store.getters.getRegistrationsByFilter;
     },
   },
 }

@@ -1,14 +1,13 @@
 <template>
   <div>
       <p v-if="errorMessage">Message d'erreur : {{errorMessage}}</p>
-      <registration-details :registrationDetails="registrationFromBackend"/>
+      <registration-details :registrationDetails="registration"/>
   </div>
 </template>
 
 <script>
 
 import RegistrationDetails from "@/components/RegistrationDetails.vue"
-import store from "@/store/index.js"
 
 export default {
     components: {
@@ -21,7 +20,7 @@ export default {
     },
     props: ['registrationId'],
     beforeMount() {
-            store
+            this.$store
             .dispatch("getRegistrationById", this.$route.params.registrationId)
             .then(() => {
             })
@@ -30,8 +29,8 @@ export default {
             })
         },
     computed: {
-        registrationFromBackend() {
-            return store.getters.getRegistration
+        registration() {
+            return this.$store.getters.getRegistrationById;
     }
   },
 }

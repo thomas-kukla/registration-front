@@ -12,7 +12,7 @@
       :pageSize="pageSize"
       @update="updatePage"
     />
-    <process 
+    <process
     :processes="processesMsisdn" 
     :currentPage="currentPage" 
     :pageSize="pageSize"
@@ -49,27 +49,32 @@ export default {
       pageSize: 10,
       searching:"",
       keyPress:false,
+      method: {
+        criteria: "",
+        search: ""
+      },
     }
   },
   beforeMount(){
     store
-    .dispatch('getProcesses')
+    .dispatch('getProcessesByFilter',"")
     .then()
   },
   beforeRouteEnter (to, from, next) {
     // enable to fetch processes before render th page
     store
-    .dispatch('getProcessesByMsisdn',"")
+    .dispatch('getProcessesByFilter',"")
     .then()
     next()
   },
   updated(){
-    //enable to fetch processes in live with the input
+    //fetch processes in live with the input
     if (this.keyPress){
-    store
-    .dispatch(this.method, this.searching)
-    .then();
-    this.keyPress = false;
+      this.method.search = this.searching;
+      store
+      .dispatch('getProcessesByFilter', this.method)
+      .then();
+      this.keyPress = false;
     }
   },
   methods: {
@@ -85,8 +90,8 @@ export default {
       this.processesMsisdn;
     },
     updateMethod(newMethod){
-      this.method = newMethod;
-      this.searching ="";
+      this.method.criteria = newMethod + "=";
+      this.searching = "";
       this.processesMsisdn;
     },
     search(){
@@ -109,7 +114,7 @@ export default {
       return msisdnToDisplay.slice(a, b);
     },
     totalProcesses(){
-      return store.getters.getProcesses;
+      return store.getters.getProcessesByFilter;
     }
   },
 }
