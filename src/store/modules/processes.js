@@ -11,7 +11,6 @@ export default {
             return state.filter = filter;
           },
         "SET_PROCESS_BY_ID"(state, process){
-        console.log("processe dans le store",process)
         return state.processes = process;
         },
     },
@@ -31,7 +30,6 @@ export default {
             })
           },
           getProcessById({commit}, processId){
-            console.log("processeId", processId)
             return new Promise((resolve) => {
               axios
               .get(process.env.VUE_APP_API_PROCESSES + processId)
