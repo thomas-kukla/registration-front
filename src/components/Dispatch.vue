@@ -1,12 +1,11 @@
 <template>
   <div class="form-group w-25 mt-3 ml-2">
       <select v-model="methodChoosen" @change="chooseMethods()" class="custom-select">
-        <option value="">Criterias</option>
         <option value="subscriberMsisdn">Subscriber Msisdn</option>
         <option value="fileId">File Id</option>
         <option v-if="processesView" value="id">Process Id</option>
         <option value="createdDate">Created Date</option>
-        <option v-if="processesView" value="lastModifieDate">Last modified date</option>
+        <option v-if="processesView" value="lastModifiedDate">Last modified date</option>
         <option v-if="registrationsView" value="state">State</option>
         <option v-if="registrationsView" value="operationType">Operation Type</option>
       </select>
@@ -24,6 +23,8 @@ export default {
     }
   },
   beforeMount(){
+    this.methodChoosen = "subscriberMsisdn";
+    this.chooseMethods();
     if(this.$router.history.current.name == "registrations"){
       this.registrationsView = true;
     }
