@@ -5,7 +5,7 @@
         <option value="fileId">File Id</option>
         <option v-if="processesView" value="id">Process Id</option>
         <option value="createdDate">Created Date</option>
-        <option v-if="processesView" value="lastModifieDate">Last modified date</option>
+        <option v-if="processesView" value="lastModifiedDate">Last modified date</option>
         <option v-if="registrationsView" value="state">State</option>
         <option v-if="registrationsView" value="operationType">Operation Type</option>
       </select>
