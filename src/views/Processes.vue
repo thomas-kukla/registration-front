@@ -57,15 +57,8 @@ export default {
   },
   beforeMount(){
     store
-    .dispatch('getProcessesByFilter',"")
+    .dispatch('getProcessesByFilter',this.method)
     .then()
-  },
-  beforeRouteEnter (to, from, next) {
-    // enable to fetch processes before render th page
-    store
-    .dispatch('getProcessesByFilter',"")
-    .then()
-    next()
   },
   updated(){
     //fetch processes in live with the input
