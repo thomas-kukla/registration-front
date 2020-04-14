@@ -68,16 +68,5 @@ export default {
   components: {
     GoBack,
   },
-  // data(){
-  //   return {
-  //     isActive: false,
-  //     error: false,
-  //     other:true,
-  //   }
-  // },
-  beforeMount(){
-    console.log(Object.values(this.process))
-  }
-
 }
 </script>

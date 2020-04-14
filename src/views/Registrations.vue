@@ -52,17 +52,11 @@ export default {
     keyPress:false,
     }
   },
-    beforeMount(){
-    store
-    .dispatch('getRegistrationsByFilter',"")
-    .then()
-  },
-  beforeRouteEnter (to, from, next) {
+  beforeMount() {
     // enable to fetch processes before render th page
      store
-    .dispatch("getRegistrationsByFilter","")
+    .dispatch("getRegistrationsByFilter",this.method)
     .then()
-    next()
   },
   // enable to fetch processes in live with the input
   updated(){
