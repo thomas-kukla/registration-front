@@ -37,6 +37,11 @@
 
 <script>
 export default {
-  props:['registrations'],
+  props:{
+    registrations: {
+      type: Array,
+      default: null,
+    },
+  }
 }
 </script>

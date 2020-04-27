@@ -19,7 +19,7 @@ export default {
         getProcessesByFilter({commit}, filter){
             return new Promise((resolve) => {
               axios
-              .get(process.env.VUE_APP_API_PROCESSES + "?" + filter.criteria + filter.search)
+              .get(`${process.env.VUE_APP_API_PROCESSES}?${filter.criteria}${filter.search}`)
               .then((response) => {
                 commit("SET_PROCESSES_BY_FILTER", response.data)
                 resolve()
@@ -32,7 +32,7 @@ export default {
           getProcessById({commit}, processId){
             return new Promise((resolve) => {
               axios
-              .get(process.env.VUE_APP_API_PROCESSES + processId)
+              .get(`${process.env.VUE_APP_API_PROCESSES}/${processId}`)
               .then((response) => {
                 commit("SET_PROCESS_BY_ID", response.data)
                 resolve()

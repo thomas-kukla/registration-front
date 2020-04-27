@@ -52,12 +52,6 @@ export default {
     keyPress:false,
     }
   },
-  beforeMount() {
-    // enable to fetch processes before render th page
-     store
-    .dispatch("getRegistrationsByFilter",this.method)
-    .then()
-  },
   // enable to fetch processes in live with the input
   updated(){
     if (this.keyPress){
@@ -69,7 +63,7 @@ export default {
     }
   },
   methods: {
-    // catch the event emit by the click on the navigations arrows and change currentPage
+    // catch the event emit by the click on the navigation's arrows and change currentPage
     // in computed, it enables to display the next processes
     updatePage(pageNumber){
       return this.currentPage = pageNumber;

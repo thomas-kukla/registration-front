@@ -14,7 +14,6 @@
 
 <script>
 export default {
-  //props:['registrations', 'processes'],
   data() {
     return {
       methodChoosen:"",

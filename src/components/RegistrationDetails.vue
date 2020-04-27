@@ -93,7 +93,12 @@ export default {
   components: {
     GoBack,
   },
-  props:['registrationDetails'],
+  props: {
+      registrationDetails:{
+          type: Object,
+          default: null,
+          }
+    }
 }
 
 </script>

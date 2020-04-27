@@ -39,6 +39,11 @@
 <script>
 
 export default {
-  props:['processes'],
+  props: {
+    processes:{
+      type: Array,
+      default: null,
+    },
+  }
 }
 </script>

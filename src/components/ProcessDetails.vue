@@ -34,11 +34,11 @@
               <td>
                 <ul class="list-unstyled">
                   <li class="" v-for="(value, index) in process.tasks" :key="index">                  
-                    <p class="row"><b><u>{{ value.friendlyName }}</u></b></p>
+                    <p class="row font-weight-bold"><u>{{ value.friendlyName }}</u></p>
                     <p class="row">Start Date: {{ value.startDate }}</p>
                     <p class="row">End Date: {{ value.endDate }}</p>
                     <p class="row">Retry Policy : {{  value.retryPolicy }}</p>
-                    <p class="row" :class="{'bg-success': isActive, 'bg-warning': error, 'bg-light': other}">Attempt : {{  value.attempts[0].attemptResult }}</p>
+                    <p class="row">Attempt : {{  value.attempts[0].attemptResult }}</p>
                     <ul>
                       <td class="d-flex row justify-content-start">
                         <li>
@@ -64,7 +64,12 @@
 import GoBack from "@/components/GoBack.vue"
 
 export default {
-  props: ['process'],
+  props:{
+  process: {
+    type: Object,
+    default: null,
+  },
+  },
   components: {
     GoBack,
   },

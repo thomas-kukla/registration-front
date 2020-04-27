@@ -19,7 +19,7 @@ export default {
         getRegistrationsByFilter({commit}, filter){
             return new Promise((resolve) => {
               axios
-              .get(process.env.VUE_APP_API_REGISTRATIONS + "?" + filter.criteria + filter.search)
+              .get(`${process.env.VUE_APP_API_REGISTRATIONS}?${filter.criteria}${filter.search}`)
               .then((response) => {
                 commit('SET_REGISTRATIONS_BY_FILTER', response.data)
                 resolve();
@@ -32,7 +32,7 @@ export default {
           getRegistrationById({commit}, registrationId){
             return new Promise ((resolve) => {
               axios
-              .get(process.env.VUE_APP_API_REGISTRATIONS + registrationId)
+              .get(`${process.env.VUE_APP_API_REGISTRATIONS}/${registrationId}`)
               .then((response) => {
                 commit('SET_REGISTRATION_BY_ID', response.data)
                 resolve();
