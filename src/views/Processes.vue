@@ -1,26 +1,31 @@
 <template>
   <div class="registration">
     <div>
-      <dispatch @methods="updateMethod"/>
-      <input @keydown="search()" v-model="searching" placeholder="Filter" class="mt-3 ml-2 w-25 form-control"/>
+      <dispatch @methods="updateMethod" />
+      <input
+        @keydown="search()"
+        v-model="searching"
+        placeholder="Filter"
+        class="mt-3 ml-2 w-25 form-control"
+      />
     </div>
-    <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>
-    <pagination 
+    <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize" />
+    <pagination
       v-if="totalProcesses.length > 0"
-      :pagesToDisplay="totalProcesses" 
-      :currentPage="currentPage" 
+      :pagesToDisplay="totalProcesses"
+      :currentPage="currentPage"
       :pageSize="pageSize"
       @update="updatePage"
     />
     <process
-    :processes="processesMsisdn" 
-    :currentPage="currentPage" 
-    :pageSize="pageSize"
+      :processes="processesMsisdn"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
     />
     <pagination
       v-if="totalProcesses.length > 0"
-      :pagesToDisplay="totalProcesses" 
-      :currentPage="currentPage" 
+      :pagesToDisplay="totalProcesses"
+      :currentPage="currentPage"
       :pageSize="pageSize"
       @update="updatePage"
     />
@@ -28,12 +33,11 @@
 </template>
 
 <script>
-
-import Dispatch from "@/components/Dispatch.vue"
-import Pagination from "@/components/Pagination.vue"
-import Process from "@/components/ProcessesList.vue"
-import Results from "@/components/Results.vue"
-import store from "@/store/index.js"
+import Dispatch from "@/components/Dispatch.vue";
+import Pagination from "@/components/Pagination.vue";
+import Process from "@/components/ProcessesList.vue";
+import Results from "@/components/Results.vue";
+import store from "@/store/index.js";
 
 export default {
   components: {
@@ -44,56 +48,50 @@ export default {
   },
   data() {
     return {
-      errorMessage:"",
+      errorMessage: "",
       currentPage: 0,
       pageSize: 10,
-      searching:"",
-      keyPress:false,
+      searching: "",
+      keyPress: false,
       method: {
         criteria: "",
-        search: ""
+        search: "",
       },
-    }
+    };
   },
-  beforeMount(){
-    store
-    .dispatch('getProcessesByFilter',this.method)
-    .then()
-  },
-  updated(){
+  updated() {
     //fetch processes in live with the input
-    if (this.keyPress){
+    if (this.keyPress) {
+      console.log("hello");
       this.method.search = this.searching;
-      store
-      .dispatch('getProcessesByFilter', this.method)
-      .then();
+      store.dispatch("getProcessesByFilter", this.method).then();
       this.keyPress = false;
     }
   },
   methods: {
     // catch the event emit by the click on the navigations arrows and change currentPage
     // in computed, it enables to display the next processes
-    updatePage(pageNumber){
+    updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },
-    updatePageSize(newPageSize){
+    updatePageSize(newPageSize) {
       this.currentPage = 0;
       this.pageSize = newPageSize;
       this.searching = "";
       this.processesMsisdn;
     },
-    updateMethod(newMethod){
+    updateMethod(newMethod) {
       this.method.criteria = newMethod + "=";
       this.searching = "";
       this.processesMsisdn;
     },
-    search(){
-    this.keyPress = true;
-    this.processesMsisdn;
+    search() {
+      this.keyPress = true;
+      this.processesMsisdn;
     },
   },
   computed: {
-    processesMsisdn(){
+    processesMsisdn() {
       //fetch all processes
       let msisdnToDisplay = store.getters.getProcessesByFilter;
 
@@ -106,9 +104,9 @@ export default {
 
       return msisdnToDisplay.slice(a, b);
     },
-    totalProcesses(){
+    totalProcesses() {
       return store.getters.getProcessesByFilter;
-    }
+    },
   },
-}
+};
 </script>

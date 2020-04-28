@@ -1,27 +1,17 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import processes from "@/store/modules/processes.js"
-import registrations from "@/store/modules/registrations.js"
+import Vue from "vue";
+import Vuex from "vuex";
+import processes from "@/store/modules/processes.js";
+import registrations from "@/store/modules/registrations.js";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     processes,
-    registrations
+    registrations,
   },
-
-  state: {
-
-  },
-  mutations: {
-
-  },
-  actions: {
-    
-  },
-
-  getters: {
-
-  }
-})
+  state: {},
+  mutations: {},
+  actions: {},
+  getters: {},
+});

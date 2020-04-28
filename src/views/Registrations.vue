@@ -1,23 +1,28 @@
 <template>
   <div class="registration">
     <div>
-      <dispatch @methods="updateMethod" :registrations="totalRegistrations"/>
-      <input @keydown="search()" v-model="searching" placeholder="Filter" class="mt-2 ml-2 w-25 form-control"/>
+      <dispatch @methods="updateMethod" :registrations="totalRegistrations" />
+      <input
+        @keydown="search()"
+        v-model="searching"
+        placeholder="Filter"
+        class="mt-2 ml-2 w-25 form-control"
+      />
     </div>
-    <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize"/>
-    <pagination 
+    <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize" />
+    <pagination
       v-if="totalRegistrations.length > 0"
-      :pagesToDisplay="totalRegistrations" 
-      :currentPage="currentPage" 
+      :pagesToDisplay="totalRegistrations"
+      :currentPage="currentPage"
       :pageSize="pageSize"
       @update="updatePage"
     />
-    <registration-list :registrations="registrationsFilter"/>
+    <registration-list :registrations="registrationsFilter" />
     <pagination
       v-if="totalRegistrations.length > 0"
       :pagesToDisplay="totalRegistrations"
       :registrations="registrationsFilter"
-      :currentPage="currentPage" 
+      :currentPage="currentPage"
       :pageSize="pageSize"
       @update="updatePage"
     />
@@ -25,12 +30,11 @@
 </template>
 
 <script>
-
-import Dispatch from "@/components/Dispatch.vue"
-import RegistrationList from "@/components/RegistrationList"
-import Pagination from "@/components/Pagination.vue"
-import Results from "@/components/Results.vue"
-import store from "@/store/index.js"
+import Dispatch from "@/components/Dispatch.vue";
+import RegistrationList from "@/components/RegistrationList";
+import Pagination from "@/components/Pagination.vue";
+import Results from "@/components/Results.vue";
+import store from "@/store/index.js";
 
 export default {
   components: {
@@ -39,58 +43,50 @@ export default {
     Pagination,
     Results,
   },
-  data(){
+  data() {
     return {
-    errorMessage:"",
-    currentPage: 0,
-    pageSize: 10,
-    searching:"",
-    method:{
-      criteria:"",
-      search:""
-    },
-    keyPress:false,
-    }
-  },
-  beforeMount() {
-    // enable to fetch processes before render th page
-     store
-    .dispatch("getRegistrationsByFilter",this.method)
-    .then()
+      errorMessage: "",
+      currentPage: 0,
+      pageSize: 10,
+      searching: "",
+      method: {
+        criteria: "",
+        search: "",
+      },
+      keyPress: false,
+    };
   },
   // enable to fetch processes in live with the input
-  updated(){
-    if (this.keyPress){
+  updated() {
+    if (this.keyPress) {
       this.method.search = this.searching;
-      store
-      .dispatch("getRegistrationsByFilter",this.method)
-      .then();
+      store.dispatch("getRegistrationsByFilter", this.method).then();
       this.keyPress = false;
     }
   },
   methods: {
-    // catch the event emit by the click on the navigations arrows and change currentPage
+    // catch the event emit by the click on the navigation's arrows and change currentPage
     // in computed, it enables to display the next processes
-    updatePage(pageNumber){
-      return this.currentPage = pageNumber;
+    updatePage(pageNumber) {
+      return (this.currentPage = pageNumber);
     },
-    updatePageSize(newPageSize){
+    updatePageSize(newPageSize) {
       this.currentPage = 0;
       this.pageSize = newPageSize;
       this.searching = "";
       this.registrationsFilter;
     },
-    updateMethod(newMethod){
+    updateMethod(newMethod) {
       this.method.criteria = newMethod + "=";
-      this.searching ="";
+      this.searching = "";
       this.registrationsFilter;
     },
-    search(){
-    this.keyPress = true;
+    search() {
+      this.keyPress = true;
     },
   },
   computed: {
-    registrationsFilter(){
+    registrationsFilter() {
       //fetch all Registrations
       let msisdnToDisplay = store.getters.getRegistrationsByFilter;
 
@@ -106,5 +102,5 @@ export default {
       return store.getters.getRegistrationsByFilter;
     },
   },
-}
+};
 </script>
