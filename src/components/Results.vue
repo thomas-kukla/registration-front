@@ -1,33 +1,37 @@
 <template>
   <div>
-    <input class="form-control mt-1 ml-2 w-25" v-model="results" @keypress.enter="display()" placeholder="Results"/>
-    <h6 v-if="errorMessage">{{errorMessage}}</h6>
+    <input
+      class="form-control mt-1 ml-2 w-25"
+      v-model="results"
+      @keypress.enter="display()"
+      placeholder="Results"
+    />
+    <h6 v-if="errorMessage">{{ errorMessage }}</h6>
   </div>
 </template>
 
 <script>
 export default {
-  props:['pageSize'],
-  data(){
+  props: ["pageSize"],
+  data() {
     return {
-      errorMessage:"",
-      results:"",
-    }
+      errorMessage: "",
+      results: "",
+    };
   },
-  beforeMount(){
+  beforeMount() {
     this.results = this.pageSize;
   },
   methods: {
     display() {
       if (this.results <= 0) {
         this.results = 10;
-        this.errorMessage = "Please enter a number > 0"
+        this.errorMessage = "Please enter a number > 0";
       } else {
         this.errorMessage = "";
-        this.$emit('resultsToDisplay', this.results)
+        this.$emit("resultsToDisplay", this.results);
       }
-    }
+    },
   },
-}
+};
 </script>
-

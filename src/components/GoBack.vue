@@ -1,6 +1,8 @@
 <template>
   <span>
-    <button class="mb-3 mt-3 btn btn-primary" @click="goBack">Back to registrations</button>
+    <button class="mb-3 mt-3 btn btn-primary" @click="goBack">
+      Back to registrations
+    </button>
   </span>
 </template>
 
@@ -9,8 +11,7 @@ export default {
   methods: {
     goBack() {
       return this.$router.go(-1);
-    }
-  }
-}
+    },
+  },
+};
 </script>
-
