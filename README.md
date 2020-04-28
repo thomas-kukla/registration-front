@@ -24,5 +24,3 @@ $ npm run lint
 ```
 $ yarn docs:dev
 ```
-
-

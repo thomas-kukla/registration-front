@@ -9,24 +9,24 @@
         class="mt-3 ml-2 w-25 form-control"
       />
     </div>
-    <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize" />
+    <results @resultsToDisplay="updateNumberOfResults" :numberOfResults.sync="numberOfResults" />
     <pagination
       v-if="totalProcesses.length > 0"
       :pagesToDisplay="totalProcesses"
       :currentPage="currentPage"
-      :pageSize="pageSize"
+      :numberOfResults="numberOfResults"
       @update="updatePage"
     />
     <process
       :processes="processesMsisdn"
       :currentPage="currentPage"
-      :pageSize="pageSize"
+      :numberOfResults="numberOfResults"
     />
     <pagination
       v-if="totalProcesses.length > 0"
       :pagesToDisplay="totalProcesses"
       :currentPage="currentPage"
-      :pageSize="pageSize"
+      :numberOfResults="numberOfResults"
       @update="updatePage"
     />
   </div>
@@ -50,7 +50,7 @@ export default {
     return {
       errorMessage: "",
       currentPage: 0,
-      pageSize: 10,
+      numberOfResults: 10,
       searching: "",
       keyPress: false,
       method: {
@@ -74,9 +74,9 @@ export default {
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },
-    updatePageSize(newPageSize) {
+    updateNumberOfResults(newnumberOfResults) {
       this.currentPage = 0;
-      this.pageSize = newPageSize;
+      this.numberOfResults = newnumberOfResults;
       this.searching = "";
       this.processesMsisdn;
     },
@@ -91,18 +91,18 @@ export default {
     },
   },
   computed: {
+    firstPage(){
+      return this.currentPage * this.numberOfResults;
+    },
+    lastPage(){
+      return this.firstPage + parseInt(this.numberOfResults);
+    },
     processesMsisdn() {
-      //fetch all processes
-      let msisdnToDisplay = store.getters.getProcessesByFilter;
+      //get all processes
+      let msisdnToDisplay = store.getters.getProcessesByFilter
 
-      // Define two variables to slice processes
-      // with the updatePage's method, it enables to display each slice by changing the currentPage
-      let a = this.currentPage * this.pageSize;
-
-      //using parseInt to avoid concatenation instead of addition
-      let b = a + parseInt(this.pageSize);
-
-      return msisdnToDisplay.slice(a, b);
+      //return an array of processes 
+      return msisdnToDisplay.slice(this.firstPage, this.lastPage);
     },
     totalProcesses() {
       return store.getters.getProcessesByFilter;

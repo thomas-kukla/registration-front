@@ -9,12 +9,12 @@
         class="mt-2 ml-2 w-25 form-control"
       />
     </div>
-    <results @resultsToDisplay="updatePageSize" :pageSize.sync="pageSize" />
+    <results @resultsToDisplay="updateNumberOfResults" :numberOfResults.sync="numberOfResults" />
     <pagination
       v-if="totalRegistrations.length > 0"
       :pagesToDisplay="totalRegistrations"
       :currentPage="currentPage"
-      :pageSize="pageSize"
+      :numberOfResults="numberOfResults"
       @update="updatePage"
     />
     <registration-list :registrations="registrationsFilter" />
@@ -23,7 +23,7 @@
       :pagesToDisplay="totalRegistrations"
       :registrations="registrationsFilter"
       :currentPage="currentPage"
-      :pageSize="pageSize"
+      :numberOfResults="numberOfResults"
       @update="updatePage"
     />
   </div>
@@ -47,7 +47,7 @@ export default {
     return {
       errorMessage: "",
       currentPage: 0,
-      pageSize: 10,
+      numberOfResults: 10,
       searching: "",
       method: {
         criteria: "",
@@ -70,9 +70,9 @@ export default {
     updatePage(pageNumber) {
       return (this.currentPage = pageNumber);
     },
-    updatePageSize(newPageSize) {
+    updateNumberOfResults(newnumberOfResults) {
       this.currentPage = 0;
-      this.pageSize = newPageSize;
+      this.numberOfResults = newnumberOfResults;
       this.searching = "";
       this.registrationsFilter;
     },
@@ -92,10 +92,10 @@ export default {
 
       // Define two variables to slice processes
       // with the updatePage's method, it enables to display each slice by changing the currentPage
-      let a = this.currentPage * this.pageSize;
+      let a = this.currentPage * this.numberOfResults;
 
       //using parseInt to avoid concatenation instead of addition
-      let b = a + parseInt(this.pageSize);
+      let b = a + parseInt(this.numberOfResults);
       return msisdnToDisplay.slice(a, b);
     },
     totalRegistrations() {
