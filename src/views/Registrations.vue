@@ -70,9 +70,9 @@ export default {
     updatePage(pageNumber) {
       return (this.currentPage = pageNumber);
     },
-    updateNumberOfResults(newnumberOfResults) {
+    updateNumberOfResults(newNumberOfResults) {
       this.currentPage = 0;
-      this.numberOfResults = newnumberOfResults;
+      this.numberOfResults = newNumberOfResults;
       this.searching = "";
       this.registrationsFilter;
     },
@@ -86,17 +86,17 @@ export default {
     },
   },
   computed: {
+    firstResult(){
+      return this.currentPage * this.numberOfResults;
+    },
+    lastResult(){
+      return this.firstResult + parseInt(this.numberOfResults);
+    },
     registrationsFilter() {
       //fetch all Registrations
       let msisdnToDisplay = store.getters.getRegistrationsByFilter;
-
-      // Define two variables to slice processes
-      // with the updatePage's method, it enables to display each slice by changing the currentPage
-      let a = this.currentPage * this.numberOfResults;
-
-      //using parseInt to avoid concatenation instead of addition
-      let b = a + parseInt(this.numberOfResults);
-      return msisdnToDisplay.slice(a, b);
+    
+      return msisdnToDisplay.slice(this.firstResult, this.lastResult);
     },
     totalRegistrations() {
       return store.getters.getRegistrationsByFilter;

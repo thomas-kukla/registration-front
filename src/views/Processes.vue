@@ -70,13 +70,13 @@ export default {
   },
   methods: {
     // catch the event emit by the click on the navigations arrows and change currentPage
-    // in computed, it enables to display the next processes
+    // it allows to display a new block of processes according to the number of results choosen for the page
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
     },
-    updateNumberOfResults(newnumberOfResults) {
+    updateNumberOfResults(newNumberOfResults) {
       this.currentPage = 0;
-      this.numberOfResults = newnumberOfResults;
+      this.numberOfResults = newNumberOfResults;
       this.searching = "";
       this.processesMsisdn;
     },
@@ -91,18 +91,19 @@ export default {
     },
   },
   computed: {
-    firstPage(){
+    firstResult(){
       return this.currentPage * this.numberOfResults;
     },
-    lastPage(){
-      return this.firstPage + parseInt(this.numberOfResults);
+    lastResult(){
+      return this.firstResult + parseInt(this.numberOfResults);
     },
     processesMsisdn() {
       //get all processes
       let msisdnToDisplay = store.getters.getProcessesByFilter
 
-      //return an array of processes 
-      return msisdnToDisplay.slice(this.firstPage, this.lastPage);
+      //slice processes into blocks according to the number of results choosen for the page
+      // a click on navigation's arrow enalble to display a new block
+      return msisdnToDisplay.slice(this.firstResult, this.lastResult);
     },
     totalProcesses() {
       return store.getters.getProcessesByFilter;
