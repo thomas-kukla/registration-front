@@ -10,7 +10,7 @@
           <th></th>
         </tr>
       </thead>
-      <tbody class="d-flex-column w-100">
+      <tbody class="w-100">
         <tr class="w-100 justify-content-start">
           <th class="w-25 text-left" scope="col">Id :</th>
           <td class="w-100 text-left" scope="col">{{ registrationDetails.id }}</td>
