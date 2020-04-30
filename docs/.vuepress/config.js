@@ -12,7 +12,9 @@ module.exports = {
           '',
           'store',
           'views',
-          'components'
+          'components',
+          'configuration',
+          'router'
         ]
       }
     }

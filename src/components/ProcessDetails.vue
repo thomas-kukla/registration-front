@@ -10,29 +10,29 @@
           <th></th>
         </tr>
       </thead>
-      <tbody class="d-flex flex-column w-100">
-        <tr class="w-100 d-flex justify-content-start">
-          <th class="w-25 d-flex">Id :</th>
-          <td class="w-100 d-flex">{{ process.id }}</td>
+      <tbody class="flex-column w-100">
+        <tr class="w-100 justify-content-start">
+          <th class="w-25 text-left">Id :</th>
+          <td class="w-100 text-left">{{ process.id }}</td>
         </tr>
-        <tr class="w-100 d-flex justify-content-start">
-          <th class="w-25 d-flex">Created Date :</th>
-          <td class="w-100 d-flex">{{ process.createdDate }}</td>
+        <tr class="w-100 justify-content-start">
+          <th class="w-25 text-left">Created Date :</th>
+          <td class="w-100 text-left">{{ process.createdDate }}</td>
         </tr>
-        <tr class="w-100 d-flex justify-content-start">
-          <th class="w-25 d-flex">Last Modified Date :</th>
-          <td class="w-100 d-flex">{{ process.lastModifiedDate }}</td>
+        <tr class="w-100 justify-content-start">
+          <th class="w-25 text-left ">Last Modified Date :</th>
+          <td class="w-100 text-left">{{ process.lastModifiedDate }}</td>
         </tr>
-        <tr class="w-100 d-flex justify-content-start">
-          <th class="w-25 d-flex">Subscriber Msisdn:</th>
-          <td class="w-100 d-flex">{{ process.subscriberMsisdn }}</td>
+        <tr class="w-100 justify-content-start">
+          <th class="w-25 text-left">Subscriber Msisdn:</th>
+          <td class="w-100 text-left">{{ process.subscriberMsisdn }}</td>
         </tr>
-        <tr class="w-100 d-flex justify-content-start">
-          <th class="w-25 d-flex">Context :</th>
-          <td class="w-100 d-flex">{{ process.context }}</td>
+        <tr class="w-100 justify-content-start">
+          <th class="w-25 text-left">Context :</th>
+          <td class="w-100 text-left">{{ process.context }}</td>
         </tr>
-        <tr class="w-100 d-flex justify-content-start">
-          <th class="w-25 d-flex">Tasks :</th>
+        <tr class="w-100 justify-content-start">
+          <th class="w-25 text-left">Tasks :</th>
           <td>
             <ul class="list-unstyled">
               <li class="" v-for="(value, index) in process.tasks" :key="index">

@@ -17,7 +17,7 @@
       :numberOfResults="numberOfResults"
       @update="updatePage"
     />
-    <registration-list :registrations="registrationsFilter" />
+    <registrations-list :registrations="registrationsFilter" />
     <pagination
       v-if="totalRegistrations.length > 0"
       :pagesToDisplay="totalRegistrations"
@@ -31,7 +31,7 @@
 
 <script>
 import Dispatch from "@/components/Dispatch.vue";
-import RegistrationList from "@/components/RegistrationList";
+import RegistrationsList from "@/components/RegistrationsList";
 import Pagination from "@/components/Pagination.vue";
 import Results from "@/components/Results.vue";
 import store from "@/store/index.js";
@@ -39,7 +39,7 @@ import store from "@/store/index.js";
 export default {
   components: {
     Dispatch,
-    RegistrationList,
+    RegistrationsList,
     Pagination,
     Results,
   },
