@@ -5,7 +5,7 @@ export default {
     processes: [],
     filter: [],
   },
-
+  
   mutations: {
     SET_PROCESSES_BY_FILTER(state, filter) {
       return (state.filter = filter);
@@ -14,38 +14,29 @@ export default {
       return (state.processes = process);
     },
   },
-
+  
   actions: {
-    getProcessesByFilter({ commit }, filter) {
-      return new Promise((resolve) => {
-        axios
-          .get(
-            `${process.env.VUE_APP_API_PROCESSES}?${filter.criteria}${filter.search}`
-          )
-          .then((response) => {
-            commit("SET_PROCESSES_BY_FILTER", response.data);
-            resolve();
-          })
-          .catch((error) => {
-            console.log("get all processes", error);
-          });
-      });
+    async getProcessesByFilter({ commit }, filter) {
+      try {
+        let response = await axios
+        .get(`${process.env.VUE_APP_API_PROCESSES}?${filter.criteria}${filter.search}`);
+        let processes = response.data;
+        commit("SET_PROCESSES_BY_FILTER", processes);
+      } catch(error){
+        console.error('Il y a une erreur dans getProcessesByFilter', error);
+      }
     },
-    getProcessById({ commit }, processId) {
-      return new Promise((resolve) => {
-        axios
-          .get(`${process.env.VUE_APP_API_PROCESSES}/${processId}`)
-          .then((response) => {
-            commit("SET_PROCESS_BY_ID", response.data);
-            resolve();
-          })
-          .catch((error) => {
-            console.log("getProcessByIderror :", error);
-          });
-      });
+    async getProcessById({ commit }, processId) {
+      try {
+        let response =  await axios.get(`${process.env.VUE_APP_API_PROCESSES}/${processId}`);
+        let processById = response.data;
+        commit("SET_PROCESS_BY_ID", processById);
+      } catch(error) {
+        console.error("Il y a une erreur dans getProcessById", error);
+        
+      }
     },
   },
-
   getters: {
     getProcessesByFilter(state) {
       return state.filter;

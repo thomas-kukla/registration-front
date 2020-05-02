@@ -79,13 +79,6 @@ export default {
       default: null,
     },
   },
-  data(){
-    return {
-      hasError: false,
-      active: false,
-      other: true
-    }
-  },
   components: {
     GoBack,
   },

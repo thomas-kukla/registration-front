@@ -1,24 +1,28 @@
 <template>
   <div class="mt-3">
-    <ul class="d-flex flex-row justify-content-center list-unstyled pagination">
-      <li
-        v-if="showPreviousLink()"
-        @click="updatePages(currentPage - 1)"
-        class="page-item"
-      >
-        <a class="page-link"></a>
-      </li>
-      <li v-if="totalPages()" class="page-link ml-3 mr-3">
-        {{ currentPage + 1 }} of {{ totalPages() }}
-      </li>
-      <li
-        v-if="showNextLink()"
-        @click="updatePages(currentPage + 1)"
-        class="page-item"
-      >
-        <a class="page-link"></a>
-      </li>
-    </ul>
+    <div class="d-flex justify-content-center">
+      <span class="page-link"><a class="page-link">First</a></span>
+        <ul class="d-flex flex-row justify-content-center list-unstyled pagination">
+          <li
+            v-if="showPreviousLink()"
+            @click="updatePages(currentPage - 1)"
+            class="page-item"
+          >
+            <a class="page-link"></a>
+          </li>
+          <li v-if="totalPages()" class="page-link ml-3 mr-3">
+            {{ currentPage + 1 }} of {{ totalPages() }}
+          </li>
+          <li
+            v-if="showNextLink()"
+            @click="updatePages(currentPage + 1)"
+            class="page-item"
+          >
+            <a class="page-link"></a>
+          </li>
+        </ul>
+      <a class="page-link ml-3 mr-3">Last</a>
+    </div>
   </div>
 </template>
 
