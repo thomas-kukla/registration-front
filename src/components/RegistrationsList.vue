@@ -8,7 +8,7 @@
         {{ registrations.length }} registration on page
       </h3>
     </div>
-    <div class="table-responsive mt-3">
+    <div class="table-responsive mt-3 table-hover">
       <table class="table">
         <thead>
           <tr>
@@ -20,7 +20,7 @@
             <th scope="col">View Detail</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody @click="gosomewhere()">
           <tr v-for="registration in registrations" :key="registration.id">
             <td scope="row">{{ registration.id }}</td>
             <td scope="row">{{ registration.subscriberMsisdn }}</td>
@@ -53,5 +53,11 @@ export default {
       default: null,
     },
   },
+  methods: {
+    gosomewhere(){
+      console.log('on y va ?')
+      console.log(this.registration.id)
+    }
+  }
 };
 </script>

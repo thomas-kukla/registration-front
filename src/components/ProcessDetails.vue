@@ -4,7 +4,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="text-left" colspan="3"><h3>Details from omFileId : {{ process.fileId }}</h3></th>
+          <th class="text-left" colspan="3"><h2>Details from omFileId : {{ process.fileId }}</h2></th>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +22,7 @@
           <td>{{ process.lastModifiedDate }}</td>
         </tr>
         <tr class="text-left">
-          <th>Subscriber Msisdn:</th>
+          <th>Subscriber Msisdn :</th>
               <td>{{ process.subscriberMsisdn }}</td>
         </tr>
         <tr class="text-left">
@@ -42,8 +42,8 @@
                 <p class="row font-weight-bold">
                   <u>{{ value.friendlyName }}</u>
                 </p>
-                <p>Start Date: {{ value.startDate }}</p>
-                <p>End Date: {{ value.endDate }}</p>
+                <p >Start Date : {{ value.startDate }}</p>
+                <p>End Date : {{ value.endDate }}</p>
                 <p>Retry Policy : {{ value.retryPolicy }}</p>
                 <p :class="[value.attempts[0].attemptResult == 'SUCCESS' ? 'bg-success' : 'bg-warning']">
                   Attempt : {{ value.attempts[0].attemptResult }}
@@ -85,10 +85,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .firstColumn{
   width: 15%;
+}
+
+th{
+  font-size: 20px;
+  font-weight: bold;
 }
 
 </style>

@@ -2,7 +2,7 @@
 
 #### This web app enables to display registrations and processes relative to Orange Money
 
-It has two main pages : 
+It has two main **views** : 
 - list of all registrations
 - list of all processes
 

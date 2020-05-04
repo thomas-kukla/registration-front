@@ -62,7 +62,6 @@ export default {
   updated() {
     //fetch processes in live with the input
     if (this.keyPress) {
-      console.log("hello");
       this.method.search = this.searching;
       store.dispatch("getProcessesByFilter", this.method).then();
       this.keyPress = false;

@@ -76,7 +76,7 @@
           </td>
         </tr>
         <tr class="w-100 justify-content-start">
-          <th class="w-25 text-left" scope="col">Sent For Validation At : :</th>
+          <th class="w-25 text-left" scope="col">Sent For Validation At :</th>
           <td class="w-100 text-left" scope="col">
             {{ registrationDetails.sentForValidationAt }}
           </td>

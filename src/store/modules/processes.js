@@ -18,9 +18,9 @@ export default {
   actions: {
     async getProcessesByFilter({ commit }, filter) {
       try {
-        let response = await axios
+        const response = await axios
         .get(`${process.env.VUE_APP_API_PROCESSES}?${filter.criteria}${filter.search}`);
-        let processes = response.data;
+        const processes = response.data;
         commit("SET_PROCESSES_BY_FILTER", processes);
       } catch(error){
         console.error('Il y a une erreur dans getProcessesByFilter', error);
@@ -28,8 +28,8 @@ export default {
     },
     async getProcessById({ commit }, processId) {
       try {
-        let response =  await axios.get(`${process.env.VUE_APP_API_PROCESSES}/${processId}`);
-        let processById = response.data;
+        const response =  await axios.get(`${process.env.VUE_APP_API_PROCESSES}/${processId}`);
+        const processById = response.data;
         commit("SET_PROCESS_BY_ID", processById);
       } catch(error) {
         console.error("Il y a une erreur dans getProcessById", error);

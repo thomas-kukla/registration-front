@@ -1,39 +1,29 @@
-## Views
----------
-### Registrations
+### Views
+--------
 
-This **view** displays all *registrations*.
+### Registrations and Processes
+------------------------
 
-User can search *registrations* using the search bar and choose what criteria will be used for the search with the selector.
+Those two **views** display all *registrations* and *processes* as lists.
 
-User can change the number of results on the page to display more or less registrations.
+A search bar and a criteria's selector enables to looking for specific *registrations* and *processes*.
 
-- Search Bar
+User can change the number of results on the page to display more or less.
 
-The **updated** hook enables to launch HTPP request for each new character types in the search bar. This hook triggers a get method in the store with a **filter** argument wich is an object with two values : the search and the criteria choosen by the user wich is the *subscriber msisdn* by default.
+- **Search Bar**
 
-- Registrations
+The **updated** hook launches HTPP request based on the content of the search bar. It triggers a *get method* in the store with a **filter** argument which is an object with two values : 
 
-There is a **navigation guard** in the **router** which enables to fetch all *registrations* before this rout was rendering. Then, a **getter** method in **computed properties** catch all datas. 
-To display results on differents pages,we slice the array of registrations in blocks and display the block according to the number of the current page.
+1. The searching
 
-There are 4 **components** on this **view**.
+2. The criteria choosen by the user (*subscriber msisdn* by default).
 
-**Dispatch** : enables to select a criteria for the get method and passed as an argument to the **updated** hook.
+- **Getters and Computed property**
 
-**Pagination** : enables to display blocks of registrations.
+The navigation guard in the router change the state as the route is selected. Then, the **getter** method retrieve the data stored.
 
-**Results** : enables to choose the number of results on a page.
+**Computed properties** enable to display results on differents pages. They slice the array of data in blocks and display the block according to the number of results choosen for the current page.
 
-**Registrations List** : enables to rendering the list of registrations.
+### Process and Registration details page
 
-
-
-
-#### Processes
-
-
-#### Process
-
-
-#### Registration
+This **view** display more specific informations about the *process* or the *registration* selected.
