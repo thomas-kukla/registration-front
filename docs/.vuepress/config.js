@@ -1,5 +1,5 @@
 module.exports = {
-    title: 'Orange Money Registrations',
+    title: 'Orange Money',
     description: 'Document information for registrations',
     themeConfig: {
       logo: '/assets/images/Orange_logo.svg.png',
