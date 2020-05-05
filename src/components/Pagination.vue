@@ -1,7 +1,6 @@
 <template>
   <div class="mt-3">
     <div class="d-flex justify-content-center">
-      <span class="page-link"><a class="page-link">First</a></span>
         <ul class="d-flex flex-row justify-content-center list-unstyled pagination">
           <li
             v-if="showPreviousLink()"
@@ -21,7 +20,6 @@
             <a class="page-link"></a>
           </li>
         </ul>
-      <a class="page-link ml-3 mr-3">Last</a>
     </div>
   </div>
 </template>
