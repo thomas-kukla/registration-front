@@ -9,42 +9,23 @@
         class="mt-3 ml-2 w-25 form-control"
       />
     </div>
-    <results @resultsToDisplay="updateNumberOfResults" :numberOfResults.sync="numberOfResults" />
-    <pagination
-      v-if="totalProcesses.length > 0"
-      :pagesToDisplay="totalProcesses"
-      :currentPage="currentPage"
-      :numberOfResults="numberOfResults"
-      @update="updatePage"
-    />
     <process
       :processes="processesMsisdn"
       :currentPage="currentPage"
       :numberOfResults="numberOfResults"
-    />
-    <pagination
-      v-if="totalProcesses.length > 0"
-      :pagesToDisplay="totalProcesses"
-      :currentPage="currentPage"
-      :numberOfResults="numberOfResults"
-      @update="updatePage"
     />
   </div>
 </template>
 
 <script>
 import Dispatch from "@/components/Dispatch.vue";
-import Pagination from "@/components/Pagination.vue";
 import Process from "@/components/ProcessesList.vue";
-import Results from "@/components/Results.vue";
 import store from "@/store/index.js";
 
 export default {
   components: {
     Dispatch,
-    Pagination,
     Process,
-    Results,
   },
   data() {
     return {
@@ -59,11 +40,11 @@ export default {
       },
     };
   },
-  updated() {
+  async updated() {
     //fetch processes in live with the input
     if (this.keyPress) {
       this.method.search = this.searching;
-      store.dispatch("getProcessesByFilter", this.method).then();
+      await store.dispatch("getProcessesByFilter", this.method);
       this.keyPress = false;
     }
   },

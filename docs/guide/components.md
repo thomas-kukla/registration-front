@@ -27,8 +27,3 @@ Enables to display blocks of registrations.
 
 
 #### RegistrationsList
-
-
-#### Results 
-
-Enables to choose the number of results on a page.
