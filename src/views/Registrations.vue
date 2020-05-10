@@ -74,6 +74,8 @@ export default {
   },
   async updated() {
     if (this.keyPress) {
+      this.currentPage = 0;
+      this.updateResultsPerPage;
       this.method.search = this.searching;
       await store.dispatch("getRegistrationsByFilter", this.method);
       this.keyPress = false;
@@ -103,7 +105,7 @@ export default {
     },
     updateMethod(newMethod) {
       this.currentPage = 0;
-      this.resultsOnPage = 10;
+      this.updateResultsPerPage;
       this.method.criteria = newMethod + "=";
       this.searching = "";
       this.registrationsFiltered;
