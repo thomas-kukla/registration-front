@@ -1,5 +1,5 @@
 import axios from "axios";
-const logger = require('../../../winston.js');
+//const loggers = require('../../../winston.js');
 
 export default {
   state: {
@@ -9,7 +9,10 @@ export default {
   
   mutations: {
     SET_PROCESSES_BY_FILTER(state, filter) {
-      logger.info('info', 'hello')
+      // logger.error({
+      //   message:'store.processes.mutations.set_by_filter', 
+      // })
+      //loggers.mjson.info('Information message');
       return (state.filter = filter);
     },
     SET_PROCESS_BY_ID(state, process) {

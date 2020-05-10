@@ -1,17 +1,10 @@
 <template>
   <div>
-    <div class="d'flex flex-row">
-      <h3 v-if="registrations.length > 1" class="mt-3">
-        {{ registrations.length }} registrations on page
-      </h3>
-      <h3 v-else class="mt-3">
-        {{ registrations.length }} registration on page
-      </h3>
-    </div>
     <div class="table-responsive mt-3 table-hover">
       <table class="table">
         <thead>
           <tr>
+            <th scope="col"></th>
             <th scope="col">File id</th>
             <th scope="col">Subscriber msisdn</th>
             <th scope="col">Created Date</th>
@@ -20,8 +13,9 @@
             <th scope="col">View Detail</th>
           </tr>
         </thead>
-        <tbody @click="gosomewhere()">
-          <tr v-for="registration in registrations" :key="registration.id">
+        <tbody>
+          <tr v-for="(registration,index) in registrations" :key="index">
+            <td class="font-weight-bold" scope="row">{{index + 1}}</td> 
             <td scope="row">{{ registration.id }}</td>
             <td scope="row">{{ registration.subscriberMsisdn }}</td>
             <td scope="row">{{ registration.createdDate }}</td>
@@ -53,11 +47,9 @@ export default {
       default: null,
     },
   },
-  methods: {
-    gosomewhere(){
-      console.log('on y va ?')
-      console.log(this.registration.id)
-    }
-  }
 };
 </script>
+
+<style scoped>
+
+</style>
