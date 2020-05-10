@@ -1,5 +1,7 @@
 <template>
   <div>
+          <h3 v-if="numberOfRegistrations > 1" class="mt-4">{{ numberOfRegistrations }} registrations on page</h3>
+      <h3 v-else  class="mt-4">{{ numberOfRegistrations }} registration on page</h3>
     <div class="table-responsive mt-3 table-hover">
       <table class="table">
         <thead>
@@ -47,9 +49,10 @@ export default {
       default: null,
     },
   },
+  computed: {
+    numberOfRegistrations(){
+      return this.registrations.length;
+    }
+  }
 };
 </script>
-
-<style scoped>
-
-</style>

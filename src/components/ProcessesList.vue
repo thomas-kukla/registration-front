@@ -1,15 +1,12 @@
 <template>
   <div>
-    <div class="d'flex flex-row">
-      <h3 v-if="processes.length > 1" class="mt-3">
-        {{ processes.length }} processes on page
-      </h3>
-      <h3 v-else class="mt-3">{{ processes.length }} process on page</h3>
-    </div>
+      <h3 v-if="numberOfProcesses > 1" class="mt-4">{{ numberOfProcesses }} processes on page</h3>
+      <h3 v-else  class="mt-4">{{ numberOfProcesses }} process on page</h3>
     <div class="table-responsive mt-3">
       <table class="table table-hover">
         <thead>
           <tr>
+            <th scope="col"></th>
             <th scope="col">Subscriber msisdn</th>
             <th scope="col">Process File id</th>
             <th scope="col">Id</th>
@@ -19,7 +16,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="process in processes" :key="process.id">
+          <tr v-for="(process, index) in processes" :key="index">
+            <td class="font-weight-bold" scope="row">{{ index + 1 }}</td>
             <td scope="row">{{ process.subscriberMsisdn }}</td>
             <td scope="row">{{ process.fileId }}</td>
             <td scope="row">{{ process.id }}</td>
@@ -51,5 +49,10 @@ export default {
       default: null,
     },
   },
+  computed: {
+    numberOfProcesses(){
+      return this.processes.length;
+    }
+  }
 };
 </script>
