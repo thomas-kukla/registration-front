@@ -138,7 +138,6 @@ export default {
     },
     processesFiltered() {
       let msisdnToDisplay = store.getters.getProcessesByFilter
-      console.log(this.firstPageResults)
       return msisdnToDisplay.slice(this.firstPageResults, this.lastPageResults);
     },
   },
