@@ -6,7 +6,8 @@
       class="custom-select"
     >
       <option value="subscriberMsisdn">Subscriber Msisdn</option>
-      <option value="fileId">File Id</option>
+      <option v-if="registrationsView" value="id">File Id</option>
+      <option v-else value="fileId">File Id</option>
       <option v-if="processesView" value="id">Process Id</option>
       <option value="createdDate">Created Date</option>
       <option v-if="processesView" value="lastModifiedDate"

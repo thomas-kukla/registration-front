@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <div>
-      <dispatch @methods="updateMethod" :registrations="totalRegistrations" />
+      <Criteria @methods="updateMethod" :registrations="totalRegistrations" />
       <input
         @keydown="search()"
         v-model="searching"
@@ -43,13 +43,13 @@
 </template>
 
 <script>
-import Dispatch from "@/components/Dispatch.vue";
+import Criteria from "@/components/TheCriteriasSelector.vue";
 import RegistrationsList from "@/components/RegistrationsList";
 import store from "@/store/index.js";
 
 export default {
   components: {
-    Dispatch,
+    Criteria,
     RegistrationsList,
   },
   data() {

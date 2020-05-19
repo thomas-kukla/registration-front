@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import GoBack from "@/components/GoBack.vue";
+import GoBack from "@/components/TheGoBackButton.vue";
 
 export default {
   props: {
