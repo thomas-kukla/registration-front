@@ -13,14 +13,27 @@ export default {
         level:'error',
         message:'store.processes.mutations.set_by_filter', 
       })
-      return (state.filter = filter);
+      return state.filter = filter;
+    },
+    SET_ALL_PROCESSES(state, process) {
+      return state.processes = process;
     },
     SET_PROCESS_BY_ID(state, process) {
-      return (state.processes = process);
+      return state.processes = process;
     },
   },
   
   actions: {
+    async getAllProcesses({ commit }) {
+      try {
+        const response = await axios
+        .get(`${process.env.VUE_APP_API_PROCESSES}`);
+        const processes = response.data;
+        commit("SET_ALL_PROCESSES", processes);
+      } catch(error){
+        console.error('Il y a une erreur dans getAllProcesses', error);
+      }
+    },
     async getProcessesByFilter({ commit }, filter) {
       try {
         const response = await axios
@@ -43,8 +56,12 @@ export default {
     },
   },
   getters: {
-    getProcessesByFilter(state) {
-      return state.filter;
+    getAllProcesses(state){
+      return state.processes;
+    },
+    getProcessesByFilter: (state) => (slicer) => {
+      let processes = state.filter;
+      return processes.slice(slicer.firstIndex, slicer.lastIndex);
     },
     getProcessById(state) {
       return state.processes;
