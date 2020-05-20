@@ -5,6 +5,7 @@
      @keypress.enter="updateResultsPerPage()"
       class="form-control mt-1 ml-2 w-25"
       />
+      <h4>{{errorMessage}}</h4>
       <div>
         <nav aria-label="Page navigation example d-flex flex-row">
           <ul class="pagination justify-content-center d-flex flex-row">
@@ -48,6 +49,7 @@ export default {
       lastButtonIsDisabled: false,
       currentPage: 0,
       numberOfResults: 10,
+      errorMessage:"",
     }
   },
   //Fill up number of results with a default value
@@ -55,33 +57,42 @@ export default {
     return this.newNumberOfResults = this.numberOfResults;
   },
   methods:{
-    //  goToFirstPage(){
-    //   this.currentPage = 0;
-    //   this.lastButtonIsDisabled = false
-    //   this.firstButtonIsDisabled = true;
+    //NAVIGATION BUTTONS
+     goToFirstPage(){
+      this.lastButtonIsDisabled = false
+      this.firstButtonIsDisabled = true;
+      this.currentPage = 0;
+      this.resultsToDisplay(this.currentPage);
+    },
+    goToLastPage(){ 
+      this.firstButtonIsDisabled = false;
+      this.lastButtonIsDisabled = true;
+      this.currentPage = this.totalPagesResults - 1;
+      this.resultsToDisplay(this.currentPage);
+    },
 
-    // },
-    // goToLastPage(){
-    //   this.currentPage = this.totalPagesResults - 1;
-    //   this.firstButtonIsDisabled = false;
-    //   this.lastButtonIsDisabled = true;
-    // },
-    // updateResultsPerPage(){
-    //   this.numberOfResults = this.results;
-    //   if (this.numberOfResults >= 0) {
-    //     this.firstIndex;
-    //     this.lastIndex;
-    //   } else {
-    //     this.errorMessage = "Veuillez entrer un résultat supérieur à 0"
-    //   }
-    // },
+    // RESULTS AND SLICER LOGICS
+    updateResultsPerPage(){
+      console.log('ThePagination / udpate results / number of results', this.numberOfResults, this.newNumberOfResults)
+      if (this.newNumberOfResults > 0) {
+        //reinitialize the error message if there is still one
+        this.errorMessage = "";
 
+        // reinitialize the slicer and return on the first page
+        this.numberOfResults = this.newNumberOfResults;
+        this.currentPage = 0;
+        this.resultsToDisplay(this.currentPage);
+      } else {
+        this.newNumberOfResults = this.numberOfResults = 10;
+        this.errorMessage = "Veuillez entrer un résultat supérieur à 0"
+      }
+    },
     // make a new slicer for the parent
     resultsToDisplay(index){
       this.firstButtonIsDisabled = this.lastButtonIsDisabled = false;
       this.totalPagesResults;
 
-      // if current page changed, it make a new slicer with new index
+      // if current page changed, it makes a new slicer with new index
       this.currentPage = index;
       let slicer= {
         firstIndex: this.firstIndex,

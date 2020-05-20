@@ -23,6 +23,7 @@ const routes = [
         search: "",
       };
       store.dispatch("getRegistrationsByFilter", method).then();
+      store.dispatch("getAllRegistrations").then();
       next();
     },
   },

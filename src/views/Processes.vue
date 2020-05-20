@@ -53,7 +53,6 @@ export default {
   },
   // Fill up the slicer with default value
   beforeMount(){
-    console.log('processes 1')
     this.slicer.firstIndex = 0;
     this.slicer.lastIndex = 10;
   },
@@ -61,13 +60,12 @@ export default {
     updateCriteriaSearch(newCriteria) {
       this.method.criteria = newCriteria + "=";
       this.searching = "";
-      this.processesToDIsplay;
+      this.processesToDisplay;
     },
     search() {
       this.keyPress = true;
     },
     newData(data){
-      console.log('Processes / newData / data', data)
       this.slicer = data;
       this.processesToDisplay;
     }

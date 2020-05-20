@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <div>
-      <Criteria @methods="updateMethod" :registrations="totalRegistrations" />
+      <Criteria @methods="updateCriteriaSearch" />
       <input
         @keydown="search()"
         v-model="searching"
@@ -9,48 +9,25 @@
         class="mt-2 ml-2 w-25 form-control"
       />
     </div>
-     <input
-     v-model="results"
-     @keypress.enter="updateResultsPerPage()"
-      class="form-control mt-1 ml-2 w-25"
-      />
-      <div>
-        <nav aria-label="Page navigation example d-flex flex-row">
-          <ul class="pagination justify-content-center d-flex flex-row">
-            <li 
-            @click="goToFirstPage()" 
-            :class="{disabled:firstIsDisabled}" 
-            class="page-item"
-            ><a class="page-link has-label">First</a>
-            </li>
-            <li 
-            v-for="(page, index) in totalPagesResults" :key="index" 
-            @click="resultsToDisplay(index)" 
-            class="page-item">
-            <a class="page-link" href="#">{{ index + 1 }}</a>
-            </li>
-            <li 
-            @click="goToLastPage()" 
-            :class="{disabled:lastIsDisabled}" 
-            class="page-item">
-            <a class="page-link has-label">Last</a>
-            </li>
-          </ul>
-        </nav> 
-      </div>
-    <registrations-list :registrations="registrationsFiltered" />
+    <pagination 
+      :dataToDisplay="allRegistrations" 
+      @newDataToDisplay="newData($event)"
+    />
+
+    <registrations-list :registrations="registrationsToDisplay" />
   </div>
 </template>
 
 <script>
 import Criteria from "@/components/TheCriteriasSelector.vue";
 import RegistrationsList from "@/components/RegistrationsList";
-import store from "@/store/index.js";
+import Pagination from "@/components/ThePagination.vue";
 
 export default {
   components: {
     Criteria,
     RegistrationsList,
+    Pagination,
   },
   data() {
     return {
@@ -61,87 +38,46 @@ export default {
         search: "",
       },
       keyPress: false,
-      currentPage: 0,
-      resultsOnPage: "",
-      results: 10,
-      firstIsDisabled: false,
-      lastIsDisabled: false,
-      isActive: false,
+      resultsOnPage: 10,
+      slicer: {
+        firstIndex: null,
+        lastIndex: null,
+      }
     };
   },
-  beforeMount(){
-    return this.resultsOnPage = this.results;
-  },
-  async updated() {
-    if (this.keyPress) {
-      this.currentPage = 0;
-      this.updateResultsPerPage;
-      this.method.search = this.searching;
-      await store.dispatch("getRegistrationsByFilter", this.method);
-      this.keyPress = false;
-    }
-  },
-  methods: {
-    goToFirstPage(){
-      this.currentPage = 0;
-      this.lastIsDisabled = false
-      this.firstIsDisabled = true;
-
-    },
-    goToLastPage(){
-      this.currentPage = this.totalPagesResults - 1;
-      this.firstIsDisabled = false;
-      this.lastIsDisabled = true;
-    },
-    updateResultsPerPage(){
-      this.resultsOnPage = this.results;
-      if (this.resultsOnPage >= 0) {
-        this.firstPageResults;
-        this.lastPageResults;
-        this.registrationsFiltered;
-      } else {
-        this.errorMessage = "Veuillez entrer un résultat supérieur à 0"
+    async updated() {
+      if (this.keyPress) {
+        this.method.search = this.searching;
+        await this.$store.dispatch("getRegistrationsByFilter", this.method);
+        this.keyPress = false;
       }
     },
-    updateMethod(newMethod) {
-      this.currentPage = 0;
-      this.updateResultsPerPage;
-      this.method.criteria = newMethod + "=";
+  // Fill up the slicer with default value
+  beforeMount(){
+    this.slicer.firstIndex = 0;
+    this.slicer.lastIndex = 10;
+  },
+  methods: {
+    updateCriteriaSearch(newCriteria) {
+      this.method.criteria = newCriteria + "=";
       this.searching = "";
-      this.registrationsFiltered;
+      this.registrationsToDisplay;
     },
     search() {
       this.keyPress = true;
     },
-    resultsToDisplay(index){
-      this.isActive = true;
-      this.firstIsDisabled = this.lastIsDisabled = false;
-      this.currentPage = index;
-      this.firstPageResults;
-      this.lastPageResults;
-      this.registrationsFiltered;
+    newData(data){
+      this.slicer = data;
+      this.registrations;
     }
   },
   computed: {
-    totalRegistrations() {
-      return store.getters.getRegistrationsByFilter;
-    },
-    firstPageResults(){
-      return this.currentPage * this.resultsOnPage;
-    },
-    lastPageResults(){
-      return this.firstPageResults + parseInt(this.resultsOnPage);
-    },
-    totalPagesResults() {
-      let total = Math.ceil(this.totalRegistrations.length / this.resultsOnPage );
-      return total;
-    },
-    registrationsFiltered() {
-      //fetch all Registrations
-      let msisdnToDisplay = store.getters.getRegistrationsByFilter;
-      return msisdnToDisplay.slice(this.firstPageResults, this.lastPageResults);
-    },
-
+    registrationsToDisplay() {
+      return this.$store.getters.getRegistrationsByFilter(this.slicer)
+      },
+    allRegistrations(){
+      return this.$store.getters.getAllRegistrations;
+    }
   },
 };
 </script>
