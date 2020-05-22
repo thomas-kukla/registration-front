@@ -54,14 +54,17 @@ export default {
     },
   // Fill up the slicer with default value
   beforeMount(){
-    this.slicer.firstIndex = 0;
-    this.slicer.lastIndex = 10;
+    this.firstIndex = 10;
+    this.lastIndex = 10;
   },
   methods: {
     updateCriteriaSearch(newCriteria) {
       this.method.criteria = newCriteria + "=";
       this.searching = "";
       this.registrationsToDisplay;
+      this.slicer.firstIndex = 0;
+      this.slicer.lastIndex = 10;
+
     },
     search() {
       this.keyPress = true;
@@ -69,7 +72,7 @@ export default {
     newData(data){
       this.slicer = data;
       this.registrations;
-    }
+    },
   },
   computed: {
     registrationsToDisplay() {
@@ -77,7 +80,7 @@ export default {
       },
     allRegistrations(){
       return this.$store.getters.getAllRegistrations;
-    }
-  },
+    },
+  }
 };
 </script>

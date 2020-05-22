@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(registration,index) in registrations" :key="index">
+          <tr v-for="(registration,index) in registrations" :key="index" @click="getId(index)">
             <td class="font-weight-bold" scope="row">{{index + 1}}</td> 
             <td scope="row">{{ registration.id }}</td>
             <td scope="row">{{ registration.subscriberMsisdn }}</td>
@@ -48,6 +48,12 @@ export default {
       type: Array,
       default: null,
     },
+  },
+  methods:{
+    getId(index){
+      let id = this.registrations[index].id
+      this.$router.push({ name: 'registration', params: { registrationId: id }})
+      }
   },
   computed: {
     numberOfRegistrations(){

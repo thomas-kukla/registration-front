@@ -54,7 +54,7 @@ export default {
   },
   //Fill up number of results with a default value
   beforeMount(){
-    return this.newNumberOfResults = this.numberOfResults;
+    this.newNumberOfResults = this.numberOfResults;
   },
   methods:{
     //NAVIGATION BUTTONS
@@ -73,7 +73,6 @@ export default {
 
     // RESULTS AND SLICER LOGICS
     updateResultsPerPage(){
-      console.log('ThePagination / udpate results / number of results', this.numberOfResults, this.newNumberOfResults)
       if (this.newNumberOfResults > 0) {
         //reinitialize the error message if there is still one
         this.errorMessage = "";
