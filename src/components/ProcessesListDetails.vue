@@ -75,8 +75,7 @@ import GoBack from "@/components/TheGoBackButton.vue";
 export default {
   props: {
     process: {
-      type: Object,
-      default: null,
+      type: [Object, Array],
     },
   },
   components: {

@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <div>
-      <Criteria @methods="updateCriteriaSearch" />
+      <criteria @methods="updateCriteriaSearch" />
       <input
         @keydown="search()"
         v-model="searching"
@@ -40,8 +40,8 @@ export default {
       keyPress: false,
       resultsOnPage: 10,
       slicer: {
-        firstIndex: null,
-        lastIndex: null,
+        firstIndex: 0,
+        lastIndex: 10,
       }
     };
   },
@@ -53,10 +53,6 @@ export default {
       }
     },
   // Fill up the slicer with default value
-  beforeMount(){
-    this.firstIndex = 10;
-    this.lastIndex = 10;
-  },
   methods: {
     updateCriteriaSearch(newCriteria) {
       this.method.criteria = newCriteria + "=";

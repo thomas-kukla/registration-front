@@ -126,8 +126,7 @@ export default {
   },
   props: {
     registrationDetails: {
-      type: Object,
-      default: null,
+      type: [Array, Object],
     },
   },
 };
