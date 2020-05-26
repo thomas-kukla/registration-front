@@ -10,7 +10,8 @@
       />
     </div>
     <pagination 
-      :dataToDisplay="allRegistrations" 
+      :dataToDisplay="total" 
+      :initialSlicer="slicer"
       @newDataToDisplay="newData($event)"
     />
 
@@ -38,15 +39,22 @@ export default {
         search: "",
       },
       keyPress: false,
-      resultsOnPage: 10,
       slicer: {
         firstIndex: 0,
         lastIndex: 10,
+        currentPage: 0,
+        resultsOnPage: 10,
       }
     };
   },
     async updated() {
       if (this.keyPress) {
+      // default value for the slicer to come back on the first page during the search
+        this.slicer.currentPage = 0;
+        this.slicer.firstIndex = 0;
+        this.slicer.lastIndex = 10;
+        this.slicer.resultsOnPage = 10;
+      // catch the search for the http request
         this.method.search = this.searching;
         await this.$store.dispatch("getRegistrationsByFilter", this.method);
         this.keyPress = false;
@@ -54,29 +62,38 @@ export default {
     },
   // Fill up the slicer with default value
   methods: {
-    updateCriteriaSearch(newCriteria) {
-      this.method.criteria = newCriteria + "=";
-      this.searching = "";
-      this.registrationsToDisplay;
-      this.slicer.firstIndex = 0;
-      this.slicer.lastIndex = 10;
-
-    },
     search() {
       this.keyPress = true;
     },
+    updateCriteriaSearch(newCriteria) {
+      this.method.criteria = newCriteria + "=";
+      this.searching = "";
+
+      // reinitialize the page with default value
+      this.slicer.currentPage = 0;
+      this.slicer.firstIndex = 0;
+      this.slicer.lastIndex = 10;
+      this.slicer.resultsOnPage = 10;
+      this.allRegistrations;
+    },
+    // catch the new slicer from the chil
     newData(data){
       this.slicer = data;
-      this.registrations;
+      this.allRegistrations;
     },
   },
   computed: {
-    registrationsToDisplay() {
-      return this.$store.getters.getRegistrationsByFilter(this.slicer)
-      },
     allRegistrations(){
-      return this.$store.getters.getAllRegistrations;
-    },
+      let registrations = this.$store.getters.getRegistrationsByFilter;
+      return registrations;
+      },
+    registrationsToDisplay() {
+      return this.allRegistrations.slice(this.slicer.firstIndex, this.slicer.lastIndex)
+      },
+    total(){
+      console.log('total', this.allRegistrations.length)
+      return this.allRegistrations.length;
+    }
   }
 };
 </script>

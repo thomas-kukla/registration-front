@@ -54,9 +54,9 @@ export default {
     getAllRegistrations(state){
       return state.registrations
     }, 
-    getRegistrationsByFilter: (state) => (slicer) => {
+    getRegistrationsByFilter(state){
       let registrations =  state.filter;
-      return registrations.slice(slicer.firstIndex, slicer.lastIndex)
+      return registrations;
     },
     getRegistrationById(state) {
       return state.registrations;

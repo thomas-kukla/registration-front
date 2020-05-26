@@ -11,20 +11,20 @@
           <ul class="pagination justify-content-center d-flex flex-row">
             <li 
             @click="goToFirstPage()" 
-            :class="{disabled:firstButtonIsDisabled}" 
             class="page-item"
+            :class="{ disabled: firstButtonIsDisabled }" 
             ><a class="page-link has-label">First</a>
             </li>
             <li 
             v-for="(page, index) in totalPagesResults" :key="index" 
             @click="resultsToDisplay(index)" 
             class="page-item">
-              <a v-if="index === currentPage" class="page-link text-primary">{{ index + 1 }}</a>
+              <a v-if="index === initialSlicer.currentPage" class="page-link text-primary">{{ index + 1 }}</a>
               <a v-else class="page-link">{{ index + 1 }}</a>
             </li>
             <li 
             @click="goToLastPage()" 
-            :class="{disabled:lastButtonIsDisabled}" 
+            :class="{ disabled: lastButtonIsDisabled }" 
             class="page-item">
             <a class="page-link has-label">Last</a>
             </li>
@@ -38,80 +38,96 @@
 export default {
   props:{
     dataToDisplay:{
-      type: Array,
+      type: Number,
       default: null,
     },
+    initialSlicer:{
+      type: Object,
+    }
   },
   data(){
     return {
       newNumberOfResults: null,
       firstButtonIsDisabled: false,
       lastButtonIsDisabled: false,
-      currentPage: 0,
-      numberOfResults: 10,
+      slicer: {
+        firstIndex: this.initialSlicer.firstIndex,
+        lastIndex: this.initialSlicer.lastIndex,
+        currentPage: this.initialSlicer.currentPage,
+        resultsOnPage: this.initialSlicer.resultsOnPage,
+      },
+      total: null,
       errorMessage:"",
     }
   },
   //Fill up number of results with a default value
   beforeMount(){
-    this.newNumberOfResults = this.numberOfResults;
+    this.total = 
+    this.newNumberOfResults = this.slicer.resultsOnPage;
   },
   methods:{
+
     //NAVIGATION BUTTONS
      goToFirstPage(){
       this.lastButtonIsDisabled = false
       this.firstButtonIsDisabled = true;
-      this.currentPage = 0;
-      this.resultsToDisplay(this.currentPage);
+      this.slicer.currentPage = 0;
+      this.resultsToDisplay(this.slicer.currentPage);
     },
     goToLastPage(){ 
       this.firstButtonIsDisabled = false;
       this.lastButtonIsDisabled = true;
-      this.currentPage = this.totalPagesResults - 1;
-      this.resultsToDisplay(this.currentPage);
+      this.slicer.currentPage = this.totalPagesResults - 1;
+      this.resultsToDisplay(this.slicer.currentPage);
     },
 
-    // RESULTS AND SLICER LOGICS
+    // RESULTS LOGIC
     updateResultsPerPage(){
       if (this.newNumberOfResults > 0) {
         //reinitialize the error message if there is still one
         this.errorMessage = "";
 
         // reinitialize the slicer and return on the first page
-        this.numberOfResults = this.newNumberOfResults;
-        this.currentPage = 0;
-        this.resultsToDisplay(this.currentPage);
+        this.slicer.resultsOnPage = this.newNumberOfResults;
+        this.slicer.currentPage = 0;
+        this.resultsToDisplay(this.slicer.currentPage);
       } else {
-        this.newNumberOfResults = this.numberOfResults = 10;
+        this.newNumberOfResults = this.slicer.resultsOnPage = 10;
         this.errorMessage = "Veuillez entrer un résultat supérieur à 0"
       }
     },
+
+    // SLICER LOGIC
     // make a new slicer for the parent
     resultsToDisplay(index){
-      this.firstButtonIsDisabled = this.lastButtonIsDisabled = false;
       this.totalPagesResults;
+      console.log(this.totalPagesResults)
+      if (this.totalPagesResults <= 1){
+        this.firstButtonIsDisabled = this.lastButtonIsDisabled = true;
+        console.log(this.lastButtonIsDisabled)
+      }
 
       // if current page changed, it makes a new slicer with new index
-      this.currentPage = index;
-      let slicer= {
-        firstIndex: this.firstIndex,
-        lastIndex: this.lastIndex,
-      };
-
+      this.slicer.currentPage = index;
+      this.slicer.firstIndex = this.firstIndex;
+      this.slicer.lastIndex = this.lastIndex;
       // send to the parent the new slicer
-      this.$emit('newDataToDisplay', slicer)
+      this.$emit('newDataToDisplay', this.slicer);
+      
+      // active navigation's button
+      this.firstButtonIsDisabled = this.lastButtonIsDisabled = false;
     }
   },
   computed:{
     totalPagesResults(){
-      let total = Math.ceil(this.dataToDisplay.length / this.numberOfResults );
+      let total = Math.ceil(this.dataToDisplay / this.slicer.resultsOnPage );
       return total;
     },
     firstIndex(){
-      return this.currentPage * this.numberOfResults;
+      return this.slicer.currentPage * this.slicer.resultsOnPage;
     },
     lastIndex(){
-      return this.firstIndex + parseInt(this.numberOfResults);
+      return this.firstIndex + parseInt(this.slicer.resultsOnPage);
     },
   }
 };
