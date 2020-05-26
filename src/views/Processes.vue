@@ -27,7 +27,8 @@
             v-for="(page, index) in totalPagesResults" :key="index" 
             @click="resultsToDisplay(index)" 
             class="page-item">
-            <a class="page-link" href="#">{{ index + 1 }}</a>
+            <a v-if="currentPage ===  index" class="page-link text-primary">{{ index + 1 }}</a>
+            <a v-else class="page-link">{{ index + 1 }}</a>
             </li>
             <li 
             @click="goToLastPage()" 
