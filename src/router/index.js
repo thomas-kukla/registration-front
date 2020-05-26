@@ -23,6 +23,7 @@ const routes = [
         search: "",
       };
       store.dispatch("getRegistrationsByFilter", method).then();
+      store.dispatch("getAllRegistrations").then();
       next();
     },
   },
@@ -36,7 +37,8 @@ const routes = [
         criteria: "subscriberMsisdn",
         search: "",
       };
-      store.dispatch("getProcessesByFilter", method).then();
+      store.dispatch("getProcessesByFilter", method).then()
+      store.dispatch("getAllProcesses").then();
       next();
     },
   },
@@ -60,13 +62,6 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return { x: 0, y: 0 };
-    }
-  },
   routes,
 });
 

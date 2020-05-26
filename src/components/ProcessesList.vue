@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(process, index) in processes" :key="index">
+          <tr v-for="(process, index) in processes" :key="index" @click="getId(index)">
             <td class="font-weight-bold" scope="row">{{ index + 1 }}</td>
             <td scope="row">{{ process.subscriberMsisdn }}</td>
             <td scope="row">{{ process.fileId }}</td>
@@ -48,6 +48,12 @@ export default {
       type: Array,
       default: null,
     },
+  },
+  methods:{
+    getId(index){
+      let id = this.processes[index].id
+      this.$router.push({ name: 'process', params: { processId: id }})
+    }
   },
   computed: {
     numberOfProcesses(){
