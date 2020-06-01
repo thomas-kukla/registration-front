@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <div>
-      <dispatch @methods="updateMethod" :registrations="totalRegistrations" />
+      <dispatch @criterion="updateCriterion" :registrations="totalRegistrations" />
       <input
         @keydown="search()"
         v-model="searching"
@@ -57,7 +57,7 @@ export default {
     return {
       errorMessage: null,
       searching: "",
-      method: {
+      criterion: {
         criteria: "",
         search: "",
       },
@@ -77,12 +77,13 @@ export default {
     if (this.keyPress) {
       this.currentPage = 0;
       this.updateResultsPerPage;
-      this.method.search = this.searching;
-      await store.dispatch("getRegistrationsByFilter", this.method);
+      this.criterion.search = this.searching;
+      await store.dispatch("getRegistrationsByFilter", this.criterion);
       this.keyPress = false;
     }
   },
   methods: {
+    // NAVIGATION BUTTONS
     goToFirstPage(){
       this.currentPage = 0;
       this.lastIsDisabled = false
@@ -94,9 +95,11 @@ export default {
       this.firstIsDisabled = false;
       this.lastIsDisabled = true;
     },
+    // Enable user to choose number of results on page
     updateResultsPerPage(){
       this.resultsOnPage = this.results;
       if (this.resultsOnPage >= 0) {
+        // reinitialize the slice method to avoid empty block
         this.firstPageResults;
         this.lastPageResults;
         this.registrationsFiltered;
@@ -104,10 +107,10 @@ export default {
         this.errorMessage = "Veuillez entrer un résultat supérieur à 0"
       }
     },
-    updateMethod(newMethod) {
+    updateCriterion(newCriterion) {
       this.currentPage = 0;
       this.updateResultsPerPage;
-      this.method.criteria = newMethod + "=";
+      this.criterion.criteria = newCriterion + "=";
       this.searching = "";
       this.registrationsFiltered;
     },
@@ -124,9 +127,8 @@ export default {
     }
   },
   computed: {
-    totalRegistrations() {
-      return store.getters.getRegistrationsByFilter;
-    },
+    // PAGINATION
+    // Create indexes to display blocks of data with slice Criterions 
     firstPageResults(){
       return this.currentPage * this.resultsOnPage;
     },
@@ -137,8 +139,12 @@ export default {
       let total = Math.ceil(this.totalRegistrations.length / this.resultsOnPage );
       return total;
     },
+    // FETCH DATA
+    totalRegistrations() {
+      return store.getters.getRegistrationsByFilter;
+    },
     registrationsFiltered() {
-      //fetch all Registrations
+      //fetch all Registrations and slice them into blocks with indexes to make a pagination system
       let msisdnToDisplay = store.getters.getRegistrationsByFilter;
       return msisdnToDisplay.slice(this.firstPageResults, this.lastPageResults);
     },

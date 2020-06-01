@@ -1,8 +1,8 @@
 <template>
   <div class="form-group w-25 mt-3 ml-2">
     <select
-      v-model="methodChoosen"
-      @change="chooseMethods()"
+      v-model="criterionChoosen"
+      @change="chooseCriterion()"
       class="custom-select"
     >
       <option value="subscriberMsisdn">Subscriber Msisdn</option>
@@ -24,14 +24,14 @@
 export default {
   data() {
     return {
-      methodChoosen: "",
+      criterionChoosen: "",
       processesView: false,
       registrationsView: false,
     };
   },
   beforeMount() {
-    this.methodChoosen = "subscriberMsisdn";
-    this.chooseMethods();
+    this.criterionChoosen = "subscriberMsisdn";
+    this.chooseCriterion();
     if (this.$router.history.current.name == "registrations") {
       this.registrationsView = true;
     }
@@ -40,8 +40,8 @@ export default {
     }
   },
   methods: {
-    chooseMethods() {
-      this.$emit("methods", this.methodChoosen);
+    chooseCriterion() {
+      this.$emit("criterion", this.criterionChoosen);
     },
   },
 };

@@ -1,29 +1,14 @@
 ### Components
 --------------
 
-#### Dispatch
+#### The Dispatch
 
 Enables to select a criteria for the get method and was passed as an argument to the **updated** hook.
 
-#### GoBack
+#### The GoBack Button
 
 A go back button.
 
-#### Navbar
+#### The Navbar
 
-The Navbar of the project
-
-#### Pagination
-
-Enables to display blocks of registrations.
-
-#### ProcessDetails
-
-
-#### ProcessesList
-
-
-#### RegistrationDetails
-
-
-#### RegistrationsList
+The Navbar of the project.

@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "docs:dev": "vuepress dev docs",
+    "docs:dev": "sudo vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
@@ -20,7 +20,7 @@
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
     "vuejs-logger": "^1.5.4",
-    "vuepress": "^1.4.1",
+    "vuepress": "^1.5.0",
     "vuex": "^3.1.2",
     "winston": "^3.2.1"
   },
