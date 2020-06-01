@@ -1,6 +1,6 @@
 <template>
   <div>
-    <go-back />
+    <go-back-button />
     <h3 class="d-flex mt-3 ml-2">
       Details from omFileId : {{ registrationDetails.fileId }}
     </h3>
@@ -113,20 +113,20 @@
         </tr>
       </tbody>
     </table>
-    <go-back />
+    <go-back-button />
   </div>
 </template>
 
 <script>
-import GoBack from "@/components/GoBack.vue";
+import GoBackButton from "@/components/TheGoBackButton.vue";
 
 export default {
   components: {
-    GoBack,
+    GoBackButton,
   },
   props: {
     registrationDetails: {
-      type: Object,
+      type: [Array, Object],
       default: null,
     },
   },

@@ -6,10 +6,15 @@
 </template>
 
 <script>
-import ProcessDetails from "@/components/ProcessDetails";
+import ProcessDetails from "@/components/ProcessesListDetails";
 
 export default {
-  props: ["processId"],
+  props: {
+    processId: {
+      type: String,
+      default: null,
+    },
+  },
   components: {
     ProcessDetails,
   },

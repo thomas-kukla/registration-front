@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import RegistrationDetails from "@/components/RegistrationDetails.vue";
+import RegistrationDetails from "@/components/RegistrationsListDetails.vue";
 
 export default {
   components: {
@@ -17,7 +17,12 @@ export default {
       errorMessage: "",
     };
   },
-  props: ["registrationId"],
+  props: {
+  registrationId : {
+    type: String,
+    default: null,
+    },
+  },
   beforeMount() {
     this.$store
       .dispatch("getRegistrationById", this.$route.params.registrationId)

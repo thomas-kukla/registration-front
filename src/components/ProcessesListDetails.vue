@@ -1,6 +1,6 @@
 <template>
   <div>
-    <go-back />
+    <go-back-button />
     <table class="table">
       <thead>
         <tr>
@@ -65,22 +65,22 @@
         </tr>
       </tbody>
     </table>
-    <go-back />
+    <go-back-button />
   </div>
 </template>
 
 <script>
-import GoBack from "@/components/GoBack.vue";
+import GoBackButton from "@/components/TheGoBackButton.vue";
 
 export default {
   props: {
     process: {
-      type: Object,
+      type: [Array, Object],
       default: null,
     },
   },
   components: {
-    GoBack,
+    GoBackButton,
   },
 };
 </script>

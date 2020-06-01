@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <div>
-      <dispatch @criterion="updateCriterion" :registrations="totalRegistrations" />
+      <criterion @criterion="updateCriterion" :registrations="totalRegistrations" />
       <input
         @keydown="search()"
         v-model="searching"
@@ -44,13 +44,13 @@
 </template>
 
 <script>
-import Dispatch from "@/components/Dispatch.vue";
+import Criterion from "@/components/TheCriterionSelector.vue";
 import RegistrationsList from "@/components/RegistrationsList";
 import store from "@/store/index.js";
 
 export default {
   components: {
-    Dispatch,
+    Criterion,
     RegistrationsList,
   },
   data() {
@@ -58,7 +58,7 @@ export default {
       errorMessage: null,
       searching: "",
       criterion: {
-        criteria: "",
+        type: "",
         search: "",
       },
       keyPress: false,
@@ -110,7 +110,7 @@ export default {
     updateCriterion(newCriterion) {
       this.currentPage = 0;
       this.updateResultsPerPage;
-      this.criterion.criteria = newCriterion + "=";
+      this.criterion.type = newCriterion + "=";
       this.searching = "";
       this.registrationsFiltered;
     },

@@ -19,7 +19,7 @@ export default {
     async getRegistrationsByFilter({ commit }, filter) {
       try {
         const response = await axios
-        .get(`${process.env.VUE_APP_API_REGISTRATIONS}?${filter.criteria}${filter.search}`);
+        .get(`${process.env.VUE_APP_API_REGISTRATIONS}?${filter.type}${filter.search}`);
         const registrations =  response.data;
         commit("SET_REGISTRATIONS_BY_FILTER", registrations);
       } catch(error){

@@ -24,7 +24,7 @@ export default {
     async getProcessesByFilter({ commit }, filter) {
       try {
         const response = await axios
-        .get(`${process.env.VUE_APP_API_PROCESSES}?${filter.criteria}${filter.search}`);
+        .get(`${process.env.VUE_APP_API_PROCESSES}?${filter.type}${filter.search}`);
         const processes = response.data;
         commit("SET_PROCESSES_BY_FILTER", processes);
       } catch(error){
