@@ -45,7 +45,7 @@
 export default {
   props: {
     registrations: {
-      type: Array,
+      type: [Array, Object],
       default: null,
     },
   },

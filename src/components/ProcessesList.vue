@@ -45,7 +45,7 @@
 export default {
   props: {
     processes: {
-      type: Array,
+      type: [Array, Object],
       default: null,
     },
   },
