@@ -10,7 +10,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "boosted": "^4.4.1",
     "core-js": "^3.6.4",
     "exact": "^0.8.0",
